@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>UNDRGRND Docs — Independent Documentary Streaming</title>
+  <meta name="description" content="The home for indie documentaries, street journalism, and uncensored stories. Revenue-sharing platform for up-and-coming filmmakers.">
+  <meta name="theme-color" content="#0d0d0d">
+  <meta property="og:title" content="UNDRGRND Docs">
+  <meta property="og:description" content="Independent documentary streaming. Real stories, real creators, real revenue sharing.">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --bg-elevated: #141414;
+      --bg-surface: #1a1a1a;
+      --text-main: #e5e5e5;
+      --text-sub: #808080;
+      --text-dim: #4a4a4a;
+      --accent: #e5a00d;
+      --accent-dim: rgba(229,160,13,0.15);
+      --border: rgba(255,255,255,0.06);
+      --radius: 6px;
+      --pad: clamp(20px, 5vw, 50px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation-duration: 0s !important; transition-duration: 0s !important; } }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; height: 0; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-sub); }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 24px var(--pad);
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+      background: transparent;
+    }
+    nav.scrolled {
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      padding: 14px var(--pad);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-left { display: flex; align-items: center; gap: 30px; }
+    .logo {
+      font-weight: 800; font-size: 1.4rem;
+      letter-spacing: -1px; cursor: pointer;
+      color: var(--text-main); user-select: none;
+    }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      color: var(--text-sub); text-decoration: none;
+      font-weight: 500; font-size: 0.88rem;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -6px; left: 0; right: 0;
+      height: 2px; background: var(--accent); border-radius: 1px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    /* Search */
+    .search-wrap {
+      position: relative; width: 220px;
+      transition: width 0.3s;
+    }
+    .search-wrap.expanded { width: 320px; }
+    .search-input {
+      width: 100%; background: rgba(255,255,255,0.06);
+      border: 1px solid transparent; border-radius: 20px;
+      padding: 9px 16px 9px 38px;
+      color: var(--text-main); font-size: 0.85rem;
+      outline: none; transition: all 0.3s;
+      font-family: inherit;
+    }
+    .search-input::placeholder { color: var(--text-dim); }
+    .search-input:focus {
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.08);
+    }
+    .search-icon {
+      position: absolute; left: 13px; top: 50%;
+      transform: translateY(-50%);
+      width: 16px; height: 16px; fill: var(--text-dim);
+      pointer-events: none;
+    }
+    .search-results {
+      position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      max-height: 360px; overflow-y: auto;
+      display: none; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .search-results.open { display: block; }
+    .search-result-item {
+      padding: 12px 16px; display: flex; gap: 14px;
+      align-items: center; cursor: pointer;
+      transition: background 0.15s;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: var(--bg-surface); }
+    .search-result-thumb {
+      width: 80px; height: 45px; border-radius: 3px;
+      object-fit: cover; flex-shrink: 0;
+    }
+    .search-result-info { flex: 1; min-width: 0; }
+    .search-result-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .search-result-creator { font-size: 0.75rem; color: var(--text-sub); }
+    .search-empty { padding: 24px 16px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display: none; background: none; border: none;
+      color: var(--text-main); cursor: pointer; padding: 4px;
+    }
+    .hamburger svg { width: 24px; height: 24px; fill: currentColor; }
+
+    /* ─── Views ─── */
+    #main-view { display: block; }
+    #detail-view { display: none; padding-top: 90px; min-height: 100vh; }
+    .view-transition { animation: viewFade 0.4s ease; }
+    @keyframes viewFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      position: relative; height: 100vh; height: 100dvh;
+      width: 100%; display: flex; align-items: flex-end;
+      padding: 0 var(--pad) 100px;
+    }
+    .hero video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; z-index: -2;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg,
+        var(--bg) 0%,
+        rgba(13,13,13,0.6) 30%,
+        rgba(13,13,13,0.2) 50%,
+        rgba(13,13,13,0.7) 100%
+      );
+      z-index: -1;
+    }
+    .hero-content {
+      max-width: 620px; z-index: 1;
+      opacity: 0; animation: heroIn 0.8s 0.3s ease forwards;
+    }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-genre {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800; line-height: 1.05;
+      margin-bottom: 16px; letter-spacing: -1.5px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    }
+    .hero-desc {
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      color: var(--text-sub); line-height: 1.6;
+      margin-bottom: 28px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      border: none; padding: 13px 28px;
+      font-size: 0.95rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; display: inline-flex; align-items: center;
+      gap: 10px; border-radius: 3px; transition: all 0.2s;
+    }
+    .btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .btn-primary { background: var(--text-main); color: var(--bg); }
+    .btn-primary:hover { background: #fff; }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1); color: var(--text-main);
+      backdrop-filter: blur(4px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+    /* Hero indicators */
+    .hero-indicators {
+      position: absolute; bottom: 40px; right: var(--pad);
+      display: flex; gap: 8px; z-index: 10;
+    }
+    .hero-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); cursor: pointer;
+      transition: all 0.3s; border: none;
+    }
+    .hero-dot.active { background: var(--text-main); width: 24px; border-radius: 4px; }
+
+    /* ─── Genre Filter Bar ─── */
+    .filter-bar {
+      display: flex; gap: 10px; padding: 0 var(--pad);
+      margin-bottom: 36px; overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-chip {
+      flex-shrink: 0; background: var(--bg-elevated);
+      border: 1px solid var(--border); color: var(--text-sub);
+      padding: 8px 18px; border-radius: 20px;
+      font-size: 0.82rem; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .filter-chip:hover { border-color: var(--text-dim); color: var(--text-main); }
+    .filter-chip.active {
+      background: var(--text-main); color: var(--bg);
+      border-color: var(--text-main);
+    }
+
+    /* ─── Rows ─── */
+    .row {
+      margin-bottom: 48px; padding: 0 var(--pad);
+      position: relative;
+    }
+    .row-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px;
+    }
+    .row h2 {
+      font-size: 1.15rem; font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .row-arrows { display: flex; gap: 6px; }
+    .row-arrow {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text-sub); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .row-arrow svg { width: 16px; height: 16px; fill: currentColor; }
+    .row-arrow:hover { background: rgba(255,255,255,0.12); color: var(--text-main); }
+    .row-scroll {
+      display: flex; gap: 12px; overflow-x: auto;
+      scrollbar-width: none; padding-bottom: 4px;
+      scroll-behavior: smooth; scroll-snap-type: x proximity;
+    }
+    .row-scroll::-webkit-scrollbar { display: none; }
+
+    /* ─── Cards ─── */
+    .card {
+      flex: 0 0 auto; width: 300px; aspect-ratio: 16/9;
+      background: var(--bg-elevated); position: relative;
+      cursor: pointer; border-radius: var(--radius);
+      overflow: hidden; scroll-snap-align: start;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
+    }
+    .card img {
+      display: block; width: 100%; height: 100%; object-fit: cover;
+      transition: opacity 0.3s, transform 0.5s;
+    }
+    .card:hover {
+      transform: scale(1.06); z-index: 2;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+    }
+    .card:hover img { opacity: 0.35; transform: scale(1.05); }
+    .card-overlay {
+      position: absolute; inset: 0;
+      padding: 16px; display: flex; flex-direction: column;
+      justify-content: flex-end;
+      opacity: 1; transition: background 0.3s;
+    }
+    .card:hover .card-overlay { 
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 50%); 
+    }
+    .card-title {
+      font-weight: 600; font-size: 0.95rem;
+      margin-bottom: 4px; line-height: 1.3;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    }
+    .card-meta-line {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--text-sub);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    }
+    .card-genre-tag {
+      font-size: 0.62rem; font-weight: 600;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .play-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+    }
+    .play-icon svg { width: 20px; height: 20px; fill: var(--bg); margin-left: 3px; }
+    .card:hover .play-icon {
+      opacity: 1; transform: translate(-50%, -50%) scale(1);
+    }
+    /* Shimmer loading state */
+    .card.loading img { display: none; }
+    .card.loading::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    /* Watch progress bar */
+    .card-progress {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: rgba(255,255,255,0.1);
+    }
+    .card-progress-fill {
+      height: 100%; background: var(--accent);
+      border-radius: 0 1px 1px 0;
+    }
+
+    /* ─── Detail View ─── */
+    .detail-container {
+      max-width: 1300px; margin: 0 auto;
+      padding: 0 var(--pad) 60px;
+    }
+    .back-btn {
+      background: transparent; color: var(--text-sub);
+      border: none; font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; margin-bottom: 28px; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--text-main); }
+    .back-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* Video Player */
+    .video-container {
+      position: relative; width: 100%;
+      background: #000; border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 36px;
+      aspect-ratio: 16/9;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    }
+    .video-container video {
+      width: 100%; height: 100%; display: block;
+    }
+    .video-controls {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      padding: 40px 20px 16px;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
+      display: flex; flex-direction: column; gap: 12px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .video-container:hover .video-controls,
+    .video-container.paused .video-controls { opacity: 1; }
+    /* Big center play overlay */
+    .big-play-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 2;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .video-container.paused .big-play-overlay { opacity: 1; }
+    .big-play-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .big-play-circle svg { width: 32px; height: 32px; fill: #fff; margin-left: 4px; }
+    .big-play-circle:hover { transform: scale(1.1); background: rgba(255,255,255,0.25); }
+    .progress-bar {
+      width: 100%; height: 4px;
+      background: rgba(255,255,255,0.15);
+      cursor: pointer; border-radius: 2px;
+      position: relative; transition: height 0.15s;
+    }
+    .progress-bar:hover { height: 6px; }
+    .progress-filled {
+      height: 100%; background: var(--accent);
+      width: 0%; border-radius: 2px; position: relative;
+    }
+    .progress-filled::after {
+      content: ''; position: absolute;
+      right: -5px; top: 50%; transform: translateY(-50%);
+      width: 12px; height: 12px;
+      background: var(--accent); border-radius: 50%;
+      opacity: 0; transition: opacity 0.15s;
+      box-shadow: 0 0 6px rgba(229,160,13,0.5);
+    }
+    .video-container:hover .progress-filled::after { opacity: 1; }
+    .controls-main {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .controls-left, .controls-right {
+      display: flex; align-items: center; gap: 20px;
+    }
+    .control-btn {
+      background: transparent; border: none;
+      color: var(--text-main); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px; transition: color 0.2s;
+    }
+    .control-btn svg { width: 22px; height: 22px; fill: currentColor; }
+    .control-btn:hover { color: var(--accent); }
+    .volume-container { display: flex; align-items: center; gap: 8px; }
+    .volume-slider {
+      width: 70px; cursor: pointer; accent-color: var(--accent);
+      height: 3px;
+    }
+    .time-display { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: rgba(255,255,255,0.7); }
+
+    .detail-info {
+      display: grid; grid-template-columns: 2.5fr 1fr;
+      gap: 50px;
+    }
+    .detail-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; margin-bottom: 10px;
+      letter-spacing: -0.5px; line-height: 1.1;
+    }
+    .detail-meta {
+      color: var(--text-sub); font-size: 0.9rem;
+      margin-bottom: 24px; display: flex;
+      gap: 16px; font-weight: 500;
+    }
+    .detail-meta .accent-tag {
+      color: var(--accent); font-weight: 600;
+    }
+    .detail-desc {
+      line-height: 1.7; color: #aaa;
+      font-size: 1rem;
+    }
+    .detail-sidebar {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .detail-creator-card {
+      background: var(--bg-elevated);
+      padding: 24px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .creator-label {
+      color: var(--text-dim); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 8px; font-weight: 600;
+    }
+    .creator-name {
+      font-weight: 700; font-size: 1.2rem; margin-bottom: 8px;
+    }
+    .creator-bio {
+      color: var(--text-sub); font-size: 0.85rem; line-height: 1.5;
+    }
+    .detail-stats {
+      background: var(--bg-elevated);
+      padding: 24px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .stat-row {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--text-sub); }
+    .stat-value { font-weight: 600; }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 60px var(--pad) 40px;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-brand .logo { margin-bottom: 12px; display: inline-block; }
+    .footer-brand p { color: var(--text-sub); font-size: 0.85rem; line-height: 1.6; max-width: 300px; }
+    .footer-col h4 {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-dim); margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block; color: var(--text-sub);
+      text-decoration: none; font-size: 0.88rem;
+      margin-bottom: 10px; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--text-main); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 12px;
+      color: var(--text-dim); font-size: 0.78rem;
+    }
+
+    /* ─── Mobile Responsive ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(13,13,13,0.98);
+        backdrop-filter: blur(20px);
+        padding: 20px var(--pad);
+        gap: 16px; border-bottom: 1px solid var(--border);
+      }
+      .hamburger { display: block; }
+      .search-wrap { width: 160px; }
+      .search-wrap.expanded { width: 200px; }
+
+      .hero { padding-bottom: 80px; }
+      .hero-indicators { bottom: 24px; }
+
+      .card { width: 240px; }
+      .row-arrows { display: none; }
+
+      .detail-info { grid-template-columns: 1fr; gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .search-wrap { display: none; }
+      .card { width: 200px; }
+      .hero-actions .btn { padding: 11px 20px; font-size: 0.85rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .video-controls { padding: 20px 12px 12px; }
+      .controls-left, .controls-right { gap: 12px; }
+      .volume-container { display: none; }
+    }
+    /* ─── Creator, About & Profile Views ─── */
+    .page-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 120px var(--pad) 80px;
+    }
+    .page-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .page-desc {
+      color: var(--text-sub);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+    /* About */
+    .manifesto p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+    .manifesto h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 40px 0 16px;
+      color: var(--accent);
+    }
+    /* Upload Drag Drop */
+    .upload-box {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 60px 20px;
+      text-align: center;
+      background: var(--bg-elevated);
+      transition: all 0.3s;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+    .upload-box:hover, .upload-box.dragover {
+      border-color: var(--accent);
+      background: rgba(229,160,13,0.05);
+    }
+    .upload-icon {
+      width: 48px;
+      height: 48px;
+      fill: var(--text-dim);
+      margin-bottom: 16px;
+      transition: fill 0.3s;
+    }
+    .upload-box:hover .upload-icon { fill: var(--accent); }
+    .upload-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+    .upload-subtext { font-size: 0.9rem; color: var(--text-sub); }
+    /* Form */
+    .form-group { margin-bottom: 24px; }
+    .form-label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .form-input {
+      width: 100%; padding: 14px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-main); font-size: 1rem;
+      font-family: inherit; transition: all 0.2s;
+    }
+    .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-dim); }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+    /* Upload Progress Overlay */
+    .uploading-overlay {
+      display: none; padding: 40px; text-align: center;
+      background: var(--bg-elevated); border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .uploading-overlay.active { display: block; }
+    .progress-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 20px 0; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease; }
+    /* Profile Grid */
+    .watchlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .empty-state { padding: 40px 0; color: var(--text-dim); }
+    /* Profile Icon */
+    .profile-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-main); display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg-elevated); transition: all 0.2s;
+    }
+    .profile-btn:hover { background: var(--bg-surface); color: var(--accent); }
+    .profile-btn svg { width: 18px; height: 18px; fill: currentColor; }
+    /* Analytics Dashboard */
+    .dashboard-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+    .dashboard-header h2 { font-size: 2rem; font-weight: 800; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: all 0.2s; font-family: inherit; font-weight: 600; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .stat-card { background: var(--bg-elevated); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius); }
+    .stat-title { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
+    .stat-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
+    .math-breakdown { background: rgba(229,160,13,0.05); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 40px; font-family: monospace; font-size: 0.95rem; line-height: 1.6; color: var(--text-sub); }
+    .math-breakdown strong { color: var(--text-main); }
+    .creator-tabs { display: flex; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
+    .creator-tab { padding: 10px 0; color: var(--text-sub); cursor: pointer; border-bottom: 2px solid transparent; font-weight: 600; }
+    .creator-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-left">
+      <div class="logo" onclick="showView('main')">UNDRGRND</div>
+      <div class="nav-links" id="nav-links">
+        <a href="#" id="nav-main" class="active" onclick="showView('main'); return false;">Browse</a>
+        <a href="#" id="nav-creator" onclick="showView('creator'); return false;">Upload</a>
+        <a href="#" id="nav-about" onclick="showView('about'); return false;">About</a>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="search-wrap" id="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input class="search-input" id="search-input" type="text" placeholder="Search docs..." autocomplete="off">
+        <div class="search-results" id="search-results"></div>
+      </div>
+      <button class="profile-btn" onclick="showView('profile'); return false;" title="Profile">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-view">
+    <!-- Hero -->
+    <section class="hero" id="hero-section">
+      <video id="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1555529733-0e67056058c3?auto=format&fit=crop&w=1920&q=80">
+        <source src="https://videos.pexels.com/video-files/4540332/4540332-hd_1920_1080_25fps.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content" id="hero-content">
+        <div class="hero-genre" id="hero-genre">Urban Documentary</div>
+        <h1 class="hero-title" id="hero-title">Concrete Utopia</h1>
+        <p class="hero-desc" id="hero-desc">Landmark documentary contrasting chaotic urban congestion with planned communities. Score by Aaron Copland.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="hero-watch-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Watch Now
+          </button>
+          <button class="btn btn-secondary" id="hero-info-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            More Info
+          </button>
+          <button class="btn btn-secondary" id="hero-mute-btn" onclick="toggleHeroMute()" style="border-radius: 50%; padding: 12px; margin-left: auto;">
+            <svg id="mute-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-indicators" id="hero-indicators"></div>
+    </section>
+
+    <!-- Genre Filter -->
+    <div class="filter-bar" id="filter-bar"></div>
+
+    <!-- Content Rows (populated by JS) -->
+    <div id="content-rows"></div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">UNDRGRND</div>
+          <p>The home for independent documentaries and street journalism. No algorithms. No corporate gatekeepers. Just real stories from real creators.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="#" onclick="showView('main'); return false;">Browse</a>
+          <a href="#" onclick="showView('profile'); return false;">Profile</a>
+          <a href="#" onclick="showView('creator'); return false;">Upload</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#" onclick="showView('about'); return false;">About Us</a>
+          <a href="#">Press</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#" onclick="showView('legal'); return false;">Terms</a>
+          <a href="#" onclick="showView('legal'); return false;">Privacy</a>
+          <a href="#" onclick="showView('legal'); return false;">Content Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 UNDRGRND Docs. Independent documentary streaming.</span>
+        <span>Built for creators, by creators.</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Detail / Watch View -->
+  <main id="detail-view">
+    <div class="detail-container">
+      <button class="back-btn" onclick="showMainView()">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back
+      </button>
+
+      <div class="video-container paused" id="video-container">
+        <video id="main-player" controlsList="nodownload" disablepictureinpicture oncontextmenu="return false;">
+          <source id="main-source" src="" type="video/mp4">
+          <track kind="captions" label="English" srclang="en" default
+            src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A1%0A00:00:00.000%20--%3E%2000:00:05.000%0A[Music%20playing]%0A%0A2%0A00:00:05.000%20--%3E%2000:00:10.000%0AWelcome%20to%20the%20underground.">
+        </video>
+
+        <div class="big-play-overlay" onclick="togglePlay()">
+          <div class="big-play-circle">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+
+        <div class="video-controls">
+          <div class="progress-bar" id="progress-bar">
+            <div class="progress-filled" id="progress-filled"></div>
+          </div>
+          <div class="controls-main">
+            <div class="controls-left">
+              <button class="control-btn" id="play-pause-btn" title="Play/Pause (Space)">
+                <svg id="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="volume-container">
+                <button class="control-btn" id="mute-btn" title="Mute (m)">
+                  <svg id="volume-icon-svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                </button>
+                <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="1">
+              </div>
+              <div class="time-display" id="time-display">0:00 / 0:00</div>
+            </div>
+            <div class="controls-right">
+              <button class="control-btn" id="cc-btn" title="Subtitles (c)">
+                <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5v-4c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V11zm7 0h-1.5v-.5h-2v3h2V13H18v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5v-4c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V11z"/></svg>
+              </button>
+              <button class="control-btn" id="fullscreen-btn" title="Fullscreen (f)">
+                <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-info">
+        <div>
+          <h1 class="detail-title" id="detail-title">Title</h1>
+          <div class="detail-meta">
+            <span id="detail-year">2026</span>
+            <span id="detail-runtime">45m</span>
+            <span class="accent-tag" id="detail-genre">Documentary</span>
+          </div>
+          <p class="detail-desc" id="detail-desc">Description</p>
+        </div>
+        <div class="detail-sidebar">
+          <div class="detail-creator-card">
+            <div class="creator-label">Directed By</div>
+            <div class="creator-name" id="detail-creator">Creator</div>
+            <p class="creator-bio">Independent filmmaker uncovering stories ignored by mainstream media.</p>
+          </div>
+          <div class="detail-stats">
+            <div class="stat-row">
+              <span class="stat-label">Quality</span>
+              <span class="stat-value">HD</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Subtitles</span>
+              <span class="stat-value">English</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">License</span>
+              <span class="stat-value" id="detail-license">Public Domain</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- More Like This -->
+      <section class="row" style="margin-top: 50px; padding: 0;">
+        <div class="row-header"><h2>More Like This</h2></div>
+        <div class="row-scroll" id="more-like-this"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Creator Dashboard / Upload -->
+  <main id="creator-view" style="display: none;">
+    <div class="page-container">
+      
+      <!-- Creator Onboarding Gate (Curious Creator POV) -->
+      <div id="creator-onboarding" style="text-align: center; padding: 60px 20px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 40px;">
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; text-transform: uppercase;">Join the Underground</h1>
+        <p style="font-size: 1.1rem; color: var(--text-sub); max-width: 600px; margin: 0 auto 30px;">
+          Tired of being demonetized and shadowbanned? Apply for the <strong>Upload First Program</strong>. Upload your raw, uncut documentaries here first and earn a <strong>1.5x multiplier</strong> on your view-time payouts.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="document.getElementById('creator-onboarding').style.display='none'; document.getElementById('creator-dashboard-content').style.display='block';">Login / Apply (Demo)</button>
+        </div>
+      </div>
+
+      <!-- Actual Dashboard (Hidden until Login) -->
+      <div id="creator-dashboard-content" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="page-title" style="margin-bottom: 5px;">Creator Studio</h1>
+            <p class="page-desc" style="margin-bottom: 0;">Welcome back, DocumentingEvil.</p>
+          </div>
+          <button class="btn-outline" onclick="switchCreatorTab('upload')">+ New Upload</button>
+        </div>
+
+      <div class="creator-tabs">
+        <div class="creator-tab active" onclick="switchCreatorTab('analytics')">Analytics & Revenue</div>
+        <div class="creator-tab" onclick="switchCreatorTab('upload')">Upload Content</div>
+      </div>
+
+      <div id="tab-analytics" class="tab-content active">
+        <div class="chart-container" style="position: relative; height: 350px; margin-bottom: 40px; background: var(--bg-elevated); padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
+            <div>
+              <div style="font-size: 0.9rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Est. Payout (This Month)</div>
+              <div id="stat-payout" style="font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1.1;">$0.00</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.9rem; color: var(--text-sub);">Watch Time: <strong id="stat-watchtime" style="color: var(--text-main);">0</strong> mins</div>
+              <div style="font-size: 0.9rem; color: var(--text-sub);">Views: <strong id="stat-views" style="color: var(--text-main);">0</strong></div>
+            </div>
+          </div>
+          <div style="height: 250px;">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px;">How We Calculated Your Payout</h3>
+        <div class="math-breakdown" id="math-breakdown">
+          Loading revenue math...
+        </div>
+      </div>
+
+      <div id="tab-upload" class="tab-content">
+        <div id="upload-form-container">
+          <div class="upload-box" id="drop-zone" onclick="document.getElementById('file-input').click()">
+            <svg class="upload-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            <div class="upload-text">Drag & Drop Video File</div>
+            <div class="upload-subtext">MP4, WebM, or MKV up to 10GB (Cloudflare R2 Direct)</div>
+            <input type="file" id="file-input" style="display: none;" accept="video/*">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Documentary Title</label>
+            <input type="text" class="form-input" id="upload-title" placeholder="e.g. Shadows of the Concrete">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-input" id="upload-desc" placeholder="What is this story about?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Genre</label>
+            <input type="text" class="form-input" id="upload-genre" placeholder="e.g. Urban, History, Experimental">
+          </div>
+          
+          <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="simulateUpload()">
+            Publish to Network
+          </button>
+        </div>
+
+        <div class="uploading-overlay" id="upload-progress">
+          <h2 style="margin-bottom: 10px;">Encrypting & Uploading...</h2>
+          <p class="upload-subtext" id="upload-status">Connecting to nodes...</p>
+          <div class="progress-track">
+            <div class="progress-fill" id="upload-bar"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- About / Manifesto -->
+  <main id="about-view" style="display: none;">
+    <div class="page-container">
+      <h1 class="page-title" style="text-transform: uppercase; font-size: clamp(2.5rem, 6vw, 4rem);">We Built This<br>For You.</h1>
+      <div class="manifesto">
+        <p>UNDRGRND Docs was born out of frustration. Frustration with mainstream platforms that demonetize raw true crime, age-restrict bodycam footage, and shadowban independent street journalists just for documenting reality.</p>
+        <p>If you cover intense topics—like crime, raw police encounters, or unfiltered historical events—the corporate gatekeepers have decided your stories are "unsafe for advertisers." You shouldn't have to censor your own documentaries just to survive the algorithm.</p>
+        
+        <h3>The "Upload to Underground First" Program</h3>
+        <p>We created this platform specifically to rescue channels that cover the darkest and most intense aspects of human reality. You don't need a million subscribers to make a living here. Our main goal is to support and fund creators like you.</p>
+        
+        <h3>The Subscription Model</h3>
+        <p>UNDRGRND Docs is entirely subscriber-funded. Users pay a flat monthly subscription to access the unvarnished truth. Because we answer to our subscribers and not to corporate advertisers, there is zero censorship and zero demonetization.</p>
+        
+        <h3>The Payout Engine</h3>
+        <p>We pay out based on <strong>view time</strong>. 100% of the platform's revenue pool is distributed directly to creators based on how long users watch your documentaries.</p>
+        <ul>
+          <li style="margin-bottom: 10px; color: var(--text-sub);"><strong>Upload First Exclusivity:</strong> This is our core promise. Creators who sign to upload their raw, uncensored cuts to UNDRGRND <em>first</em> (before putting a censored version on YouTube) receive a massive 1.5x multiplier on their view-time payouts.</li>
+          <li style="margin-bottom: 10px; color: var(--text-sub);"><strong>Fair Scaling:</strong> Smaller, emerging creators get specialized multipliers to ensure they earn a sustainable living wage for their early work, while established channels earn premium rates for driving massive subscriber volume.</li>
+        </ul>
+        <p style="margin-top: 20px;">You provide the raw stories. We provide the uncensored infrastructure. You get paid. Welcome to the Underground.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Legal Hub -->
+  <main id="legal-view" style="display: none;">
+    <div class="page-container">
+      <h1 class="page-title">Legal & Policies</h1>
+      <p class="page-desc" style="margin-bottom: 40px;">Clear, transparent, and uncensorious rules of engagement.</p>
+      
+      <div class="manifesto">
+        <h3>1. Terms of Service & Subscription Terms</h3>
+        <p>By subscribing to UNDRGRND Docs, users agree to pay a recurring monthly fee for unrestricted access to the platform's content. Subscriptions can be canceled at any time. We do not offer refunds for partial billing cycles. Users agree not to rip, pirate, or redistribute exclusive content hosted on this platform.</p>
+        
+        <h3>2. Creator Agreement & Payouts</h3>
+        <p>Creators retain 100% ownership of their intellectual property. UNDRGRND merely licenses the right to stream the content. Payouts are calculated dynamically at the end of each month based on the creator's share of total platform view time. Exclusivity agreements are opt-in and require the creator to refrain from posting the licensed documentary on competing video platforms for a period of 12 months.</p>
+        
+        <h3>3. Content Policy (Uncensored, but Legal)</h3>
+        <p>We do not censor based on political ideology, harsh realities, or advertiser preferences. However, we are a legal entity. We strictly prohibit: (a) Content depicting unsimulated, non-consensual violence or abuse; (b) CSAM; (c) Direct incitement to imminent lawless action. Raw street journalism, combat footage, and controversial political documentaries are expressly protected.</p>
+        
+        <h3>4. Privacy Policy</h3>
+        <p>We collect minimal data. We track view time exclusively to calculate creator payouts. We do not sell user data to data brokers, advertising agencies, or third-party tracking networks. Your billing information is handled securely by Stripe.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- User Profile / Watchlist -->
+<main id="profile-view" style="display: none;">
+    <div class="page-container">
+      <h1 class="page-title">Your Watchlist</h1>
+      <p class="page-desc">Pick up right where you left off.</p>
+      
+      <div class="watchlist-grid" id="watchlist-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .card img { display: block; }
+  </style>
+
+  <script>
+    // ─── Documentary Data ───
+    const docs = [
+      {
+        id: 1, title: 'Before the Fall',
+        creator: 'Archival Vault',
+        desc: 'Iconic 1906 silent documentary shot from a cable car on Market Street, San Francisco, just days before the earthquake. A haunting window into a city about to change forever.',
+        video: 'https://archive.org/download/SF1906TripDownMarketStreet/SF1906TripDownMarketStreet.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/oRENJG4yLE10AfZhqxH9CMPYs0M.jpg',
+        year: '1906', runtime: '13m', genre: 'History'
+      },
+      {
+        id: 2, title: 'Concrete Utopia',
+        creator: 'New Deal Media',
+        desc: 'Landmark New Deal-era documentary contrasting chaotic urban congestion with planned communities. With a score by Aaron Copland, this film challenges our assumptions about how cities should be built.',
+        video: 'https://archive.org/download/TheCity_201505/TheCity_201505.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/nwP2YhkQFcnOhsnn7lxcksmisK.jpg',
+        year: '1939', runtime: '43m', genre: 'Urban'
+      },
+      {
+        id: 3, title: 'Dust & Bones',
+        creator: 'Resettlement Docs',
+        desc: 'Investigative documentary chronicling the ecological disaster of the Dust Bowl. A devastating portrait of environmental collapse and human resilience in the American heartland.',
+        video: 'https://archive.org/download/gov.fdr.352.2a.1/gov.fdr.352.2a.1.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/mXTKhBbmr3ZMdVZmNhkkidO1LWl.jpg',
+        year: '1936', runtime: '25m', genre: 'Environment'
+      },
+      {
+        id: 4, title: 'Shadows of War',
+        creator: 'John Huston',
+        desc: 'John Huston\'s suppressed documentary following WWII soldiers receiving treatment for combat-induced PTSD. Banned by the military for decades, this raw footage reveals the true cost of war.',
+        video: 'https://archive.org/download/LetThereBeLight/LetThereBeLight.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/dJxxKv6eGBNRGVGlMEuO3J8EoNC.jpg',
+        year: '1946', runtime: '58m', genre: 'War'
+      },
+      {
+        id: 5, title: 'The Battle of San Pietro',
+        creator: 'John Huston',
+        desc: 'John Huston\'s raw, unvarnished look at infantry combat in Italy during WWII. It was initially censored by the military for its unflinching portrayal of dead American soldiers.',
+        video: 'https://archive.org/download/TheBattleOfSanPietro/TheBattleOfSanPietro.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/ziDIqBWRSWtP13YkRvCfoGBCTWb.jpg',
+        year: '1945', runtime: '32m', genre: 'War'
+      },
+      {
+        id: 6, title: 'Nanook of the North',
+        creator: 'Robert J. Flaherty',
+        desc: 'Widely considered the first feature-length documentary, capturing the struggles of the Inuk man Nanook and his family in the harsh Canadian Arctic.',
+        video: 'https://archive.org/download/nanook_of_the_north_1922/nanook_of_the_north_1922.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/jxD0pcORCx9j0C0AYjjudbHnOm4.jpg',
+        year: '1922', runtime: '1h 18m', genre: 'History'
+      },
+      {
+        id: 7, title: 'The Memphis Belle',
+        creator: 'William Wyler',
+        desc: 'Chronicling the final mission of the Boeing B-17 Flying Fortress "Memphis Belle" over Germany. Featuring real combat footage shot in the deadly skies of WWII.',
+        video: 'https://archive.org/download/The_Memphis_Belle_A_Story_of_a_Flying_Fortress/The_Memphis_Belle_A_Story_of_a_Flying_Fortress.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/nB3fVpM6JumgiyeuL59Ht1FfzI5.jpg',
+        year: '1944', runtime: '41m', genre: 'War'
+      },
+      {
+        id: 8, title: 'The River',
+        creator: 'Pare Lorentz',
+        desc: 'A poetic, New Deal-era documentary highlighting the importance of the Mississippi River, the devastating floods, and the government\'s TVA dam projects to control it.',
+        video: 'https://archive.org/download/TheRiver_201303/TheRiver.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/aRlUXe5GMArNFisoaSBStEkf2P4.jpg',
+        year: '1938', runtime: '31m', genre: 'Environment'
+      },
+      {
+        id: 9, title: 'The Paranoia Campaign',
+        creator: 'Propaganda Vault',
+        desc: 'A remaster of the infamous 1936 cult classic "Reefer Madness". Originally produced by a church group to warn parents, it became an accidental masterpiece of campy paranoia and historical fear-mongering.',
+        video: 'https://archive.org/download/reefer_madness1938/reefer_madness1938_512kb.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/deor9xEiYQIjmNfipzBhwQ6yfgh.jpg',
+        year: '1936', runtime: '1h 6m', genre: 'History'
+      },
+      {
+        id: 10, title: 'The Hidden Harvest',
+        creator: 'Archival Vault',
+        desc: 'In 1942, the US Government produced "Hemp for Victory" to encourage farmers to grow hemp for the war effort. The film was later denied to exist by the very government that made it, until activists recovered VHS copies in 1989.',
+        video: 'https://archive.org/download/Hemp_for_Victory_1942/Hemp_for_Victory_1942_512kb.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/u7pAfatU9cwvZSC6kO0dkrg2SON.jpg',
+        year: '1942', runtime: '14m', genre: 'Documentary'
+      },
+      {
+        id: 11, title: 'Nuclear Anxiety',
+        creator: 'Civil Defense',
+        desc: 'The defining propaganda film of the Cold War era. "Duck and Cover" taught millions of school children the terrifying, futile exercise of hiding under their desks during a nuclear blast.',
+        video: 'https://archive.org/download/DuckandC1951/DuckandC1951_512kb.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/wp538ybGjMOMw3lzm9BCSaSlb3p.jpg',
+        year: '1951', runtime: '9m', genre: 'Propaganda'
+      },
+      {
+        id: 12, title: 'Dead of Night',
+        creator: 'Indie Classics',
+        desc: 'Before zombies were mainstream, George A. Romero\'s 1968 masterpiece "Night of the Living Dead" defined the genre. Due to a copyright error on the title card, the film immediately fell into the public domain.',
+        video: 'https://archive.org/download/night_of_the_living_dead/night_of_the_living_dead_512kb.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/5KtmBSqFtHY3I9t8lgH27Mc0bqY.jpg',
+        year: '1968', runtime: '1h 36m', genre: 'Horror'
+      },
+      {
+        id: 13, title: 'Heralds of Resource Sharing',
+        creator: 'ARPA',
+        desc: 'An atmospheric government research documentary recording the birth of the ARPANET (the predecessor to the Internet). Filmed inside mainframe rooms years before the World Wide Web.',
+        video: 'https://archive.org/download/ComputerNetworks_TheHeraldsOfResourceSharing/ComputerNetworks_TheHeraldsOfResourceSharing_512kb.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/cshxioOoJ4miXxI4su2wyOGx2OR.jpg',
+        year: '1972', runtime: '30m', genre: 'Technology'
+      },
+      {
+        id: 14, title: 'Guide to Satanic Cults',
+        creator: 'Cult Crime Impact Network',
+        desc: 'A surreal artifact of the 1980s/90s "Satanic Panic." Produced as a real police training video warning officers about heavy metal album artwork and suburban cult threats.',
+        video: 'https://archive.org/download/LawEnforcementGuideToSatanicCults1994VHSOccultHilarity/LawEnforcementGuideToSatanicCults1994VHSOccultHilarity.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/17iNidw9AIHcGBTHkHUFQ2EDcV1.jpg',
+        year: '1994', runtime: '1h 12m', genre: 'True Crime'
+      },
+      {
+        id: 15, title: 'A Day Called X',
+        creator: 'Civil Defense',
+        desc: 'An eerie Cold War dramatization capturing "Operation Alert 1957"—the actual evacuation of Portland, Oregon in response to an imminent nuclear strike.',
+        video: 'https://archive.org/download/ADayCalledx/ADayCalledx.mp4',
+        poster: 'https://archive.org/services/img/ADayCalledx',
+        year: '1957', runtime: '27m', genre: 'Propaganda'
+      },
+      {
+        id: 16, title: 'Design for Dreaming',
+        creator: 'General Motors',
+        desc: 'A bizarre retro-futuristic industrial musical fantasy showcasing the "Kitchen of Tomorrow" where meals bake instantly with ultrasonic waves.',
+        video: 'https://archive.org/download/DesignforDreaming/DesignforDreaming_512kb.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/tJUfm3xxYsUnA8F2q89qbvA8k3q.jpg',
+        year: '1956', runtime: '10m', genre: 'Experimental'
+      },
+      {
+        id: 17, title: 'Koyaanisqatsi',
+        creator: 'Godfrey Reggio',
+        desc: 'A stunning 4K cinematic exploration of modern urban density and the architectural monoliths that define our cities.',
+        video: 'https://videos.pexels.com/video-files/4540332/4540332-hd_1920_1080_25fps.mp4',
+        poster: 'https://image.tmdb.org/t/p/original/84E96lyR81OvUjCimcrfuzn9er5.jpg',
+        year: '1982', runtime: '1h 26m', genre: 'Urban'
+      },
+      {
+        id: 18, title: 'Baraka',
+        creator: 'Ron Fricke',
+        desc: 'An immersive 4K journey into the world\'s most untouched ecosystems, highlighting the quiet resilience of nature against climate change.',
+        video: 'https://videos.pexels.com/video-files/856161/856161-hd_1920_1080_30fps.mp4',
+        poster: 'https://image.tmdb.org/t/p/w780/c0QYwNyeURswT7fxmR2mlfpdk0l.jpg',
+        year: '1992', runtime: '1h 36m', genre: 'Environment'
+      },
+      {
+        id: 19, title: 'Samsara',
+        creator: 'Ron Fricke',
+        desc: 'Shot entirely at night in 4K, this documentary captures the vibrant, glowing subcultures of Tokyo and Seoul after dark.',
+        video: 'https://videos.pexels.com/video-files/3121459/3121459-hd_1920_1080_24fps.mp4',
+        poster: 'https://image.tmdb.org/t/p/w780/tbSjemOf1nXPOjWELdaeZ7qj1iX.jpg',
+        year: '2011', runtime: '1h 42m', genre: 'Documentary'
+      }
+    ];
+
+    // ─── Watch Progress (localStorage) ───
+    function getProgress(id) {
+      try { return parseFloat(localStorage.getItem(`progress_${id}`)) || 0; } catch { return 0; }
+    }
+    function saveProgress(id, pct) {
+      try { localStorage.setItem(`progress_${id}`, pct); } catch {}
+    }
+
+    // ─── Genres ───
+    const genres = ['All', ...new Set(docs.map(d => d.genre))];
+    let activeGenre = 'All';
+
+    const filterBar = document.getElementById('filter-bar');
+    genres.forEach(g => {
+      const chip = document.createElement('button');
+      chip.className = `filter-chip${g === 'All' ? ' active' : ''}`;
+      chip.textContent = g;
+      chip.onclick = () => filterByGenre(g);
+      filterBar.appendChild(chip);
+    });
+
+    function filterByGenre(genre) {
+      activeGenre = genre;
+      document.querySelectorAll('.filter-chip').forEach(c => {
+        c.classList.toggle('active', c.textContent === genre);
+      });
+      renderRows();
+    }
+
+    // ─── Render Cards ───
+    function createCard(doc) {
+      const progress = getProgress(doc.id);
+      const progressBar = progress > 0 ? `<div class="card-progress"><div class="card-progress-fill" style="width:${progress}%"></div></div>` : '';
+      return `
+        <div class="card" onclick='openDetail(${JSON.stringify(doc).replace(/'/g, "&#39;")})'>
+          <img src="${doc.poster}" alt="${doc.title}" loading="lazy"
+               onload="this.parentElement.classList.remove('loading')"
+               onerror="this.parentElement.classList.remove('loading')">
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="card-overlay">
+            <div class="card-genre-tag">${doc.genre}</div>
+            <div class="card-title">${doc.title}</div>
+            <div class="card-meta-line">
+              <span>${doc.creator}</span>
+              <span>&middot;</span>
+              <span>${doc.year}</span>
+              <span>&middot;</span>
+              <span>${doc.runtime}</span>
+            </div>
+          </div>
+          ${progressBar}
+        </div>
+      `;
+    }
+
+    // ─── Row Definitions ───
+    const rowDefs = [
+      { id: 'continue', title: 'Continue Watching', filter: d => getProgress(d.id) > 0 },
+      { id: 'trending', title: 'Trending This Week', filter: () => true, slice: [0, 6] },
+      { id: 'new', title: 'New Arrivals', filter: () => true, slice: [2, 8] },
+      { id: 'exclusives', title: 'Underground Exclusives', filter: () => true, reverse: true, slice: [0, 6] },
+    ];
+
+    function renderRows() {
+      const container = document.getElementById('content-rows');
+      const filtered = activeGenre === 'All' ? docs : docs.filter(d => d.genre === activeGenre);
+      let html = '';
+
+      rowDefs.forEach(row => {
+        let items = filtered.filter(row.filter);
+        if (row.reverse) items = [...items].reverse();
+        if (row.slice) items = items.slice(row.slice[0], row.slice[1]);
+        if (items.length === 0) return;
+
+        html += `
+          <section class="row">
+            <div class="row-header">
+              <h2>${row.title}</h2>
+              <div class="row-arrows">
+                <button class="row-arrow" onclick="scrollRow('row-${row.id}', -1)">
+                  <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="row-arrow" onclick="scrollRow('row-${row.id}', 1)">
+                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="row-scroll" id="row-${row.id}">
+              ${items.map(createCard).join('')}
+            </div>
+          </section>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Also update More Like This in detail view
+      document.getElementById('more-like-this').innerHTML =
+        filtered.slice(0, 5).map(createCard).join('');
+    }
+
+    function scrollRow(id, dir) {
+      const el = document.getElementById(id);
+      if (el) el.scrollBy({ left: dir * 320, behavior: 'smooth' });
+    }
+
+    renderRows();
+
+    // ─── Hero Rotation ───
+    const featuredDocs = [docs[16], docs[17], docs[18]]; // Concrete Jungles, The Silent Rivers, Neon Nights
+    let heroIndex = 0;
+    let heroInterval;
+
+    window.toggleHeroMute = function() {
+      const vid = document.getElementById('hero-video');
+      vid.muted = !vid.muted;
+      const icon = document.getElementById('mute-icon');
+      if (vid.muted) {
+        icon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+      } else {
+        icon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+      }
+    };
+
+    function renderHero(idx) {
+      const doc = featuredDocs[idx];
+      document.getElementById('hero-genre').textContent = doc.genre + ' Documentary';
+      document.getElementById('hero-title').textContent = doc.title;
+      document.getElementById('hero-desc').textContent = doc.desc;
+
+      const videoEl = document.getElementById('hero-video');
+      const targetSrc = doc.video; // Removed #t=120 since these 1080p videos are short cinematic clips
+      if (!videoEl.src.includes(doc.video)) {
+        videoEl.poster = doc.poster;
+        videoEl.src = targetSrc;
+        videoEl.load();
+        videoEl.play().catch(e => console.log('Autoplay prevented:', e));
+      }
+
+      // Update indicators
+      document.querySelectorAll('.hero-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+
+      // Wire buttons
+      document.getElementById('hero-watch-btn').onclick = () => openDetail(doc);
+      document.getElementById('hero-info-btn').onclick = () => openDetail(doc);
+    }
+
+    // Build indicators
+    const indicatorContainer = document.getElementById('hero-indicators');
+    featuredDocs.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = `hero-dot${i === 0 ? ' active' : ''}`;
+      dot.onclick = () => { heroIndex = i; renderHero(i); resetHeroTimer(); };
+      indicatorContainer.appendChild(dot);
+    });
+
+    function nextHero() {
+      heroIndex = (heroIndex + 1) % featuredDocs.length;
+      renderHero(heroIndex);
+    }
+    function resetHeroTimer() {
+      clearInterval(heroInterval);
+      heroInterval = setInterval(nextHero, 8000);
+    }
+    renderHero(0);
+    resetHeroTimer();
+
+    // ─── Navigation ───
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+
+    // ─── Search ───
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    const searchWrap = document.getElementById('search-wrap');
+
+    searchInput.addEventListener('focus', () => searchWrap.classList.add('expanded'));
+    searchInput.addEventListener('blur', () => {
+      setTimeout(() => {
+        searchWrap.classList.remove('expanded');
+        searchResults.classList.remove('open');
+      }, 200);
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if (!q) { searchResults.classList.remove('open'); return; }
+
+      const matches = docs.filter(d =>
+        d.title.toLowerCase().includes(q) ||
+        d.creator.toLowerCase().includes(q) ||
+        d.genre.toLowerCase().includes(q) ||
+        d.desc.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        searchResults.innerHTML = '<div class="search-empty">No documentaries found</div>';
+      } else {
+        searchResults.innerHTML = matches.map(d => `
+          <div class="search-result-item" onmousedown="openDetail(docs.find(x=>x.id===${d.id}))">
+            <img class="search-result-thumb" src="${d.poster}" alt="${d.title}">
+            <div class="search-result-info">
+              <div class="search-result-title">${d.title}</div>
+              <div class="search-result-creator">${d.creator} &middot; ${d.genre} &middot; ${d.runtime}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+      searchResults.classList.add('open');
+    });
+
+    // ─── View Switching ───
+    const views = {
+      main: document.getElementById('main-view'),
+      detail: document.getElementById('detail-view'),
+      creator: document.getElementById('creator-view'),
+      about: document.getElementById('about-view'),
+      legal: document.getElementById('legal-view'),
+      profile: document.getElementById('profile-view')
+    };
+    const player = document.getElementById('main-player');
+    let currentDocId = null;
+
+    function hideAllViews() {
+      if (currentDocId && player.duration && !player.paused) {
+        saveProgress(currentDocId, (player.currentTime / player.duration) * 100);
+        player.pause();
+      }
+      Object.values(views).forEach(v => { if (v) v.style.display = 'none'; });
+      document.getElementById('nav-links').classList.remove('open');
+      searchInput.value = '';
+      searchResults.classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      
+      // Update nav active states
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    }
+
+    function showView(viewName) {
+      hideAllViews();
+      if (views[viewName]) {
+        views[viewName].style.display = 'block';
+        views[viewName].classList.add('view-transition');
+      }
+      if (document.getElementById(`nav-${viewName}`)) {
+        document.getElementById(`nav-${viewName}`).classList.add('active');
+      }
+      if (viewName === 'main') renderRows();
+      if (viewName === 'profile') renderWatchlist();
+    }
+
+    // Backwards compatibility for old onclicks
+    function showMainView() { showView('main'); }
+
+    function openDetail(doc) {
+      hideAllViews();
+      currentDocId = doc.id;
+      views.detail.style.display = 'block';
+      views.detail.classList.add('view-transition');
+
+      document.getElementById('detail-title').textContent = doc.title;
+      document.getElementById('detail-creator').textContent = doc.creator;
+      document.getElementById('detail-desc').textContent = doc.desc;
+      document.getElementById('detail-year').textContent = doc.year;
+      document.getElementById('detail-runtime').textContent = doc.runtime;
+      document.getElementById('detail-genre').textContent = doc.genre;
+
+      document.getElementById('main-source').src = doc.video;
+      player.load();
+
+      // Resume from saved position
+      const savedProgress = getProgress(doc.id);
+      if (savedProgress > 0 && savedProgress < 95) {
+        player.addEventListener('loadedmetadata', function resumeOnce() {
+          player.currentTime = (savedProgress / 100) * player.duration;
+          player.removeEventListener('loadedmetadata', resumeOnce);
+        });
+      }
+
+      player.play().catch(() => {});
+    }
+
+    // ─── Profile Watchlist Logic ───
+    function renderWatchlist() {
+      const grid = document.getElementById('watchlist-grid');
+      const savedDocs = docs.filter(d => getProgress(d.id) > 0);
+      
+      if (savedDocs.length === 0) {
+        grid.innerHTML = '<div class="empty-state">You haven\'t started watching anything yet.</div>';
+        return;
+      }
+      grid.innerHTML = savedDocs.map(createCard).join('');
+    }
+
+    // ─── Creator Upload Flow Logic ───
+    function simulateUpload() {
+      const title = document.getElementById('upload-title').value;
+      if (!title) { alert('Please enter a title'); return; }
+      
+      document.getElementById('upload-form-container').style.display = 'none';
+      const progressOverlay = document.getElementById('upload-progress');
+      progressOverlay.classList.add('active');
+      const bar = document.getElementById('upload-bar');
+      const status = document.getElementById('upload-status');
+      
+      let p = 0;
+      const interval = setInterval(() => {
+        p += Math.random() * 15;
+        if (p >= 100) {
+          p = 100;
+          clearInterval(interval);
+          status.textContent = 'Upload Complete! Publishing to network...';
+          setTimeout(() => {
+            alert('Success! Note: This is a frontend prototype. Database connection is pending.');
+            document.getElementById('upload-form-container').style.display = 'block';
+            progressOverlay.classList.remove('active');
+            bar.style.width = '0%';
+            document.getElementById('upload-title').value = '';
+            document.getElementById('upload-desc').value = '';
+            document.getElementById('upload-genre').value = '';
+            showView('main');
+          }, 1500);
+        } else {
+          status.textContent = `Uploading... ${Math.floor(p)}%`;
+        }
+        bar.style.width = `${p}%`;
+      }, 300);
+    }
+    
+    const dropZone = document.getElementById('drop-zone');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+    });
+    dropZone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt.files && dt.files.length) {
+        document.querySelector('.upload-text').textContent = dt.files[0].name;
+      }
+    });
+    document.getElementById('file-input').addEventListener('change', function() {
+      if (this.files && this.files.length) {
+        document.querySelector('.upload-text').textContent = this.files[0].name;
+      }
+    });
+
+    // ─── Custom Video Player ───
+    const videoContainer = document.getElementById('video-container');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const playIconSvg = document.getElementById('play-icon-svg');
+    const progressBar = document.getElementById('progress-bar');
+    const progressFilled = document.getElementById('progress-filled');
+    const muteBtn = document.getElementById('mute-btn');
+    const volumeIconSvg = document.getElementById('volume-icon-svg');
+    const volumeSlider = document.getElementById('volume-slider');
+    const timeDisplay = document.getElementById('time-display');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const ccBtn = document.getElementById('cc-btn');
+
+    const icons = {
+      play: '<path d="M8 5v14l11-7z"/>',
+      pause: '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>',
+      volUp: '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>',
+      volOff: '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
+    };
+
+    function togglePlay() {
+      player.paused ? player.play() : player.pause();
+    }
+
+    function updatePlayIcon() {
+      playIconSvg.innerHTML = player.paused ? icons.play : icons.pause;
+      videoContainer.classList.toggle('paused', player.paused);
+    }
+
+    function formatTime(s) {
+      if (isNaN(s)) return '0:00';
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = Math.floor(s % 60);
+      if (h > 0) return `${h}:${m < 10 ? '0' : ''}${m}:${sec < 10 ? '0' : ''}${sec}`;
+      return `${m}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    function updateProgress() {
+      if (!player.duration) return;
+      const pct = (player.currentTime / player.duration) * 100;
+      progressFilled.style.width = `${pct}%`;
+      timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration)}`;
+
+      // Auto-save progress every 5 seconds
+      if (currentDocId && Math.floor(player.currentTime) % 5 === 0) {
+        saveProgress(currentDocId, pct);
+      }
+    }
+
+    function scrub(e) {
+      const rect = progressBar.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      player.currentTime = pct * player.duration;
+    }
+
+    function toggleMute() {
+      player.muted = !player.muted;
+      updateVolumeIcon();
+    }
+
+    function updateVolumeIcon() {
+      volumeIconSvg.innerHTML = (player.muted || player.volume === 0) ? icons.volOff : icons.volUp;
+      volumeSlider.value = player.muted ? 0 : player.volume;
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        videoContainer.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function toggleCC() {
+      const tracks = player.textTracks;
+      if (tracks.length > 0) {
+        tracks[0].mode = tracks[0].mode === 'showing' ? 'hidden' : 'showing';
+        ccBtn.style.color = tracks[0].mode === 'showing' ? 'var(--accent)' : '';
+      }
+    }
+
+    // Player event listeners
+    playPauseBtn.addEventListener('click', togglePlay);
+    player.addEventListener('click', togglePlay);
+    player.addEventListener('play', updatePlayIcon);
+    player.addEventListener('pause', updatePlayIcon);
+    player.addEventListener('timeupdate', updateProgress);
+    player.addEventListener('volumechange', updateVolumeIcon);
+
+    let scrubbing = false;
+    progressBar.addEventListener('click', scrub);
+    progressBar.addEventListener('mousedown', (e) => { scrubbing = true; scrub(e); });
+    document.addEventListener('mousemove', (e) => { if (scrubbing) scrub(e); });
+    document.addEventListener('mouseup', () => { scrubbing = false; });
+
+    muteBtn.addEventListener('click', toggleMute);
+    volumeSlider.addEventListener('input', (e) => {
+      player.volume = parseFloat(e.target.value);
+      player.muted = player.volume === 0;
+    });
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    ccBtn.addEventListener('click', toggleCC);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (detailView.style.display !== 'block') return;
+      if (e.target.tagName === 'INPUT') return;
+
+      switch (e.key.toLowerCase()) {
+        case ' ':
+          e.preventDefault();
+          togglePlay();
+          break;
+        case 'f':
+          toggleFullscreen();
+          break;
+        case 'm':
+          toggleMute();
+          break;
+        case 'c':
+          toggleCC();
+          break;
+        case 'arrowleft':
+          player.currentTime = Math.max(0, player.currentTime - 10);
+          break;
+        case 'arrowright':
+          player.currentTime = Math.min(player.duration, player.currentTime + 10);
+          break;
+        case 'escape':
+          showMainView();
+          break;
+      }
+    });
+
+    // Double-click to fullscreen
+    player.addEventListener('dblclick', toggleFullscreen);
+
+    // Save progress on page unload
+    window.addEventListener('beforeunload', () => {
+      if (currentDocId && player.duration) {
+        saveProgress(currentDocId, (player.currentTime / player.duration) * 100);
+      }
+    });
+
+    // ─── Analytics Math Logic ───
+    function switchCreatorTab(tabId) {
+      document.querySelectorAll('.creator-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      const tabs = document.querySelectorAll('.creator-tab');
+      const activeTab = Array.from(tabs).find(t => t.getAttribute('onclick').includes(tabId));
+      if (activeTab) activeTab.classList.add('active');
+      
+      document.getElementById('tab-' + tabId).classList.add('active');
+      
+      if (tabId === 'analytics') calculateAnalytics();
+    }
+
+    function calculateAnalytics() {
+      // Real math based on our revenue model
+      const totalSubscribers = 25000;
+      const subPrice = 5.00;
+      const grossRevenue = totalSubscribers * subPrice; // $125,000
+      const creatorPool = grossRevenue * 0.75; // 75% goes to creators: $93,750
+      
+      // Simulate platform total watch time (e.g. 2,000,000 minutes)
+      const platformTotalWatchTime = 2000000;
+
+      // Calculate this specific creator's stats (Using hardcoded local mock values for now)
+      // Let's pretend they have 12,450 minutes of watch time
+      const creatorWatchTime = 12450;
+      const creatorViews = 8420;
+      
+      // The exact share formula:
+      const sharePercentage = creatorWatchTime / platformTotalWatchTime;
+      const exactPayout = creatorPool * sharePercentage;
+
+      // Update UI
+      document.getElementById('stat-payout').textContent = '$' + exactPayout.toFixed(2);
+      document.getElementById('stat-watchtime').textContent = creatorWatchTime.toLocaleString();
+      document.getElementById('stat-views').textContent = creatorViews.toLocaleString();
+
+      // Show math breakdown
+      const breakdownEl = document.getElementById('math-breakdown');
+      breakdownEl.innerHTML = `
+        <strong>Platform Subscribers:</strong> ${totalSubscribers.toLocaleString()}<br>
+        <strong>Sub Price:</strong> $${subPrice.toFixed(2)}/mo<br>
+        <strong>Gross Revenue:</strong> $${grossRevenue.toLocaleString()}<br>
+        <strong>Creator Pool (75%):</strong> $${creatorPool.toLocaleString()}<br><br>
+        
+        <strong>Platform Total Watch Time:</strong> ${platformTotalWatchTime.toLocaleString()} mins<br>
+        <strong>Your Watch Time:</strong> ${creatorWatchTime.toLocaleString()} mins<br>
+        <strong>Your Share of Pool:</strong> ${(sharePercentage * 100).toFixed(3)}%<br><br>
+        
+        <strong>Payout Calculation:</strong><br>
+        $${creatorPool.toLocaleString()} * ${(sharePercentage * 100).toFixed(3)}% = <strong>$${exactPayout.toFixed(2)}</strong>
+      `;
+
+      // Render Chart
+      if (window.revenueChartInstance) {
+        window.revenueChartInstance.destroy();
+      }
+      const ctx = document.getElementById('revenueChart').getContext('2d');
+      
+      // Generate some dummy trend data ending at exactPayout
+      const dataPoints = [];
+      let currentVal = exactPayout * 0.4; // Start at 40%
+      for (let i = 1; i <= 30; i++) {
+        dataPoints.push(currentVal);
+        currentVal += (exactPayout - currentVal) / (30 - i + 1) + (Math.random() * (exactPayout * 0.05) - (exactPayout * 0.025));
+      }
+      dataPoints[29] = exactPayout;
+
+      const labels = Array.from({length: 30}, (_, i) => `Day ${i+1}`);
+
+      window.revenueChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Estimated Revenue ($)',
+            data: dataPoints,
+            borderColor: '#e5a00d',
+            backgroundColor: 'rgba(229, 160, 13, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              backgroundColor: 'rgba(10, 10, 10, 0.9)',
+              titleColor: '#888',
+              bodyColor: '#e5a00d',
+              borderColor: '#333',
+              borderWidth: 1,
+              callbacks: {
+                label: function(context) {
+                  return '$' + context.parsed.y.toFixed(2);
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: { color: '#555', maxTicksLimit: 6 }
+            },
+            y: {
+              grid: { color: '#222', drawBorder: false },
+              ticks: {
+                color: '#555',
+                callback: function(value) { return '$' + value; }
+              }
+            }
+          },
+          interaction: { mode: 'nearest', axis: 'x', intersect: false }
+        }
+      });
+    }
+
+    // Initialize analytics on load if creator view is shown
+    calculateAnalytics();
+
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
