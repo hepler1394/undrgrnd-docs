@@ -678,6 +678,8 @@
     .tab-content.active { display: block; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -876,7 +878,7 @@
           Tired of being demonetized and shadowbanned? Apply for the <strong>Upload First Program</strong>. Upload your raw, uncut documentaries here first and earn a <strong>1.5x multiplier</strong> on your view-time payouts.
         </p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-          <button class="btn btn-primary" onclick="document.getElementById('creator-onboarding').style.display='none'; document.getElementById('creator-dashboard-content').style.display='block';">Login / Apply (Demo)</button>
+          <button class="btn btn-primary" onclick="document.getElementById('auth-modal').style.display='flex'">Login / Apply</button>
         </div>
       </div>
 
@@ -955,6 +957,26 @@
       </div>
 
     </div>
+
+      <!-- Auth Modal -->
+      <div id="auth-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: var(--bg-elevated); padding: 40px; border-radius: var(--radius); width: 100%; max-width: 400px; border: 1px solid var(--border);">
+          <h2 style="margin-bottom: 20px;">Join the Underground</h2>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="auth-email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" id="auth-password" placeholder="••••••••">
+          </div>
+          <div style="color: var(--accent); font-size: 0.9rem; margin-bottom: 20px; display: none;" id="auth-error"></div>
+          <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="handleAuth('login')">Log In</button>
+          <button class="btn-outline" style="width: 100%;" onclick="handleAuth('signup')">Create Account</button>
+          <button class="btn-outline" style="width: 100%; margin-top: 10px; border: none; font-size: 0.8rem; color: var(--text-sub);" onclick="document.getElementById('auth-modal').style.display='none'">Cancel</button>
+        </div>
+      </div>
+
   </main>
 
   <!-- About / Manifesto -->
@@ -1021,6 +1043,36 @@
   </style>
 
   <script>
+    // ─── Supabase Initialization ───
+    const supabaseUrl = 'https://jjvtectyosssuldtvnau.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdnRlY3R5b3Nzc3VsZHR2bmF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyODYzNzEsImV4cCI6MjEwMDg2MjM3MX0.5_YBveWIp1ZOicwUmkyUeFvDSb7V8-oWxj5MlDkGCgY';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function handleAuth(action) {
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const errorDiv = document.getElementById('auth-error');
+      errorDiv.style.display = 'none';
+
+      try {
+        let result;
+        if (action === 'signup') {
+          result = await supabase.auth.signUp({ email, password });
+          if (result.error) throw result.error;
+          alert('Check your email for the confirmation link!');
+        } else {
+          result = await supabase.auth.signInWithPassword({ email, password });
+          if (result.error) throw result.error;
+          document.getElementById('auth-modal').style.display = 'none';
+          document.getElementById('creator-onboarding').style.display = 'none';
+          document.getElementById('creator-dashboard-content').style.display = 'block';
+        }
+      } catch (err) {
+        errorDiv.textContent = err.message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
     // ─── Documentary Data ───
     const docs = [
       {
