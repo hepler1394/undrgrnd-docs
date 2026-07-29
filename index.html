@@ -887,9 +887,12 @@
         <div class="dashboard-header">
           <div>
             <h1 class="page-title" style="margin-bottom: 5px;">Creator Studio</h1>
-            <p class="page-desc" style="margin-bottom: 0;">Welcome back, DocumentingEvil.</p>
+            <p class="page-desc" style="margin-bottom: 0;" id="dashboard-welcome">Welcome back.</p>
           </div>
-          <button class="btn-outline" onclick="switchCreatorTab('upload')">+ New Upload</button>
+          <div style="display: flex; gap: 12px;">
+            <button class="btn-outline" onclick="handleLogout()" style="border-color: var(--border); color: var(--text-sub);">Log Out</button>
+            <button class="btn-outline" onclick="switchCreatorTab('upload')">+ New Upload</button>
+          </div>
         </div>
 
       <div class="creator-tabs">
@@ -1063,6 +1066,8 @@
         } else {
           result = await supabase.auth.signInWithPassword({ email, password });
           if (result.error) throw result.error;
+          
+          document.getElementById('dashboard-welcome').textContent = 'Welcome back, ' + result.data.user.email;
           document.getElementById('auth-modal').style.display = 'none';
           document.getElementById('creator-onboarding').style.display = 'none';
           document.getElementById('creator-dashboard-content').style.display = 'block';
@@ -1071,6 +1076,12 @@
         errorDiv.textContent = err.message;
         errorDiv.style.display = 'block';
       }
+    }
+
+    async function handleLogout() {
+      await supabase.auth.signOut();
+      document.getElementById('creator-dashboard-content').style.display = 'none';
+      document.getElementById('creator-onboarding').style.display = 'block';
     }
 
     // ─── Documentary Data ───
