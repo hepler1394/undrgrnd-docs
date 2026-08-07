@@ -222,6 +222,14 @@
     }
     .hero-dot.active { background: var(--text-main); width: 24px; border-radius: 4px; }
 
+    /* Hero sound button */
+    .hero-sound-btn { border: 1px solid rgba(255,255,255,0.35); }
+    .hero-sound-btn.nudge { animation: soundNudge 2.4s ease-in-out infinite; }
+    @keyframes soundNudge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.0); }
+      50% { box-shadow: 0 0 0 5px rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.7); }
+    }
+
     /* ─── Genre Filter Bar ─── */
     .filter-bar {
       display: flex; gap: 10px; padding: 0 var(--pad);
@@ -710,15 +718,15 @@
   <main id="main-view">
     <!-- Hero -->
     <section class="hero" id="hero-section">
-      <video id="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1555529733-0e67056058c3?auto=format&fit=crop&w=1920&q=80">
-        <source src="https://videos.pexels.com/video-files/4540332/4540332-hd_1920_1080_25fps.mp4" type="video/mp4">
+      <video id="hero-video" autoplay muted playsinline preload="auto" poster="https://image.tmdb.org/t/p/original/5KtmBSqFtHY3I9t8lgH27Mc0bqY.jpg">
+        <source src="https://archive.org/download/Night.Of.The.Living.Dead_1080p/NightOfTheLivingDead_720p_512kb.mp4#t=470" type="video/mp4">
       </video>
       <div class="hero-overlay"></div>
 
       <div class="hero-content" id="hero-content">
-        <div class="hero-genre" id="hero-genre">Urban Documentary</div>
-        <h1 class="hero-title" id="hero-title">Concrete Utopia</h1>
-        <p class="hero-desc" id="hero-desc">Landmark documentary contrasting chaotic urban congestion with planned communities. Score by Aaron Copland.</p>
+        <div class="hero-genre" id="hero-genre">Horror Documentary</div>
+        <h1 class="hero-title" id="hero-title">Dead of Night</h1>
+        <p class="hero-desc" id="hero-desc">Before zombies were mainstream, George A. Romero's 1968 masterpiece defined the genre. A copyright error on the title card sent it straight into the public domain.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" id="hero-watch-btn">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -728,8 +736,9 @@
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
             More Info
           </button>
-          <button class="btn btn-secondary" id="hero-mute-btn" onclick="toggleHeroMute()" style="border-radius: 50%; padding: 12px; margin-left: auto;">
-            <svg id="mute-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+          <button class="btn btn-secondary hero-sound-btn" id="hero-mute-btn" onclick="toggleHeroMute()" style="margin-left: auto;">
+            <svg id="mute-icon" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            <span id="mute-label">Tap for sound</span>
           </button>
         </div>
       </div>
@@ -1049,7 +1058,15 @@
     // ─── Supabase Initialization ───
     const supabaseUrl = 'https://jjvtectyosssuldtvnau.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdnRlY3R5b3Nzc3VsZHR2bmF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyODYzNzEsImV4cCI6MjEwMDg2MjM3MX0.5_YBveWIp1ZOicwUmkyUeFvDSb7V8-oWxj5MlDkGCgY';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    // Guard: if the Supabase CDN script fails to load, auth features degrade
+    // gracefully instead of killing every script on the page (hero, rows, nav).
+    const supabase = window.supabase
+      ? window.supabase.createClient(supabaseUrl, supabaseKey)
+      : { auth: {
+            signUp: async () => ({ error: new Error('Auth service unavailable — please try again later.') }),
+            signInWithPassword: async () => ({ error: new Error('Auth service unavailable — please try again later.') }),
+            signOut: async () => ({})
+          } };
 
     async function handleAuth(action) {
       const email = document.getElementById('auth-email').value;
@@ -1090,7 +1107,7 @@
         id: 1, title: 'Before the Fall',
         creator: 'Archival Vault',
         desc: 'Iconic 1906 silent documentary shot from a cable car on Market Street, San Francisco, just days before the earthquake. A haunting window into a city about to change forever.',
-        video: 'https://archive.org/download/SF1906TripDownMarketStreet/SF1906TripDownMarketStreet.mp4',
+        video: 'https://archive.org/download/TripDown1905/TripDown1905_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/oRENJG4yLE10AfZhqxH9CMPYs0M.jpg',
         year: '1906', runtime: '13m', genre: 'History'
       },
@@ -1098,7 +1115,7 @@
         id: 2, title: 'Concrete Utopia',
         creator: 'New Deal Media',
         desc: 'Landmark New Deal-era documentary contrasting chaotic urban congestion with planned communities. With a score by Aaron Copland, this film challenges our assumptions about how cities should be built.',
-        video: 'https://archive.org/download/TheCity_201505/TheCity_201505.mp4',
+        video: 'https://archive.org/download/TheCity_201505/The%20City.mp4',
         poster: 'https://image.tmdb.org/t/p/original/nwP2YhkQFcnOhsnn7lxcksmisK.jpg',
         year: '1939', runtime: '43m', genre: 'Urban'
       },
@@ -1106,7 +1123,7 @@
         id: 3, title: 'Dust & Bones',
         creator: 'Resettlement Docs',
         desc: 'Investigative documentary chronicling the ecological disaster of the Dust Bowl. A devastating portrait of environmental collapse and human resilience in the American heartland.',
-        video: 'https://archive.org/download/gov.fdr.352.2a.1/gov.fdr.352.2a.1.mp4',
+        video: 'https://archive.org/download/gov.fdr.352.2a.1/gov.fdr.352.2a.1_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/mXTKhBbmr3ZMdVZmNhkkidO1LWl.jpg',
         year: '1936', runtime: '25m', genre: 'Environment'
       },
@@ -1114,7 +1131,7 @@
         id: 4, title: 'Shadows of War',
         creator: 'John Huston',
         desc: 'John Huston\'s suppressed documentary following WWII soldiers receiving treatment for combat-induced PTSD. Banned by the military for decades, this raw footage reveals the true cost of war.',
-        video: 'https://archive.org/download/LetThereBeLight/LetThereBeLight.mp4',
+        video: 'https://archive.org/download/gov.ntis.ava04168vnb1/ava04168vnb1_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/dJxxKv6eGBNRGVGlMEuO3J8EoNC.jpg',
         year: '1946', runtime: '58m', genre: 'War'
       },
@@ -1122,7 +1139,7 @@
         id: 5, title: 'The Battle of San Pietro',
         creator: 'John Huston',
         desc: 'John Huston\'s raw, unvarnished look at infantry combat in Italy during WWII. It was initially censored by the military for its unflinching portrayal of dead American soldiers.',
-        video: 'https://archive.org/download/TheBattleOfSanPietro/TheBattleOfSanPietro.mp4',
+        video: 'https://archive.org/download/battle_of_san_pietro/battle_of_san_pietro_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/ziDIqBWRSWtP13YkRvCfoGBCTWb.jpg',
         year: '1945', runtime: '32m', genre: 'War'
       },
@@ -1130,7 +1147,7 @@
         id: 6, title: 'Nanook of the North',
         creator: 'Robert J. Flaherty',
         desc: 'Widely considered the first feature-length documentary, capturing the struggles of the Inuk man Nanook and his family in the harsh Canadian Arctic.',
-        video: 'https://archive.org/download/nanook_of_the_north_1922/nanook_of_the_north_1922.mp4',
+        video: 'https://archive.org/download/nanookOfTheNorth1922/NanookOfTheNorth1922.mp4',
         poster: 'https://image.tmdb.org/t/p/original/jxD0pcORCx9j0C0AYjjudbHnOm4.jpg',
         year: '1922', runtime: '1h 18m', genre: 'History'
       },
@@ -1138,7 +1155,7 @@
         id: 7, title: 'The Memphis Belle',
         creator: 'William Wyler',
         desc: 'Chronicling the final mission of the Boeing B-17 Flying Fortress "Memphis Belle" over Germany. Featuring real combat footage shot in the deadly skies of WWII.',
-        video: 'https://archive.org/download/The_Memphis_Belle_A_Story_of_a_Flying_Fortress/The_Memphis_Belle_A_Story_of_a_Flying_Fortress.mp4',
+        video: 'https://archive.org/download/TheMemphisBelleAStoryofaFlyingFortress/Memphis.BelleTheA.Story.Of.A.Flying.Fortress.1944_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/nB3fVpM6JumgiyeuL59Ht1FfzI5.jpg',
         year: '1944', runtime: '41m', genre: 'War'
       },
@@ -1146,7 +1163,7 @@
         id: 8, title: 'The River',
         creator: 'Pare Lorentz',
         desc: 'A poetic, New Deal-era documentary highlighting the importance of the Mississippi River, the devastating floods, and the government\'s TVA dam projects to control it.',
-        video: 'https://archive.org/download/TheRiver_201303/TheRiver.mp4',
+        video: 'https://archive.org/download/RiverThe1937/RiverThe1937_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/aRlUXe5GMArNFisoaSBStEkf2P4.jpg',
         year: '1938', runtime: '31m', genre: 'Environment'
       },
@@ -1162,7 +1179,7 @@
         id: 10, title: 'The Hidden Harvest',
         creator: 'Archival Vault',
         desc: 'In 1942, the US Government produced "Hemp for Victory" to encourage farmers to grow hemp for the war effort. The film was later denied to exist by the very government that made it, until activists recovered VHS copies in 1989.',
-        video: 'https://archive.org/download/Hemp_for_Victory_1942/Hemp_for_Victory_1942_512kb.mp4',
+        video: 'https://archive.org/download/Hemp_for_victory_1942/Hemp_for_victory_1942_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/u7pAfatU9cwvZSC6kO0dkrg2SON.jpg',
         year: '1942', runtime: '14m', genre: 'Documentary'
       },
@@ -1178,7 +1195,7 @@
         id: 12, title: 'Dead of Night',
         creator: 'Indie Classics',
         desc: 'Before zombies were mainstream, George A. Romero\'s 1968 masterpiece "Night of the Living Dead" defined the genre. Due to a copyright error on the title card, the film immediately fell into the public domain.',
-        video: 'https://archive.org/download/night_of_the_living_dead/night_of_the_living_dead_512kb.mp4',
+        video: 'https://archive.org/download/Night.Of.The.Living.Dead_1080p/NightOfTheLivingDead_720p_512kb.mp4',
         poster: 'https://image.tmdb.org/t/p/original/5KtmBSqFtHY3I9t8lgH27Mc0bqY.jpg',
         year: '1968', runtime: '1h 36m', genre: 'Horror'
       },
@@ -1194,7 +1211,7 @@
         id: 14, title: 'Guide to Satanic Cults',
         creator: 'Cult Crime Impact Network',
         desc: 'A surreal artifact of the 1980s/90s "Satanic Panic." Produced as a real police training video warning officers about heavy metal album artwork and suburban cult threats.',
-        video: 'https://archive.org/download/LawEnforcementGuideToSatanicCults1994VHSOccultHilarity/LawEnforcementGuideToSatanicCults1994VHSOccultHilarity.mp4',
+        video: 'https://archive.org/download/LawEnforcementGuideToSatanicCults1994VHSOccultHilarity/Law%20Enforcement%20Guide%20To%20Satanic%20Cults%20%5B1994%5D%20%5BVHS%5D%20%5BOccult%20Hilarity%5D.mp4',
         poster: 'https://image.tmdb.org/t/p/original/17iNidw9AIHcGBTHkHUFQ2EDcV1.jpg',
         year: '1994', runtime: '1h 12m', genre: 'True Crime'
       },
@@ -1202,7 +1219,7 @@
         id: 15, title: 'A Day Called X',
         creator: 'Civil Defense',
         desc: 'An eerie Cold War dramatization capturing "Operation Alert 1957"—the actual evacuation of Portland, Oregon in response to an imminent nuclear strike.',
-        video: 'https://archive.org/download/ADayCalledx/ADayCalledx.mp4',
+        video: 'https://archive.org/download/ADayCalledx/DayCalledX_512kb.mp4',
         poster: 'https://archive.org/services/img/ADayCalledx',
         year: '1957', runtime: '27m', genre: 'Propaganda'
       },
@@ -1210,7 +1227,7 @@
         id: 16, title: 'Design for Dreaming',
         creator: 'General Motors',
         desc: 'A bizarre retro-futuristic industrial musical fantasy showcasing the "Kitchen of Tomorrow" where meals bake instantly with ultrasonic waves.',
-        video: 'https://archive.org/download/DesignforDreaming/DesignforDreaming_512kb.mp4',
+        video: 'https://archive.org/download/Designfo1956/Designfo1956.mp4',
         poster: 'https://image.tmdb.org/t/p/original/tJUfm3xxYsUnA8F2q89qbvA8k3q.jpg',
         year: '1956', runtime: '10m', genre: 'Experimental'
       },
@@ -1351,35 +1368,56 @@
     renderRows();
 
     // ─── Hero Rotation ───
-    const featuredDocs = [docs[16], docs[17], docs[18]]; // Concrete Jungles, The Silent Rivers, Neon Nights
+    // Each feature is a hand-picked moment from a real film in the catalog —
+    // all of these have full audio tracks. Autoplay starts muted (browser
+    // policy); the viewer's sound choice persists across rotations.
+    const featured = [
+      { doc: docs.find(d => d.id === 12), start: 470, end: 500 },  // Dead of Night — the cemetery attack
+      { doc: docs.find(d => d.id === 2),  start: 995, end: 1025 }, // Concrete Utopia — gridlock montage, Copland score
+      { doc: docs.find(d => d.id === 16), start: 58,  end: 88 },   // Design for Dreaming — surreal GM musical
+      { doc: docs.find(d => d.id === 11), start: 8,   end: 38 }    // Nuclear Anxiety — the Bert the Turtle jingle
+    ];
     let heroIndex = 0;
     let heroInterval;
+    let heroSoundOn = false;
+
+    const MUTED_PATH = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+    const SOUND_PATH = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+
+    function syncSoundButton() {
+      const vid = document.getElementById('hero-video');
+      const icon = document.getElementById('mute-icon');
+      const label = document.getElementById('mute-label');
+      const btn = document.getElementById('hero-mute-btn');
+      icon.innerHTML = vid.muted ? MUTED_PATH : SOUND_PATH;
+      label.textContent = vid.muted ? 'Tap for sound' : 'Sound on';
+      btn.classList.toggle('nudge', vid.muted);
+    }
 
     window.toggleHeroMute = function() {
       const vid = document.getElementById('hero-video');
       vid.muted = !vid.muted;
-      const icon = document.getElementById('mute-icon');
-      if (vid.muted) {
-        icon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
-      } else {
-        icon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-      }
+      heroSoundOn = !vid.muted;
+      if (heroSoundOn) { vid.volume = 1; resetHeroTimer(); }
+      syncSoundButton();
     };
 
     function renderHero(idx) {
-      const doc = featuredDocs[idx];
+      const feat = featured[idx];
+      const doc = feat.doc;
       document.getElementById('hero-genre').textContent = doc.genre + ' Documentary';
       document.getElementById('hero-title').textContent = doc.title;
       document.getElementById('hero-desc').textContent = doc.desc;
 
       const videoEl = document.getElementById('hero-video');
-      const targetSrc = doc.video; // Removed #t=120 since these 1080p videos are short cinematic clips
-      if (!videoEl.src.includes(doc.video)) {
-        videoEl.poster = doc.poster;
-        videoEl.src = targetSrc;
-        videoEl.load();
-        videoEl.play().catch(e => console.log('Autoplay prevented:', e));
-      }
+      // #t= media fragment makes the browser start streaming at the good part
+      // instead of downloading from 0:00.
+      videoEl.poster = doc.poster;
+      videoEl.src = doc.video + '#t=' + feat.start;
+      videoEl.muted = !heroSoundOn; // keep the viewer's sound choice across rotations
+      videoEl.load();
+      videoEl.play().catch(e => console.log('Autoplay prevented:', e));
+      syncSoundButton();
 
       // Update indicators
       document.querySelectorAll('.hero-dot').forEach((dot, i) => {
@@ -1391,9 +1429,20 @@
       document.getElementById('hero-info-btn').onclick = () => openDetail(doc);
     }
 
+    // When the curated moment ends, move on to the next feature.
+    document.getElementById('hero-video').addEventListener('timeupdate', function() {
+      const feat = featured[heroIndex];
+      if (this.currentTime >= feat.end) nextHero();
+    });
+    // If a stream stalls or errors, don't leave a frozen hero — rotate on.
+    document.getElementById('hero-video').addEventListener('error', () => {
+      console.log('Hero video failed, rotating to next feature');
+      setTimeout(nextHero, 1500);
+    });
+
     // Build indicators
     const indicatorContainer = document.getElementById('hero-indicators');
-    featuredDocs.forEach((_, i) => {
+    featured.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = `hero-dot${i === 0 ? ' active' : ''}`;
       dot.onclick = () => { heroIndex = i; renderHero(i); resetHeroTimer(); };
@@ -1401,12 +1450,15 @@
     });
 
     function nextHero() {
-      heroIndex = (heroIndex + 1) % featuredDocs.length;
+      heroIndex = (heroIndex + 1) % featured.length;
       renderHero(heroIndex);
+      resetHeroTimer();
     }
+    // Fallback timer: if playback never reaches the segment end (slow
+    // network, paused tab), still rotate eventually.
     function resetHeroTimer() {
       clearInterval(heroInterval);
-      heroInterval = setInterval(nextHero, 8000);
+      heroInterval = setInterval(nextHero, 45000);
     }
     renderHero(0);
     resetHeroTimer();
@@ -1477,6 +1529,10 @@
         saveProgress(currentDocId, (player.currentTime / player.duration) * 100);
         player.pause();
       }
+      // Stop the hero (and its audio) whenever we leave the home view
+      const heroVid = document.getElementById('hero-video');
+      if (heroVid && !heroVid.paused) heroVid.pause();
+      clearInterval(heroInterval);
       Object.values(views).forEach(v => { if (v) v.style.display = 'none'; });
       document.getElementById('nav-links').classList.remove('open');
       searchInput.value = '';
@@ -1496,7 +1552,13 @@
       if (document.getElementById(`nav-${viewName}`)) {
         document.getElementById(`nav-${viewName}`).classList.add('active');
       }
-      if (viewName === 'main') renderRows();
+      if (viewName === 'main') {
+        renderRows();
+        // Resume the hero where it left off
+        const heroVid = document.getElementById('hero-video');
+        if (heroVid) heroVid.play().catch(() => {});
+        resetHeroTimer();
+      }
       if (viewName === 'profile') renderWatchlist();
     }
 

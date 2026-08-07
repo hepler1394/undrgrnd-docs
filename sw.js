@@ -1,4 +1,4 @@
-const CACHE_NAME = 'undrgrnd-docs-v1';
+const CACHE_NAME = 'undrgrnd-docs-v2';
 const SHELL_ASSETS = [
     '/',
     '/index.html',
@@ -31,9 +31,27 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch: Cache-first for app shell, network-first for video streams
+// Fetch: network-first for documents (so deploys reach returning visitors),
+// cache-first for other same-origin assets.
 self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
+
+    const isDocument = event.request.mode === 'navigate' ||
+        event.request.destination === 'document' ||
+        new URL(event.request.url).pathname === '/index.html';
+
+    if (isDocument) {
+        event.respondWith(
+            fetch(event.request).then((response) => {
+                if (response.ok) {
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+                }
+                return response;
+            }).catch(() => caches.match(event.request))
+        );
+        return;
+    }
 
     event.respondWith(
         caches.match(event.request).then((cached) => {
