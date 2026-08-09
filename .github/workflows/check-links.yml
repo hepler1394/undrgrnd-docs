@@ -11,9 +11,18 @@ on:
     # heavily oversubscribed on shared runners and get delayed.
     - cron: '17 9 * * *'
   workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: 'Run against the broken fixture to test the alerting path'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
+  issues: write
+
+env:
+  ISSUE_LABEL: catalog-health
 
 jobs:
   check:
@@ -30,10 +39,20 @@ jobs:
       # No install step: check-links.mjs deliberately uses only Node builtins,
       # so there is nothing to install and nothing that can drift.
 
+      - name: Resolve catalog to check
+        id: target
+        run: |
+          if [ "${{ inputs.simulate_failure }}" = "true" ]; then
+            echo "args=--file scripts/fixtures/broken-catalog.html" >> "$GITHUB_OUTPUT"
+            echo "Running against the broken fixture (alerting-path test)."
+          else
+            echo "args=" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check catalog
         id: first
         continue-on-error: true
-        run: node scripts/check-links.mjs 2>&1 | tee first.log
+        run: node scripts/check-links.mjs ${{ steps.target.outputs.args }} 2>&1 | tee first.log
 
       # archive.org rate-limits cloud IPs harder than a home connection, and
       # individual storage nodes drop out for minutes at a time. A single red
@@ -45,20 +64,24 @@ jobs:
         run: |
           echo "First pass reported failures. Waiting before confirming."
           sleep 180
-          node scripts/check-links.mjs --suggest 2>&1 | tee second.log
+          node scripts/check-links.mjs ${{ steps.target.outputs.args }} --suggest 2>&1 | tee second.log
 
-      - name: Write summary
+      - name: Build report
         if: always()
+        id: report
         run: |
           strip() { sed 's/\x1b\[[0-9;]*m//g' "$1"; }
-          {
-            if [ "${{ steps.first.outcome }}" = "success" ]; then
+          if [ "${{ steps.first.outcome }}" = "success" ]; then
+            {
               echo "## Catalog healthy"
               echo
               echo '```'
               strip first.log | tail -25
               echo '```'
-            elif [ "${{ steps.second.outcome }}" = "success" ]; then
+            } > report.md
+            echo "state=healthy" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.second.outcome }}" = "success" ]; then
+            {
               echo "## Catalog healthy (first pass was a false alarm)"
               echo
               echo "The first run reported failures but the confirming run passed."
@@ -67,20 +90,66 @@ jobs:
               echo '```'
               strip second.log | tail -25
               echo '```'
-            else
-              echo "## Broken entries confirmed"
+            } > report.md
+            echo "state=healthy" >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "## Broken catalog entries"
               echo
               echo "Two passes three minutes apart both failed, so this is not throttling."
               echo "Replacement candidates are listed below where the search found any."
               echo
               echo '```'
-              strip second.log | tail -60
+              strip second.log | tail -80
               echo '```'
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
+              echo
+              echo "Reproduce locally with \`npm run check-links\`."
+              echo
+              echo "[Run log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            } > report.md
+            echo "state=broken" >> "$GITHUB_OUTPUT"
+          fi
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Find existing report issue
+        if: always()
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          num=$(gh issue list --repo "${{ github.repository }}" \
+                  --label "$ISSUE_LABEL" --state open \
+                  --json number --jq '.[0].number // empty')
+          echo "number=$num" >> "$GITHUB_OUTPUT"
+
+      # One open issue at a time. A daily cron that opens a fresh issue every
+      # morning for the same dead film trains you to ignore the label.
+      - name: File or update issue
+        if: steps.report.outputs.state == 'broken'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "${{ steps.existing.outputs.number }}" ]; then
+            gh issue comment "${{ steps.existing.outputs.number }}" \
+              --repo "${{ github.repository }}" --body-file report.md
+            echo "Updated issue #${{ steps.existing.outputs.number }}"
+          else
+            gh issue create --repo "${{ github.repository }}" \
+              --title "Catalog link check: broken entries" \
+              --label "$ISSUE_LABEL" --body-file report.md
+          fi
+
+      - name: Close the issue once healthy
+        if: steps.report.outputs.state == 'healthy' && steps.existing.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue close "${{ steps.existing.outputs.number }}" \
+            --repo "${{ github.repository }}" \
+            --comment "Catalog is healthy again as of $(date -u '+%Y-%m-%d %H:%M UTC'). Closing automatically."
 
       - name: Fail if breakage was confirmed
-        if: steps.first.outcome == 'failure' && steps.second.outcome == 'failure'
+        if: steps.report.outputs.state == 'broken'
         run: |
-          echo "Catalog has confirmed broken entries - see the job summary."
+          echo "Catalog has confirmed broken entries - see the issue and job summary."
           exit 1

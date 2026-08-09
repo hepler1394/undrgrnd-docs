@@ -1,0 +1,48 @@
+<!--
+  Fixture for check-links.mjs. Not part of the site.
+
+  Each entry reproduces one real failure mode this catalog has actually hit,
+  so the detectors can be exercised without waiting for a film to die:
+
+    1  a pulled archive.org item (Designfo1956 was removed in Aug 2026)
+    2  a file whose moov atom sits after mdat, so it downloads but never plays
+    3  metadata that disagrees with the file's real duration
+    4  a healthy control, to prove the checker is not simply failing everything
+
+  Used by the "Catalog link check" workflow's simulate_failure input to verify
+  the alerting path end to end. If archive.org ever restores entry 1 or
+  republishes entry 2 as faststart, this fixture stops testing what it claims
+  to test - swap in another dead item rather than deleting the check.
+-->
+<script>
+    const docs = [
+      {
+        id: 1, title: 'Design for Dreaming',
+        creator: 'Fixture',
+        desc: 'Pulled archive item - must be reported as no longer existing.',
+        video: 'https://archive.org/download/Designfo1956/Designfo1956.mp4',
+        year: '1956', runtime: '10m', genre: 'Fixture'
+      },
+      {
+        id: 2, title: 'Nanook of the North',
+        creator: 'Fixture',
+        desc: 'moov atom after mdat - downloads fine, never plays in a browser.',
+        video: 'https://archive.org/download/nanookOfTheNorth1922/NanookOfTheNorth1922.mp4',
+        year: '1922', runtime: '1h 18m', genre: 'Fixture'
+      },
+      {
+        id: 3, title: 'Nuclear Anxiety',
+        creator: 'Fixture',
+        desc: 'Healthy file, but the runtime claim is wrong by 36 minutes.',
+        video: 'https://archive.org/download/DuckandC1951/DuckandC1951_512kb.mp4',
+        year: '1951', runtime: '45m', genre: 'Fixture'
+      },
+      {
+        id: 4, title: 'Before the Fall',
+        creator: 'Fixture',
+        desc: 'Healthy control - must pass.',
+        video: 'https://archive.org/download/TripDown1905/TripDown1905_512kb.mp4',
+        year: '1906', runtime: '13m', genre: 'Fixture'
+      }
+    ];
+</script>
