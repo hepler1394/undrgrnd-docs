@@ -1058,9 +1058,11 @@
     // ─── Supabase Initialization ───
     const supabaseUrl = 'https://jjvtectyosssuldtvnau.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdnRlY3R5b3Nzc3VsZHR2bmF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyODYzNzEsImV4cCI6MjEwMDg2MjM3MX0.5_YBveWIp1ZOicwUmkyUeFvDSb7V8-oWxj5MlDkGCgY';
-    // Guard: if the Supabase CDN script fails to load, auth features degrade
-    // gracefully instead of killing every script on the page (hero, rows, nav).
-    const supabase = window.supabase
+    // Must NOT be named `supabase`: the CDN bundle declares a global `var
+    // supabase`, and a global `const supabase` collides with it at script
+    // instantiation — a SyntaxError that kills this whole block (hero, rows, nav).
+    // Guard also keeps a CDN failure from breaking the page.
+    const sbClient = window.supabase
       ? window.supabase.createClient(supabaseUrl, supabaseKey)
       : { auth: {
             signUp: async () => ({ error: new Error('Auth service unavailable — please try again later.') }),
@@ -1077,11 +1079,11 @@
       try {
         let result;
         if (action === 'signup') {
-          result = await supabase.auth.signUp({ email, password });
+          result = await sbClient.auth.signUp({ email, password });
           if (result.error) throw result.error;
           alert('Check your email for the confirmation link!');
         } else {
-          result = await supabase.auth.signInWithPassword({ email, password });
+          result = await sbClient.auth.signInWithPassword({ email, password });
           if (result.error) throw result.error;
           
           document.getElementById('dashboard-welcome').textContent = 'Welcome back, ' + result.data.user.email;
@@ -1096,7 +1098,7 @@
     }
 
     async function handleLogout() {
-      await supabase.auth.signOut();
+      await sbClient.auth.signOut();
       document.getElementById('creator-dashboard-content').style.display = 'none';
       document.getElementById('creator-onboarding').style.display = 'block';
     }
