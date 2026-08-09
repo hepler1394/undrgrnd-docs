@@ -1,0 +1,86 @@
+name: Catalog link check
+
+# Every film in the catalog is hosted by archive.org, and items get pulled
+# without warning - seven of nineteen broke in a fortnight, and the only
+# reason anyone noticed was a viewer clicking a card and getting a dead
+# poster frame. This runs the check nightly so the catalog reports on itself.
+
+on:
+  schedule:
+    # 09:17 UTC, a few minutes off the hour because on-the-hour cron slots are
+    # heavily oversubscribed on shared runners and get delayed.
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # No install step: check-links.mjs deliberately uses only Node builtins,
+      # so there is nothing to install and nothing that can drift.
+
+      - name: Check catalog
+        id: first
+        continue-on-error: true
+        run: node scripts/check-links.mjs 2>&1 | tee first.log
+
+      # archive.org rate-limits cloud IPs harder than a home connection, and
+      # individual storage nodes drop out for minutes at a time. A single red
+      # run is not evidence of a dead film, so confirm before crying wolf.
+      - name: Wait, then re-check
+        id: second
+        if: steps.first.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          echo "First pass reported failures. Waiting before confirming."
+          sleep 180
+          node scripts/check-links.mjs --suggest 2>&1 | tee second.log
+
+      - name: Write summary
+        if: always()
+        run: |
+          strip() { sed 's/\x1b\[[0-9;]*m//g' "$1"; }
+          {
+            if [ "${{ steps.first.outcome }}" = "success" ]; then
+              echo "## Catalog healthy"
+              echo
+              echo '```'
+              strip first.log | tail -25
+              echo '```'
+            elif [ "${{ steps.second.outcome }}" = "success" ]; then
+              echo "## Catalog healthy (first pass was a false alarm)"
+              echo
+              echo "The first run reported failures but the confirming run passed."
+              echo "That is archive.org throttling or a storage node blipping, not link rot."
+              echo
+              echo '```'
+              strip second.log | tail -25
+              echo '```'
+            else
+              echo "## Broken entries confirmed"
+              echo
+              echo "Two passes three minutes apart both failed, so this is not throttling."
+              echo "Replacement candidates are listed below where the search found any."
+              echo
+              echo '```'
+              strip second.log | tail -60
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail if breakage was confirmed
+        if: steps.first.outcome == 'failure' && steps.second.outcome == 'failure'
+        run: |
+          echo "Catalog has confirmed broken entries - see the job summary."
+          exit 1
