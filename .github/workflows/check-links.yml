@@ -29,6 +29,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
+    # The default runner shell is `bash -e`, which has no pipefail: in
+    # `node check-links.mjs | tee log`, the pipeline reports tee's exit status,
+    # so a failing check reads as a pass and no issue is ever filed. Naming the
+    # shell explicitly gets `bash --noprofile --norc -eo pipefail`.
+    defaults:
+      run:
+        shell: bash
+
     steps:
       - uses: actions/checkout@v4
 
