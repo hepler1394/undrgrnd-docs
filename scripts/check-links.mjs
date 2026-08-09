@@ -82,13 +82,36 @@ const archiveIdOf = (url) => {
 };
 
 // ── Check 1: does the archive.org item still exist? ─────────────────────────
+// A removed item answers HTTP 200 with {"error": ...} or an empty file list,
+// while a throttled request fails at the transport or returns 5xx. Conflating
+// the two is the single easiest way to condemn a healthy film, so an
+// inconclusive answer is never reported as death — it is retried, then
+// surfaced as a warning.
 async function checkItemAlive(identifier) {
-  const res = await fetchWithRetry(`https://archive.org/metadata/${encodeURIComponent(identifier)}`);
-  const body = await res.json().catch(() => null);
-  if (!body || body.error || !Array.isArray(body.files) || !body.files.length) {
-    return { alive: false };
+  const attempt = async () => {
+    let res;
+    try {
+      res = await fetchWithRetry(`https://archive.org/metadata/${encodeURIComponent(identifier)}`);
+    } catch (err) {
+      return { verdict: 'unknown', reason: err?.cause?.message || err.message };
+    }
+    if (res.status !== 200) return { verdict: 'unknown', reason: `metadata HTTP ${res.status}` };
+
+    const body = await res.json().catch(() => null);
+    if (body === null) return { verdict: 'unknown', reason: 'metadata was not valid JSON' };
+    if (body.error || !Array.isArray(body.files) || !body.files.length) {
+      return { verdict: 'dead' };
+    }
+    return { verdict: 'alive', files: body.files };
+  };
+
+  let out = await attempt();
+  // Confirm a death sentence before handing it down.
+  if (out.verdict === 'dead') {
+    await sleep(5000);
+    out = await attempt();
   }
-  return { alive: true, files: body.files };
+  return out;
 }
 
 // A network-level failure here is nearly always one archive.org storage node
@@ -217,8 +240,10 @@ for (const doc of catalog) {
     let files = null;
     if (identifier) {
       const item = await checkItemAlive(identifier);
-      if (!item.alive) {
+      if (item.verdict === 'dead') {
         problems.push(`archive item "${identifier}" no longer exists`);
+      } else if (item.verdict === 'unknown') {
+        notes.push(`could not confirm item status - ${item.reason}`);
       } else {
         files = item.files;
       }
