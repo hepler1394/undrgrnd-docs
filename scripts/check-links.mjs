@@ -63,18 +63,48 @@ async function fetchWithRetry(url, opts = {}, tries = 3) {
 async function readCatalog() {
   const html = await readFile(CATALOG_FILE, 'utf8');
   const entries = [];
-  const re = /id:\s*(\d+),\s*title:\s*'((?:[^'\\]|\\.)*)'[\s\S]*?video:\s*'([^']+)'[\s\S]*?runtime:\s*'([^']+)'/g;
+
+  // Entries carry either `video` (an mp4 we stream) or `youtubeId` (an embed).
+  const re = /id:\s*(\d+),\s*title:\s*'((?:[^'\\]|\\.)*)'[\s\S]*?(?:video:\s*'([^']+)'|youtubeId:\s*'([^']+)')[\s\S]*?runtime:\s*'([^']+)'/g;
   let m;
   while ((m = re.exec(html)) !== null) {
     entries.push({
       id: Number(m[1]),
       title: m[2].replace(/\\'/g, "'"),
-      url: m[3],
-      runtime: m[4],
+      url: m[3] || null,
+      youtubeId: m[4] || null,
+      runtime: m[5],
     });
   }
   if (!entries.length) throw new Error('no catalog entries found in index.html');
   return entries;
+}
+
+// ── YouTube entries rot too ────────────────────────────────────────────────
+// A video can be deleted, made private, or have embedding switched off, and
+// any of those leaves a dead player on the page. oEmbed answers all three:
+// 200 means it exists and is embeddable, 401/403 means embedding is denied,
+// 404 means it is gone.
+async function checkYouTube(videoId) {
+  const url = 'https://www.youtube.com/oembed?format=json&url='
+    + encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`);
+  let res;
+  try {
+    res = await fetchWithRetry(url);
+  } catch (err) {
+    return { verdict: 'unknown', reason: err?.cause?.message || err.message };
+  }
+  if (res.status === 200) {
+    const body = await res.json().catch(() => null);
+    return { verdict: 'ok', title: body?.title, author: body?.author_name };
+  }
+  if (res.status === 401 || res.status === 403) {
+    return { verdict: 'dead', reason: 'embedding is disabled for this video' };
+  }
+  if (res.status === 404) {
+    return { verdict: 'dead', reason: 'video is deleted or private' };
+  }
+  return { verdict: 'unknown', reason: `oembed HTTP ${res.status}` };
 }
 
 const archiveIdOf = (url) => {
@@ -233,9 +263,30 @@ for (const doc of catalog) {
   const label = `${String(doc.id).padStart(2)} ${doc.title}`.padEnd(34).slice(0, 34);
   process.stdout.write(`${label} `);
 
-  const identifier = archiveIdOf(doc.url);
   const problems = [];
   const notes = [];
+
+  if (doc.youtubeId) {
+    const yt = await checkYouTube(doc.youtubeId);
+    if (yt.verdict === 'dead') problems.push(`YouTube ${doc.youtubeId}: ${yt.reason}`);
+    else if (yt.verdict === 'unknown') notes.push(`could not confirm YouTube ${doc.youtubeId} - ${yt.reason}`);
+
+    if (problems.length) {
+      console.log(`${c.red}BROKEN${c.reset}`);
+      for (const p of problems) console.log(`   ${c.red}${p}${c.reset}`);
+      broken.push({ doc, problems });
+    } else if (notes.length) {
+      console.log(`${c.yellow}WARN${c.reset}`);
+      for (const n of notes) console.log(`   ${c.yellow}${n}${c.reset}`);
+      warnings.push({ doc, notes });
+    } else {
+      console.log(`${c.green}ok${c.reset} ${c.dim}(youtube)${c.reset}`);
+    }
+    await sleep(1200);
+    continue;
+  }
+
+  const identifier = archiveIdOf(doc.url);
 
   try {
     let files = null;

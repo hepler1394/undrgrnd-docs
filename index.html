@@ -411,6 +411,18 @@
     }
     .big-play-circle svg { width: 32px; height: 32px; fill: #fff; margin-left: 4px; }
     .big-play-circle:hover { transform: scale(1.1); background: rgba(255,255,255,0.25); }
+    #yt-player {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border: 0; background: #000;
+    }
+    #yt-player[hidden] { display: none; }
+    #yt-player iframe { width: 100%; height: 100%; border: 0; display: block; }
+    /* The site's own controls sit on top; YouTube's chrome is disabled, but a
+       stray click should not open youtube.com in place of playing the film. */
+    .yt-click-shield {
+      position: absolute; inset: 0; z-index: 2; cursor: pointer;
+    }
+    .yt-click-shield[hidden] { display: none; }
     .player-error {
       position: absolute; inset: 0; z-index: 4;
       display: flex; flex-direction: column;
@@ -486,6 +498,14 @@
     .detail-sidebar {
       display: flex; flex-direction: column; gap: 20px;
     }
+    .source-credit {
+      margin-top: 18px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem; color: var(--text-sub); line-height: 1.6;
+    }
+    .source-credit[hidden] { display: none; }
+    .source-credit a { color: var(--accent); text-decoration: none; }
+    .source-credit a:hover { text-decoration: underline; }
     .detail-creator-card {
       background: var(--bg-elevated);
       padding: 24px; border-radius: var(--radius);
@@ -810,6 +830,13 @@
             src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A1%0A00:00:00.000%20--%3E%2000:00:05.000%0A[Music%20playing]%0A%0A2%0A00:00:05.000%20--%3E%2000:00:10.000%0AWelcome%20to%20the%20underground.">
         </video>
 
+        <!-- YouTube-sourced entries render here instead of the <video> above.
+             YouTube's own chrome is switched off and the site's controls drive
+             it through the IFrame API, so both kinds of entry look and behave
+             the same to a viewer. -->
+        <div id="yt-player" hidden></div>
+        <div class="yt-click-shield" id="yt-click-shield" hidden onclick="togglePlay()"></div>
+
         <div class="player-error" id="player-error" hidden>
           <p class="player-error-title">This film won't stream right now.</p>
           <p class="player-error-body">The archive copy is unavailable. Try again shortly, or pick another title.</p>
@@ -860,6 +887,7 @@
             <span class="accent-tag" id="detail-genre">Documentary</span>
           </div>
           <p class="detail-desc" id="detail-desc">Description</p>
+          <p class="source-credit" id="source-credit" hidden></p>
         </div>
         <div class="detail-sidebar">
           <div class="detail-creator-card">
@@ -1173,7 +1201,7 @@
         id: 7, title: 'The Memphis Belle',
         creator: 'William Wyler',
         desc: 'Chronicling the final mission of the Boeing B-17 Flying Fortress "Memphis Belle" over Germany. Featuring real combat footage shot in the deadly skies of WWII.',
-        video: 'https://archive.org/download/TheMemphisBelleAStoryofaFlyingFortress/Memphis.BelleTheA.Story.Of.A.Flying.Fortress.1944_512kb.mp4',
+        video: 'https://archive.org/download/youtube-Oe88OesvVck/Oe88OesvVck.mp4',
         poster: '/assets/memphis_belle.jpg',
         year: '1944', runtime: '41m', genre: 'War'
       },
@@ -1280,6 +1308,64 @@
         video: 'https://archive.org/download/gov.fdr.352.2a.3/gov.fdr.352.2a.3_512kb.mp4',
         poster: '/assets/power_and_the_land.jpg',
         year: '1940', runtime: '38m', genre: 'Documentary'
+      },
+
+      // ── YouTube-sourced entries ───────────────────────────────────────────
+      // These carry `youtubeId` instead of `video`. They are not hosted here:
+      // YouTube serves the bytes through its embed player, which is what its
+      // terms permit, and the detail page credits the channel and links back
+      // to the original. The site's own controls drive the embed, so a viewer
+      // gets the same player as the archive.org films.
+      // `durationSec` lets resume-position work before the embed reports it.
+      {
+        id: 20, title: 'Running for POTUS',
+        creator: 'The Tonight Show with Jay Leno',
+        desc: 'Twenty-six years before his second term, Trump sat on Leno\'s couch and talked through a presidential run as light entertainment. The studio audience treats it as a bit.',
+        youtubeId: 'Q2-5Wy_CMIE',
+        sourceChannel: 'Trump Fan Network',
+        durationSec: 607,
+        poster: '/assets/running_for_potus.jpg',
+        year: '1999', runtime: '10m', genre: 'Political'
+      },
+      {
+        id: 21, title: 'The Montel Interview',
+        creator: 'The Montel Williams Show',
+        desc: 'A daytime talk show appearance from 1997, recovered almost complete from a lost broadcast. Trump on wealth, fame and the press, two decades before any of it was political.',
+        youtubeId: 'E5Xp5pjAhjw',
+        sourceChannel: 'Lost TV Archive',
+        durationSec: 1999,
+        poster: '/assets/montel_interview.jpg',
+        year: '1997', runtime: '33m', genre: 'Political'
+      },
+      {
+        id: 22, title: 'The Deposition',
+        creator: 'US District Court, SDNY',
+        desc: 'The full deposition recorded for the E. Jean Carroll civil trial, released by the court. Nearly an hour of sworn testimony, unedited and without commentary.',
+        youtubeId: 'lonTBp9h7Fo',
+        sourceChannel: 'Law&Crime Network',
+        durationSec: 2884,
+        poster: '/assets/the_deposition.jpg',
+        year: '2023', runtime: '48m', genre: 'Political'
+      },
+      {
+        id: 23, title: 'Town Meeting of the World',
+        creator: 'CBS News',
+        desc: 'In 1967 a sitting governor and a senator argued Vietnam by satellite with students in London. Reagan came prepared, Kennedy did not, and it is often called the debate that cost him.',
+        youtubeId: '_7J_ghhVR8k',
+        sourceChannel: "C-SPAN's American History TV",
+        durationSec: 3172,
+        poster: '/assets/town_meeting.jpg',
+        year: '1967', runtime: '53m', genre: 'Political'
+      },
+      {
+        id: 24, title: 'Predicting Everything',
+        creator: 'Elon Musk',
+        desc: 'A 2007 interview from before the rockets landed and before the cars sold. Musk dismisses the legacy carmakers and describes almost exactly what the next fifteen years would look like.',
+        youtubeId: 'xyCOvT1Y5YQ',
+        sourceChannel: 'TheMightyKappa',
+        durationSec: 1205,
+        poster: '/assets/predicting_everything.jpg',
+        year: '2007', runtime: '20m', genre: 'Technology'
       }
     ];
 
@@ -1404,7 +1490,11 @@
       { doc: docs.find(d => d.id === 2),  start: 1168, end: 1198 }, // Concrete Utopia — gridlock montage, Copland score
       { doc: docs.find(d => d.id === 16), start: 58,  end: 88 },   // Design for Dreaming — surreal GM musical
       { doc: docs.find(d => d.id === 11), start: 8,   end: 38 }    // Nuclear Anxiety — the Bert the Turtle jingle
-    ];
+    ]
+      // The hero streams an mp4 directly and seeks with a #t= fragment, which a
+      // YouTube embed cannot do. Drop any entry without a file so adding a
+      // YouTube-sourced feature degrades to skipping it, not a broken hero.
+      .filter(f => f.doc && f.doc.video);
     let heroIndex = 0;
     let heroInterval;
     let heroSoundOn = false;
@@ -1552,16 +1642,88 @@
     const player = document.getElementById('main-player');
     let currentDocId = null;
 
+    // ─── Media adapter ───────────────────────────────────────────────────────
+    // Entries come from two places: mp4s on archive.org, and YouTube. Rather
+    // than fork the controls, both are wrapped in one interface and every
+    // control talks to `media` instead of the <video> element directly. A
+    // viewer gets the same progress bar, scrubbing and shortcuts either way.
+    let ytPlayer = null;        // YT.Player instance, created lazily
+    let ytReady = false;        // API script loaded
+    let ytPoll = null;          // YouTube has no timeupdate event; poll instead
+    let usingYouTube = false;
+
+    const htmlMedia = {
+      get paused()      { return player.paused; },
+      get currentTime() { return player.currentTime; },
+      set currentTime(t){ player.currentTime = t; },
+      get duration()    { return player.duration; },
+      get muted()       { return player.muted; },
+      set muted(m)      { player.muted = m; },
+      get volume()      { return player.volume; },
+      set volume(v)     { player.volume = v; },
+      play()  { return player.play().catch(() => {}); },
+      pause() { player.pause(); }
+    };
+
+    const ytMedia = {
+      get paused()      { return !ytPlayer || ytPlayer.getPlayerState() !== 1; },
+      get currentTime() { return ytPlayer ? ytPlayer.getCurrentTime() : 0; },
+      set currentTime(t){ if (ytPlayer) ytPlayer.seekTo(t, true); },
+      get duration()    { return ytPlayer ? ytPlayer.getDuration() : 0; },
+      get muted()       { return ytPlayer ? ytPlayer.isMuted() : false; },
+      set muted(m)      { if (ytPlayer) m ? ytPlayer.mute() : ytPlayer.unMute(); },
+      get volume()      { return ytPlayer ? ytPlayer.getVolume() / 100 : 1; },
+      set volume(v)     { if (ytPlayer) ytPlayer.setVolume(v * 100); },
+      play()  { if (ytPlayer) ytPlayer.playVideo(); },
+      pause() { if (ytPlayer) ytPlayer.pauseVideo(); }
+    };
+
+    // `media` is what every control below reads and writes.
+    let media = htmlMedia;
+
+    function loadYouTubeApi() {
+      return new Promise((resolve) => {
+        if (ytReady) return resolve();
+        if (window.YT && window.YT.Player) { ytReady = true; return resolve(); }
+        window.onYouTubeIframeAPIReady = () => { ytReady = true; resolve(); };
+        if (!document.getElementById('yt-api-script')) {
+          const s = document.createElement('script');
+          s.id = 'yt-api-script';
+          s.src = 'https://www.youtube.com/iframe_api';
+          // If YouTube is blocked or offline, fail loudly rather than hang.
+          s.onerror = () => { showPlayerError(); resolve(); };
+          document.head.appendChild(s);
+        }
+      });
+    }
+
+    function stopYtPolling() { if (ytPoll) { clearInterval(ytPoll); ytPoll = null; } }
+
+    function startYtPolling() {
+      stopYtPolling();
+      // 250ms keeps the progress bar smooth without busy-looping.
+      ytPoll = setInterval(() => { updateProgress(); updatePlayIcon(); }, 250);
+    }
+
     // Fires when the source itself is unreachable or undecodable (a pulled
     // archive item, a moov-at-end file). Without this the player just sits on
     // a frozen frame and looks like a broken page.
-    player.addEventListener('error', showPlayerError, true);
+    //
+    // Ignore it while a YouTube entry is playing: switching to an embed clears
+    // this element's src, and an empty src raises an error event of its own.
+    // Reporting that would put a failure panel over a perfectly good video.
+    player.addEventListener('error', () => {
+      if (usingYouTube) return;
+      if (!player.currentSrc) return;
+      showPlayerError();
+    }, true);
 
     function hideAllViews() {
-      if (currentDocId && player.duration && !player.paused) {
-        saveProgress(currentDocId, (player.currentTime / player.duration) * 100);
-        player.pause();
+      if (currentDocId && media.duration && !media.paused) {
+        saveProgress(currentDocId, (media.currentTime / media.duration) * 100);
+        media.pause();
       }
+      teardownYouTube();
       // Stop the hero (and its audio) whenever we leave the home view
       const heroVid = document.getElementById('hero-video');
       if (heroVid && !heroVid.paused) heroVid.pause();
@@ -1612,14 +1774,32 @@
       document.getElementById('detail-genre').textContent = doc.genre;
 
       hidePlayerError();
+      renderSourceCredit(doc);
+
+      const resumeAt = () => {
+        const p = getProgress(doc.id);
+        return (p > 0 && p < 95) ? p : 0;
+      };
+
+      if (doc.youtubeId) {
+        openYouTubeSource(doc, resumeAt());
+      } else {
+        openFileSource(doc, resumeAt());
+      }
+    }
+
+    function openFileSource(doc, resumePct) {
+      teardownYouTube();
+      usingYouTube = false;
+      media = htmlMedia;
+      player.hidden = false;
+
       document.getElementById('main-source').src = doc.video;
       player.load();
 
-      // Resume from saved position
-      const savedProgress = getProgress(doc.id);
-      if (savedProgress > 0 && savedProgress < 95) {
+      if (resumePct) {
         player.addEventListener('loadedmetadata', function resumeOnce() {
-          player.currentTime = (savedProgress / 100) * player.duration;
+          player.currentTime = (resumePct / 100) * player.duration;
           player.removeEventListener('loadedmetadata', resumeOnce);
         });
       }
@@ -1629,6 +1809,75 @@
       // A dead source is, and it must not fail silently: an unreachable archive
       // item otherwise leaves a motionless first frame and no explanation.
       player.play().catch(() => {});
+    }
+
+    async function openYouTubeSource(doc, resumePct) {
+      usingYouTube = true;
+      media = ytMedia;
+
+      // Park the file player so it cannot keep playing underneath.
+      player.pause();
+      player.removeAttribute('src');
+      document.getElementById('main-source').src = '';
+      player.load();
+      player.hidden = true;
+
+      document.getElementById('yt-player').hidden = false;
+      document.getElementById('yt-click-shield').hidden = false;
+
+      await loadYouTubeApi();
+      if (!window.YT || !window.YT.Player) { showPlayerError(); return; }
+
+      const start = resumePct ? Math.floor((resumePct / 100) * (doc.durationSec || 0)) : 0;
+
+      if (ytPlayer) {
+        ytPlayer.loadVideoById({ videoId: doc.youtubeId, startSeconds: start });
+      } else {
+        ytPlayer = new YT.Player('yt-player', {
+          videoId: doc.youtubeId,
+          playerVars: {
+            controls: 0,      // the site draws its own controls
+            modestbranding: 1,
+            rel: 0,           // no unrelated recommendations at the end
+            playsinline: 1,
+            start: start,
+            // Both are required. Without an explicit origin the API raises an
+            // error on load and the embed never starts, which presented as a
+            // failure panel over a video that was actually fine.
+            enablejsapi: 1,
+            origin: window.location.origin
+          },
+          events: {
+            onReady: (e) => { e.target.playVideo(); startYtPolling(); updateVolumeIcon(); },
+            onStateChange: () => { updatePlayIcon(); updateProgress(); },
+            // 2 invalid id, 5 html5 error, 100 gone, 101/150 embedding disabled
+            onError: () => showPlayerError()
+          }
+        });
+      }
+      startYtPolling();
+    }
+
+    function teardownYouTube() {
+      stopYtPolling();
+      if (ytPlayer) { try { ytPlayer.stopVideo(); } catch (e) {} }
+      document.getElementById('yt-player').hidden = true;
+      document.getElementById('yt-click-shield').hidden = true;
+    }
+
+    // Credit the channel and link back to the original, for entries we do not host.
+    function renderSourceCredit(doc) {
+      const el = document.getElementById('source-credit');
+      if (!el) return;
+      if (doc.youtubeId) {
+        el.hidden = false;
+        el.innerHTML = `Sourced from <strong></strong> on YouTube. `
+          + `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(doc.youtubeId)}" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>`;
+        el.querySelector('strong').textContent = doc.sourceChannel || 'YouTube';
+      } else {
+        el.hidden = true;
+        el.textContent = '';
+      }
     }
 
     function showPlayerError() {
@@ -1735,12 +1984,12 @@
     };
 
     function togglePlay() {
-      player.paused ? player.play() : player.pause();
+      media.paused ? media.play() : media.pause();
     }
 
     function updatePlayIcon() {
-      playIconSvg.innerHTML = player.paused ? icons.play : icons.pause;
-      videoContainer.classList.toggle('paused', player.paused);
+      playIconSvg.innerHTML = media.paused ? icons.play : icons.pause;
+      videoContainer.classList.toggle('paused', media.paused);
     }
 
     function formatTime(s) {
@@ -1753,13 +2002,13 @@
     }
 
     function updateProgress() {
-      if (!player.duration) return;
-      const pct = (player.currentTime / player.duration) * 100;
+      if (!media.duration) return;
+      const pct = (media.currentTime / media.duration) * 100;
       progressFilled.style.width = `${pct}%`;
-      timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration)}`;
+      timeDisplay.textContent = `${formatTime(media.currentTime)} / ${formatTime(media.duration)}`;
 
       // Auto-save progress every 5 seconds
-      if (currentDocId && Math.floor(player.currentTime) % 5 === 0) {
+      if (currentDocId && Math.floor(media.currentTime) % 5 === 0) {
         saveProgress(currentDocId, pct);
       }
     }
@@ -1767,17 +2016,17 @@
     function scrub(e) {
       const rect = progressBar.getBoundingClientRect();
       const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      player.currentTime = pct * player.duration;
+      media.currentTime = pct * media.duration;
     }
 
     function toggleMute() {
-      player.muted = !player.muted;
+      media.muted = !media.muted;
       updateVolumeIcon();
     }
 
     function updateVolumeIcon() {
-      volumeIconSvg.innerHTML = (player.muted || player.volume === 0) ? icons.volOff : icons.volUp;
-      volumeSlider.value = player.muted ? 0 : player.volume;
+      volumeIconSvg.innerHTML = (media.muted || media.volume === 0) ? icons.volOff : icons.volUp;
+      volumeSlider.value = media.muted ? 0 : media.volume;
     }
 
     function toggleFullscreen() {
@@ -1812,8 +2061,8 @@
 
     muteBtn.addEventListener('click', toggleMute);
     volumeSlider.addEventListener('input', (e) => {
-      player.volume = parseFloat(e.target.value);
-      player.muted = player.volume === 0;
+      media.volume = parseFloat(e.target.value);
+      media.muted = media.volume === 0;
     });
     fullscreenBtn.addEventListener('click', toggleFullscreen);
     ccBtn.addEventListener('click', toggleCC);
