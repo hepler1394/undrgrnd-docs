@@ -46,9 +46,10 @@ async function fetchWithRetry(url, opts = {}, tries = 3) {
         headers: { 'User-Agent': UA, ...(opts.headers || {}) },
         signal: AbortSignal.timeout(90_000),
       });
-      // 503 from archive.org is throttling, not a verdict. Back off and retry
-      // rather than reporting a live item as dead.
-      if (res.status === 503 && i < tries - 1) { await sleep(4000 * (i + 1)); continue; }
+      // Any 5xx from archive.org is its problem, not a verdict on the file:
+      // 503 is throttling, 500 comes back from an overloaded storage node.
+      // Back off and retry rather than reporting a live item as dead.
+      if (res.status >= 500 && i < tries - 1) { await sleep(4000 * (i + 1)); continue; }
       return res;
     } catch (err) {
       last = err;
@@ -264,7 +265,11 @@ for (const doc of catalog) {
         }
       }
 
-      if (stream && !stream.ok) {
+      if (stream && !stream.ok && stream.status >= 500) {
+        // Survived the retries but still 5xx. That is archive.org struggling,
+        // not a missing file, and swapping the entry out would be wrong.
+        notes.push(`archive.org returned HTTP ${stream.status} - transient, re-check later`);
+      } else if (stream && !stream.ok) {
         problems.push(`HTTP ${stream.status}`);
       } else if (stream) {
         if (!stream.faststart) {

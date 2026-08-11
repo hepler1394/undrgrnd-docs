@@ -1249,29 +1249,37 @@
         poster: 'https://image.tmdb.org/t/p/original/tJUfm3xxYsUnA8F2q89qbvA8k3q.jpg',
         year: '1956', runtime: '10m', genre: 'Experimental'
       },
+      // These three replaced Koyaanisqatsi, Baraka and Samsara, whose entries
+      // carried real directors and runtimes but served 7-37s stock clips - and
+      // unlike everything else here, those films are still in copyright. Their
+      // Urban / Environment / Documentary slots are refilled below with films
+      // that are genuinely public domain and verified to stream.
+      // Posters are frames pulled from the films themselves and served from
+      // public/assets: the cards are 16:9, so a frame fits where a portrait
+      // poster would be cropped, and it avoids hotlinking a third party.
       {
-        id: 17, title: 'Koyaanisqatsi',
-        creator: 'Godfrey Reggio',
-        desc: 'A stunning 4K cinematic exploration of modern urban density and the architectural monoliths that define our cities.',
-        video: 'https://videos.pexels.com/video-files/4540332/4540332-hd_1920_1080_25fps.mp4',
-        poster: 'https://image.tmdb.org/t/p/original/84E96lyR81OvUjCimcrfuzn9er5.jpg',
-        year: '1982', runtime: '1h 26m', genre: 'Urban'
+        id: 17, title: 'Manhatta',
+        creator: 'Paul Strand & Charles Sheeler',
+        desc: 'The first American avant-garde film, and the birth of the city symphony. Two photographers turned their lenses on Manhattan for a wordless portrait of steel, steam and crowds, cut to lines from Walt Whitman.',
+        video: 'https://archive.org/download/silent-manhatta/Manhatta.mp4',
+        poster: '/assets/manhatta.jpg',
+        year: '1921', runtime: '10m', genre: 'Urban'
       },
       {
-        id: 18, title: 'Baraka',
-        creator: 'Ron Fricke',
-        desc: 'An immersive 4K journey into the world\'s most untouched ecosystems, highlighting the quiet resilience of nature against climate change.',
-        video: 'https://videos.pexels.com/video-files/856161/856161-hd_1920_1080_30fps.mp4',
-        poster: 'https://image.tmdb.org/t/p/w780/c0QYwNyeURswT7fxmR2mlfpdk0l.jpg',
-        year: '1992', runtime: '1h 36m', genre: 'Environment'
+        id: 18, title: 'Rain on the Plains',
+        creator: 'Soil Conservation Service',
+        desc: 'Filmed while the Dust Bowl was still blowing, this government short shows farmers fighting back with contour ploughing and shelterbelts. A record of the moment America learned that soil can be lost for good.',
+        video: 'https://archive.org/download/RainOnThePlains/Rain%20on%20the%20Plains.mp4',
+        poster: '/assets/rain_on_the_plains.jpg',
+        year: '1938', runtime: '8m', genre: 'Environment'
       },
       {
-        id: 19, title: 'Samsara',
-        creator: 'Ron Fricke',
-        desc: 'Shot entirely at night in 4K, this documentary captures the vibrant, glowing subcultures of Tokyo and Seoul after dark.',
-        video: 'https://videos.pexels.com/video-files/3121459/3121459-hd_1920_1080_24fps.mp4',
-        poster: 'https://image.tmdb.org/t/p/w780/tbSjemOf1nXPOjWELdaeZ7qj1iX.jpg',
-        year: '2011', runtime: '1h 42m', genre: 'Documentary'
+        id: 19, title: 'Power and the Land',
+        creator: 'Joris Ivens',
+        desc: 'A Dutch documentary master was hired by the US government to film an Ohio farm family living without electricity. The result is a quiet argument that light and running water are not luxuries.',
+        video: 'https://archive.org/download/gov.fdr.352.2a.3/gov.fdr.352.2a.3_512kb.mp4',
+        poster: '/assets/power_and_the_land.jpg',
+        year: '1940', runtime: '38m', genre: 'Documentary'
       }
     ];
 
