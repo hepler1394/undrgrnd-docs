@@ -195,20 +195,61 @@
       margin-bottom: 28px; max-width: 480px;
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* Buttons read as physical: a light edge along the top, a shadow beneath,
+       and a real 1px travel on press. Transition only transform, background and
+       shadow so nothing triggers layout. */
     .btn {
       border: none; padding: 13px 28px;
       font-size: 0.95rem; font-weight: 600; font-family: inherit;
       cursor: pointer; display: inline-flex; align-items: center;
-      gap: 10px; border-radius: 3px; transition: all 0.2s;
+      gap: 10px; border-radius: 4px;
+      position: relative;
+      transition: transform 0.12s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 3px;
     }
     .btn svg { width: 18px; height: 18px; fill: currentColor; }
-    .btn-primary { background: var(--text-main); color: var(--bg); }
-    .btn-primary:hover { background: #fff; }
-    .btn-secondary {
-      background: rgba(255,255,255,0.1); color: var(--text-main);
-      backdrop-filter: blur(4px);
+
+    .btn-primary {
+      background: linear-gradient(180deg, #ffffff 0%, #e4e4e6 100%);
+      color: var(--bg);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 1px 1px rgba(0,0,0,0.35),
+        0 4px 12px rgba(0,0,0,0.4);
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+    .btn-primary:hover {
+      background: linear-gradient(180deg, #ffffff 0%, #f2f2f4 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 2px 3px rgba(0,0,0,0.35),
+        0 8px 20px rgba(0,0,0,0.45);
+    }
+    .btn-primary:active {
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.07) 100%);
+      color: var(--text-main);
+      backdrop-filter: blur(4px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.10),
+        0 2px 8px rgba(0,0,0,0.35);
+    }
+    .btn-secondary:hover {
+      background: linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.12) 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 0 0 1px rgba(255,255,255,0.14),
+        0 4px 14px rgba(0,0,0,0.4);
+    }
+    .btn-secondary:active {
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.10);
+    }
 
     /* Hero indicators */
     .hero-indicators {
@@ -283,11 +324,18 @@
     .row-scroll::-webkit-scrollbar { display: none; }
 
     /* ─── Cards ─── */
+    /* Cards sit on the page rather than being painted onto it: a hairline edge
+       catches light at the top, and a two-part shadow gives contact plus depth
+       instead of one soft blur. */
     .card {
       flex: 0 0 auto; width: 300px; aspect-ratio: 16/9;
       background: var(--bg-elevated); position: relative;
       cursor: pointer; border-radius: var(--radius);
       overflow: hidden; scroll-snap-align: start;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.07),
+        0 1px 2px rgba(0,0,0,0.5),
+        0 6px 16px rgba(0,0,0,0.35);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
     }
     .card img {
@@ -295,8 +343,14 @@
       transition: opacity 0.3s, transform 0.5s;
     }
     .card:hover {
-      transform: scale(1.06); z-index: 2;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+      transform: scale(1.06) translateY(-2px); z-index: 2;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 2px 4px rgba(0,0,0,0.5),
+        0 18px 44px rgba(0,0,0,0.7);
+    }
+    .card:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 3px;
     }
     .card:hover img { opacity: 0.35; transform: scale(1.05); }
     .card-overlay {
@@ -510,7 +564,11 @@
       background: var(--bg-elevated);
       padding: 24px; border-radius: var(--radius);
       border: 1px solid var(--border);
-    }
+          box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 1px 2px rgba(0,0,0,0.4),
+        0 8px 24px rgba(0,0,0,0.28);
+}
     .creator-label {
       color: var(--text-dim); font-size: 0.7rem;
       text-transform: uppercase; letter-spacing: 1.5px;
@@ -526,15 +584,27 @@
       background: var(--bg-elevated);
       padding: 24px; border-radius: var(--radius);
       border: 1px solid var(--border);
-    }
+          box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 1px 2px rgba(0,0,0,0.4),
+        0 8px 24px rgba(0,0,0,0.28);
+}
     .stat-row {
-      display: flex; justify-content: space-between;
-      padding: 8px 0; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 16px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
       font-size: 0.85rem;
     }
     .stat-row:last-child { border-bottom: none; }
-    .stat-label { color: var(--text-sub); }
-    .stat-value { font-weight: 600; }
+    .stat-label {
+      color: var(--text-dim); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600;
+      white-space: nowrap;
+    }
+    .stat-value {
+      font-weight: 600; font-size: 0.9rem; color: var(--text-main);
+      text-align: right;
+    }
 
     /* ─── Footer ─── */
     footer {
@@ -703,9 +773,16 @@
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: all 0.2s; font-family: inherit; font-weight: 600; }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; }
-    .stat-card { background: var(--bg-elevated); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius); }
+    .stat-card { background: var(--bg-elevated); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius);       box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 1px 2px rgba(0,0,0,0.4),
+        0 8px 24px rgba(0,0,0,0.28);
+}
     .stat-title { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-    .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
+    /* Scoped to the dashboard tiles. Unscoped, this 2.5rem amber rule also hit
+       the film sidebar's Quality / Subtitles / License values, which sit in
+       .stat-row and are meant to read as small caps-and-value pairs. */
+    .stat-card .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
     .stat-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
     .math-breakdown { background: rgba(229,160,13,0.05); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 40px; font-family: monospace; font-size: 0.95rem; line-height: 1.6; color: var(--text-sub); }
     .math-breakdown strong { color: var(--text-main); }
@@ -826,8 +903,6 @@
       <div class="video-container paused" id="video-container">
         <video id="main-player" controlsList="nodownload" disablepictureinpicture oncontextmenu="return false;">
           <source id="main-source" src="" type="video/mp4">
-          <track kind="captions" label="English" srclang="en" default
-            src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A1%0A00:00:00.000%20--%3E%2000:00:05.000%0A[Music%20playing]%0A%0A2%0A00:00:05.000%20--%3E%2000:00:10.000%0AWelcome%20to%20the%20underground.">
         </video>
 
         <!-- YouTube-sourced entries render here instead of the <video> above.
@@ -893,16 +968,15 @@
           <div class="detail-creator-card">
             <div class="creator-label">Directed By</div>
             <div class="creator-name" id="detail-creator">Creator</div>
-            <p class="creator-bio">Independent filmmaker uncovering stories ignored by mainstream media.</p>
           </div>
           <div class="detail-stats">
             <div class="stat-row">
               <span class="stat-label">Quality</span>
-              <span class="stat-value">HD</span>
+              <span class="stat-value" id="detail-quality">&mdash;</span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Subtitles</span>
-              <span class="stat-value">English</span>
+              <span class="stat-value" id="detail-subtitles">None</span>
             </div>
             <div class="stat-row">
               <span class="stat-label">License</span>
@@ -1321,7 +1395,8 @@
         id: 20, title: 'Running for POTUS',
         creator: 'The Tonight Show with Jay Leno',
         desc: 'Twenty-six years before his second term, Trump sat on Leno\'s couch and talked through a presidential run as light entertainment. The studio audience treats it as a bit.',
-        youtubeId: 'Q2-5Wy_CMIE',
+        video: 'https://undrgrnddocs.b-cdn.net/videos/running-for-potus-1999.mp4',
+        sourceUrl: 'https://www.youtube.com/watch?v=Q2-5Wy_CMIE',
         sourceChannel: 'Trump Fan Network',
         durationSec: 607,
         poster: '/assets/running_for_potus.jpg',
@@ -1331,7 +1406,8 @@
         id: 21, title: 'The Montel Interview',
         creator: 'The Montel Williams Show',
         desc: 'A daytime talk show appearance from 1997, recovered almost complete from a lost broadcast. Trump on wealth, fame and the press, two decades before any of it was political.',
-        youtubeId: 'E5Xp5pjAhjw',
+        video: 'https://undrgrnddocs.b-cdn.net/videos/montel-interview-1997.mp4',
+        sourceUrl: 'https://www.youtube.com/watch?v=E5Xp5pjAhjw',
         sourceChannel: 'Lost TV Archive',
         durationSec: 1999,
         poster: '/assets/montel_interview.jpg',
@@ -1341,8 +1417,9 @@
         id: 22, title: 'The Deposition',
         creator: 'US District Court, SDNY',
         desc: 'The full deposition recorded for the E. Jean Carroll civil trial, released by the court. Nearly an hour of sworn testimony, unedited and without commentary.',
-        youtubeId: 'lonTBp9h7Fo',
-        sourceChannel: 'Law&Crime Network',
+        video: 'https://undrgrnddocs.b-cdn.net/videos/the-deposition-2023.mp4',
+        sourceUrl: 'https://www.youtube.com/watch?v=wrYGg95SBY0',
+        sourceChannel: 'FOX 5 New York',
         durationSec: 2884,
         poster: '/assets/the_deposition.jpg',
         year: '2023', runtime: '48m', genre: 'Political'
@@ -1351,7 +1428,8 @@
         id: 23, title: 'Town Meeting of the World',
         creator: 'CBS News',
         desc: 'In 1967 a sitting governor and a senator argued Vietnam by satellite with students in London. Reagan came prepared, Kennedy did not, and it is often called the debate that cost him.',
-        youtubeId: '_7J_ghhVR8k',
+        video: 'https://undrgrnddocs.b-cdn.net/videos/town-meeting-1967.mp4',
+        sourceUrl: 'https://www.youtube.com/watch?v=_7J_ghhVR8k',
         sourceChannel: "C-SPAN's American History TV",
         durationSec: 3172,
         poster: '/assets/town_meeting.jpg',
@@ -1361,7 +1439,8 @@
         id: 24, title: 'Predicting Everything',
         creator: 'Elon Musk',
         desc: 'A 2007 interview from before the rockets landed and before the cars sold. Musk dismisses the legacy carmakers and describes almost exactly what the next fifteen years would look like.',
-        youtubeId: 'xyCOvT1Y5YQ',
+        video: 'https://undrgrnddocs.b-cdn.net/videos/predicting-everything-2007.mp4',
+        sourceUrl: 'https://www.youtube.com/watch?v=xyCOvT1Y5YQ',
         sourceChannel: 'TheMightyKappa',
         durationSec: 1205,
         poster: '/assets/predicting_everything.jpg',
@@ -1788,6 +1867,30 @@
       }
     }
 
+    // Quality was hardcoded to "HD" for every entry, which is wrong for most of
+    // the catalogue - a 320x240 archive transfer is not HD. Read it off the file
+    // once the browser knows the real dimensions.
+    function labelForHeight(h) {
+      if (!h) return '—';
+      if (h >= 2000) return '4K';
+      if (h >= 1000) return '1080p';
+      if (h >= 700)  return '720p';
+      if (h >= 460)  return '480p';
+      return 'Archive transfer';
+    }
+
+    function updateQualityFromPlayer() {
+      const el = document.getElementById('detail-quality');
+      if (el) el.textContent = labelForHeight(player.videoHeight);
+    }
+
+    function updateSubtitlesLabel() {
+      const el = document.getElementById('detail-subtitles');
+      if (!el) return;
+      const real = [...player.textTracks].filter(t => t.kind === 'captions' || t.kind === 'subtitles');
+      el.textContent = real.length ? real.map(t => t.label || 'Unknown').join(', ') : 'None';
+    }
+
     function openFileSource(doc, resumePct) {
       teardownYouTube();
       usingYouTube = false;
@@ -1796,6 +1899,10 @@
 
       document.getElementById('main-source').src = doc.video;
       player.load();
+
+      document.getElementById('detail-quality').textContent = '—';
+      updateSubtitlesLabel();
+      player.addEventListener('loadedmetadata', updateQualityFromPlayer, { once: true });
 
       if (resumePct) {
         player.addEventListener('loadedmetadata', function resumeOnce() {
@@ -1869,15 +1976,14 @@
     function renderSourceCredit(doc) {
       const el = document.getElementById('source-credit');
       if (!el) return;
-      if (doc.youtubeId) {
-        el.hidden = false;
-        el.innerHTML = `Sourced from <strong></strong> on YouTube. `
-          + `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(doc.youtubeId)}" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>`;
-        el.querySelector('strong').textContent = doc.sourceChannel || 'YouTube';
-      } else {
-        el.hidden = true;
-        el.textContent = '';
-      }
+      if (!doc.sourceChannel) { el.hidden = true; el.textContent = ''; return; }
+      el.hidden = false;
+      // textContent for the channel name so a title cannot inject markup.
+      el.innerHTML = 'Sourced from <strong></strong>. '
+        + (doc.sourceUrl
+            ? `<a href="${encodeURI(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer">Watch the original</a>`
+            : '');
+      el.querySelector('strong').textContent = doc.sourceChannel;
     }
 
     function showPlayerError() {

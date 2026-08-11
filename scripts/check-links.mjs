@@ -217,10 +217,12 @@ async function checkStream(url) {
   return { ok: true, status, faststart, codec, atoms: order.slice(0, 5) };
 }
 
-// Codecs a browser will actually decode in an MP4 container. HEVC and AV1 are
-// deliberately excluded: Chrome's support for them is conditional, and this
-// catalog has no reason to depend on it.
+// H.264 plays everywhere. AV1 plays in current Chrome, Edge and Firefox, and
+// in Safari 17+ only on hardware that decodes it - so it is worth flagging for
+// reach, but calling it broken is wrong: these files demonstrably play.
+// MPEG-4 Part 2 is the one that genuinely will not decode.
 const BROWSER_SAFE = new Set(['h264']);
+const BROWSER_PARTIAL = new Set(['av1', 'hevc']);
 
 function fileInfo(files, url) {
   const name = decodeURIComponent(url.split('/').pop());
@@ -326,7 +328,9 @@ for (const doc of catalog) {
         if (!stream.faststart) {
           problems.push(`moov atom after mdat - will not stream (atoms: ${stream.atoms.join(',')})`);
         }
-        if (stream.codec && !BROWSER_SAFE.has(stream.codec)) {
+        if (stream.codec && BROWSER_PARTIAL.has(stream.codec)) {
+          notes.push(`video codec is ${stream.codec} - plays in Chrome/Edge/Firefox, not older Safari or iOS`);
+        } else if (stream.codec && !BROWSER_SAFE.has(stream.codec)) {
           problems.push(`video codec is ${stream.codec} - browsers will not decode it`);
         } else if (!stream.codec) {
           notes.push('could not determine video codec from moov');
