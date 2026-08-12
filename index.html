@@ -854,6 +854,15 @@
        .stat-row and are meant to read as small caps-and-value pairs. */
     .stat-card .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
     .stat-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
+    .sample-notice {
+      background: rgba(229,160,13,0.06);
+      border: 1px solid rgba(229,160,13,0.28);
+      border-radius: var(--radius);
+      padding: 12px 16px; margin-bottom: 20px;
+      font-size: 0.85rem; line-height: 1.5; color: var(--text-sub);
+    }
+    .sample-notice strong { color: var(--accent); }
+
     .math-breakdown { background: rgba(229,160,13,0.05); border: 1px solid rgba(229,160,13,0.28); padding: 20px; border-radius: var(--radius); margin-bottom: 40px; font-family: monospace; font-size: 0.95rem; line-height: 1.6; color: var(--text-sub); }
     .math-breakdown strong { color: var(--text-main); }
     .creator-tabs { display: flex; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
@@ -1099,6 +1108,11 @@
       </div>
 
       <div id="tab-analytics" class="tab-content active">
+        <p class="sample-notice">
+          <strong>Sample data.</strong> These figures are a worked example of the
+          payout model, not a record of earnings. Real numbers appear once uploads
+          and subscriptions are connected.
+        </p>
         <div class="chart-container" style="position: relative; height: 350px; margin-bottom: 40px; background: var(--bg-elevated); padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
           <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
             <div>
@@ -2352,7 +2366,9 @@
     }
 
     async function calculateAnalytics() {
-      // Real math based on our revenue model
+      // Every input below is invented. The formula is the real revenue-share
+      // model, but no subscriber count, watch time or view total here comes
+      // from anything measured. The panel says so above the numbers.
       const totalSubscribers = 25000;
       const subPrice = 5.00;
       const grossRevenue = totalSubscribers * subPrice; // $125,000
@@ -2361,8 +2377,7 @@
       // Simulate platform total watch time (e.g. 2,000,000 minutes)
       const platformTotalWatchTime = 2000000;
 
-      // Calculate this specific creator's stats (Using hardcoded local mock values for now)
-      // Let's pretend they have 12,450 minutes of watch time
+      // Placeholder creator figures.
       const creatorWatchTime = 12450;
       const creatorViews = 8420;
       
