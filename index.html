@@ -230,6 +230,7 @@
       margin-bottom: 28px; max-width: 480px;
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    a.btn { text-decoration: none; }
     /* Buttons read as physical: a light edge along the top, a shadow beneath,
        and a real 1px travel on press. Transition only transform, background and
        shadow so nothing triggers layout. */
@@ -1002,6 +1003,7 @@
           <p class="player-error-title">This film won't stream right now.</p>
           <p class="player-error-body">The archive copy is unavailable. Try again shortly, or pick another title.</p>
           <button class="btn btn-secondary" onclick="retryPlayback()">Try again</button>
+          <a id="player-error-source" class="btn btn-secondary" target="_blank" rel="noopener" hidden>Watch at the source</a>
         </div>
 
         <div class="big-play-overlay" onclick="togglePlay()">
@@ -1570,6 +1572,19 @@
       document.querySelectorAll('.filter-chip').forEach(c => {
         c.classList.toggle('active', c.textContent === genre);
       });
+      // A filtered view shouldn't be headlined by a film outside the filter;
+      // pause the hero video while it's hidden so it doesn't burn bandwidth.
+      const heroSection = document.getElementById('hero-section');
+      const heroVid = document.getElementById('hero-video');
+      if (genre === 'All') {
+        heroSection.style.display = '';
+        if (heroVid) heroVid.play().catch(() => {});
+        resetHeroTimer();
+      } else {
+        heroSection.style.display = 'none';
+        if (heroVid && !heroVid.paused) heroVid.pause();
+        clearInterval(heroInterval);
+      }
       renderRows();
     }
 
@@ -2134,6 +2149,15 @@
 
     function showPlayerError() {
       document.getElementById('player-error').hidden = false;
+      // A dead stream shouldn't dead-end: link the original upload when known.
+      const link = document.getElementById('player-error-source');
+      const doc = docs.find(d => d.id === currentDocId);
+      if (doc && doc.sourceUrl) {
+        link.href = doc.sourceUrl;
+        link.hidden = false;
+      } else {
+        link.hidden = true;
+      }
     }
 
     function hidePlayerError() {
