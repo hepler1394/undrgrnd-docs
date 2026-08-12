@@ -1,4 +1,4 @@
-# undrgrnd-docs — state as of 2026-08-11
+# undrgrnd-docs — state as of 2026-08-12
 
 Public-domain documentary streaming. Single-file app (`index.html`), Vite build,
 Vercel with GitHub auto-deploy on push to `master`.
@@ -37,6 +37,12 @@ it is the funding step that matters, not the cost.
   handlers. Search results bind `onmousedown`, so a synthetic `click` test
   on them reports a false failure.
 - **Chart.js loads on demand**, only when the creator view opens.
+- **Headless screenshots freeze entry animations at frame 0.** The payout
+  chart looks like a collapsed spike in a headless capture; its computed
+  point geometry spans the full axis. Check `getDatasetMeta(0).data`
+  coordinates before calling a chart broken. (Headless Chrome with
+  puppeteer-core is how the site was finally seen, after the Browser pane
+  refused to composite — that path works and lives in the session notes.)
 
 ## Open, none urgent
 
@@ -46,6 +52,14 @@ it is the funding step that matters, not the cost.
 - YouTube 403s downloads from this IP. yt-dlp is current (2026.07.04) and
   cookies and five player clients were all refused, so YT Grabber cannot
   fetch new videos until that clears.
-- Nothing in the visual pass has been seen by a human. Fonts, contrast,
-  keyboard paths and geometry were all verified by measurement; the browser
-  used for testing would not composite frames, so no screenshot exists.
+- ~~Nothing in the visual pass has been seen~~ Resolved 2026-08-12: the site
+  was rendered and reviewed via headless Chrome (screenshots sent to Cory).
+  The review surfaced and fixed three real defects: the keyboard handler
+  referenced an undefined `detailView` so every keypress threw and player
+  shortcuts never worked; five poster jpgs (Montel, Deposition, Town Meeting,
+  Predicting Everything, Running for POTUS) were byte-identical copies of one
+  frame, now each a real frame from its own film; More Like This was filled
+  once at render time so films recommended themselves, now per-film,
+  same-genre first. Cory has not yet passed judgment on the look itself —
+  the Upload page's glitch-styled headline diverging from the didone system
+  is the one taste question worth asking him.
