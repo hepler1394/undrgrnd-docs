@@ -16,6 +16,10 @@ Vercel with GitHub auto-deploy on push to `master`.
 serving and the Political category breaks. Storage is about 5 cents a month;
 it is the funding step that matters, not the cost.
 
+Softened but not solved (2026-08-12): the player-error panel now shows
+"Watch at the source" linking each film's original upload, so a lapsed zone
+degrades to a redirect rather than a dead end. The catalog still breaks.
+
 - Storage zone `undrgrnd-docs` (id 1734660, New York), pull zone
   `undrgrnddocs.b-cdn.net`.
 - H.264 masters are at `D:\Dev\_h264` (2.4GB). If the zone is ever lost,
