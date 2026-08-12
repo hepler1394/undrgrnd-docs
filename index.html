@@ -14,9 +14,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bodoni Moda carries display type, Inter carries UI and body. A didone
+       against a neutral grotesque is a real contrast axis, and the high-stroke
+       contrast reads like a title card, which suits a film archive. Bodoni is
+       loaded with its optical-size axis so it stays solid at heading sizes. -->
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500..800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
+      --font-display: 'Bodoni Moda', 'Iowan Old Style', Georgia, serif;
       --bg: #0d0d0d;
       --bg-elevated: #141414;
       --bg-surface: #1a1a1a;
@@ -66,8 +71,10 @@
     }
     .nav-left { display: flex; align-items: center; gap: 30px; }
     .logo {
-      font-weight: 800; font-size: 1.4rem;
-      letter-spacing: -1px; cursor: pointer;
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
+      font-weight: 700; font-size: 1.5rem;
+      letter-spacing: 0.01em; cursor: pointer;
       color: var(--text-main); user-select: none;
     }
     .nav-links { display: flex; gap: 24px; }
@@ -184,9 +191,14 @@
       color: var(--accent); margin-bottom: 16px;
     }
     .hero-title {
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
       font-size: clamp(2.4rem, 6vw, 4.2rem);
-      font-weight: 800; line-height: 1.05;
-      margin-bottom: 16px; letter-spacing: -1.5px;
+      /* Didones need far less negative tracking than a grotesque; the old
+         -1.5px was tuned for Inter and collapses Bodoni's thin strokes. */
+      font-weight: 700; line-height: 1.05;
+      margin-bottom: 16px; letter-spacing: -0.015em;
+      text-wrap: balance;
       text-shadow: 0 2px 20px rgba(0,0,0,0.6);
     }
     .hero-desc {
@@ -301,9 +313,22 @@
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 16px;
     }
+    /* Section headings across the about and creator views. Card titles and
+       anything under ~1.1rem deliberately stay on Inter: Bodoni's hairlines
+       thin out at small sizes on a dark background. */
+    #about-view h2, #about-view h3,
+    #creator-view h2, #legal-view h2, #profile-view h2 {
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
+      font-weight: 700; letter-spacing: -0.005em;
+      text-wrap: balance;
+    }
+
     .row h2 {
-      font-size: 1.15rem; font-weight: 600;
-      letter-spacing: -0.3px;
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
+      font-size: 1.3rem; font-weight: 600;
+      letter-spacing: 0;
     }
     .row-arrows { display: flex; gap: 6px; }
     .row-arrow {
@@ -537,9 +562,12 @@
       gap: 50px;
     }
     .detail-title {
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 800; margin-bottom: 10px;
-      letter-spacing: -0.5px; line-height: 1.1;
+      font-weight: 700; margin-bottom: 10px;
+      letter-spacing: -0.01em; line-height: 1.1;
+      text-wrap: balance;
     }
     .detail-meta {
       color: var(--text-sub); font-size: 0.9rem;
@@ -683,10 +711,13 @@
       padding: 120px var(--pad) 80px;
     }
     .page-title {
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
       font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
+      font-weight: 700;
       margin-bottom: 24px;
-      letter-spacing: -1px;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
     }
     .page-desc {
       color: var(--text-sub);

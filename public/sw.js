@@ -1,8 +1,8 @@
-const CACHE_NAME = 'undrgrnd-docs-v2';
+const CACHE_NAME = 'undrgrnd-docs-v3';
 const SHELL_ASSETS = [
     '/',
     '/index.html',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap',
+    'https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500..800&family=Inter:wght@300;400;500;600;700;800&display=swap',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
     'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
 ];
