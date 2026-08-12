@@ -26,8 +26,14 @@
       --bg-elevated: #141414;
       --bg-surface: #1a1a1a;
       --text-main: #e5e5e5;
-      --text-sub: #808080;
-      --text-dim: #4a4a4a;
+      /* Both greys are set by contrast, not by eye. --text-dim was #4a4a4a,
+         which is 1.96:1 on --bg-surface: far under the 4.5:1 AA floor for body
+         text, and it was carrying real labels (Quality, Subtitles, Directed By).
+         --text-sub was #808080, which passed on --bg but slipped to 4.41:1 on
+         the lightest surface. These clear 4.5:1 on all three backgrounds and
+         still read as three distinct tiers. */
+      --text-sub: #9b9b9b;
+      --text-dim: #858585;
       --accent: #e5a00d;
       --accent-dim: rgba(229,160,13,0.15);
       --border: rgba(255,255,255,0.06);
