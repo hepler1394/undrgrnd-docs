@@ -862,7 +862,6 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -1940,6 +1939,7 @@
         resetHeroTimer();
       }
       if (viewName === 'profile') renderWatchlist();
+      if (viewName === 'creator') calculateAnalytics();
     }
 
     // Backwards compatibility for old onclicks
@@ -2334,7 +2334,24 @@
       if (tabId === 'analytics') calculateAnalytics();
     }
 
-    function calculateAnalytics() {
+    // Chart.js is roughly 200KB and is used by exactly one panel, the creator
+    // analytics tab. It used to load from a CDN on every visit, for every
+    // viewer, most of whom never open the dashboard. Fetched on first use now.
+    let _chartJsPromise = null;
+    function loadChartJs() {
+      if (window.Chart) return Promise.resolve();
+      if (_chartJsPromise) return _chartJsPromise;
+      _chartJsPromise = new Promise((resolve, reject) => {
+        const el = document.createElement('script');
+        el.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+        el.onload = resolve;
+        el.onerror = () => { _chartJsPromise = null; reject(new Error('chart.js failed to load')); };
+        document.head.appendChild(el);
+      });
+      return _chartJsPromise;
+    }
+
+    async function calculateAnalytics() {
       // Real math based on our revenue model
       const totalSubscribers = 25000;
       const subPrice = 5.00;
@@ -2375,6 +2392,7 @@
       `;
 
       // Render Chart
+      try { await loadChartJs(); } catch (e) { return; }  // numbers above still render
       if (window.revenueChartInstance) {
         window.revenueChartInstance.destroy();
       }
@@ -2445,8 +2463,9 @@
       });
     }
 
-    // Initialize analytics on load if creator view is shown
-    calculateAnalytics();
+    // Previously called unconditionally here, so every visitor computed and
+    // drew a dashboard chart they were not looking at. showView('creator')
+    // triggers it instead.
 
     // PWA Service Worker
     if ('serviceWorker' in navigator) {
