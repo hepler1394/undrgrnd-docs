@@ -1635,42 +1635,51 @@
       { id: 'exclusives', title: 'Underground Exclusives', filter: () => true, reverse: true, slice: [0, 6] },
     ];
 
+    function rowHtml(id, title, items) {
+      return `
+        <section class="row">
+          <div class="row-header">
+            <h2>${title}</h2>
+            <div class="row-arrows">
+              <button class="row-arrow" onclick="scrollRow('row-${id}', -1)">
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+              </button>
+              <button class="row-arrow" onclick="scrollRow('row-${id}', 1)">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="row-scroll" id="row-${id}">
+            ${items.map(createCard).join('')}
+          </div>
+        </section>
+      `;
+    }
+
     function renderRows() {
       const container = document.getElementById('content-rows');
-      const filtered = activeGenre === 'All' ? docs : docs.filter(d => d.genre === activeGenre);
       let html = '';
 
+      if (activeGenre !== 'All') {
+        // A filtered pool is too small to slice into trending/new/exclusives —
+        // the same films fronted every row. One honest row instead.
+        const pool = docs.filter(d => d.genre === activeGenre);
+        const started = pool.filter(d => getProgress(d.id) > 0);
+        if (started.length) html += rowHtml('continue', 'Continue Watching', started);
+        html += rowHtml('genre', `${activeGenre} · ${pool.length} film${pool.length === 1 ? '' : 's'}`, pool);
+        container.innerHTML = html;
+        return;
+      }
+
       rowDefs.forEach(row => {
-        let items = filtered.filter(row.filter);
+        let items = docs.filter(row.filter);
         if (row.reverse) items = [...items].reverse();
         if (row.slice) items = items.slice(row.slice[0], row.slice[1]);
         if (items.length === 0) return;
-
-        html += `
-          <section class="row">
-            <div class="row-header">
-              <h2>${row.title}</h2>
-              <div class="row-arrows">
-                <button class="row-arrow" onclick="scrollRow('row-${row.id}', -1)">
-                  <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-                </button>
-                <button class="row-arrow" onclick="scrollRow('row-${row.id}', 1)">
-                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                </button>
-              </div>
-            </div>
-            <div class="row-scroll" id="row-${row.id}">
-              ${items.map(createCard).join('')}
-            </div>
-          </section>
-        `;
+        html += rowHtml(row.id, row.title, items);
       });
 
       container.innerHTML = html;
-
-      // Also update More Like This in detail view
-      document.getElementById('more-like-this').innerHTML =
-        filtered.slice(0, 5).map(createCard).join('');
     }
 
     function scrollRow(id, dir) {
@@ -2313,6 +2322,12 @@
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // "/" focuses search from the browse view
+      if (e.key === '/' && views.detail.style.display !== 'block' && e.target.tagName !== 'INPUT') {
+        const search = document.querySelector('.search-input');
+        if (search && search.offsetParent) { e.preventDefault(); search.focus(); }
+        return;
+      }
       if (views.detail.style.display !== 'block') return;
       if (e.target.tagName === 'INPUT') return;
 
