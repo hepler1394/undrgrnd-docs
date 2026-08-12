@@ -1975,6 +1975,13 @@
       hidePlayerError();
       renderSourceCredit(doc);
 
+      // Same-genre films first, never the film itself
+      const alike = docs
+        .filter(d => d.id !== doc.id)
+        .sort((a, b) => (b.genre === doc.genre) - (a.genre === doc.genre));
+      document.getElementById('more-like-this').innerHTML =
+        alike.slice(0, 5).map(createCard).join('');
+
       const resumeAt = () => {
         const p = getProgress(doc.id);
         return (p > 0 && p < 95) ? p : 0;
@@ -2295,7 +2302,7 @@
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
-      if (detailView.style.display !== 'block') return;
+      if (views.detail.style.display !== 'block') return;
       if (e.target.tagName === 'INPUT') return;
 
       switch (e.key.toLowerCase()) {
