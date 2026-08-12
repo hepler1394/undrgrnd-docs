@@ -269,6 +269,16 @@
       box-shadow: inset 0 1px 4px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.10);
     }
 
+    /* Off-screen until focused, then pinned above the fixed navbar. */
+    .skip-link {
+      position: absolute; left: 16px; top: -100px; z-index: 200;
+      background: var(--text-main); color: var(--bg);
+      padding: 12px 20px; border-radius: 4px;
+      font-weight: 600; font-size: 0.9rem; text-decoration: none;
+      transition: top 0.15s ease-out;
+    }
+    .skip-link:focus { top: 16px; outline: 2px solid var(--accent); outline-offset: 2px; }
+
     /* Hero indicators */
     .hero-indicators {
       position: absolute; bottom: 40px; right: var(--pad);
@@ -657,7 +667,7 @@
     }
     .footer-brand .logo { margin-bottom: 12px; display: inline-block; }
     .footer-brand p { color: var(--text-sub); font-size: 0.85rem; line-height: 1.6; max-width: 300px; }
-    .footer-col h4 {
+    .footer-col h3 {
       font-size: 0.72rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 1.5px;
       color: var(--text-dim); margin-bottom: 16px;
@@ -739,7 +749,7 @@
       color: var(--text-main);
       margin-bottom: 24px;
     }
-    .manifesto h3 {
+    .manifesto h2 {
       font-size: 1.5rem;
       font-weight: 700;
       margin: 40px 0 16px;
@@ -841,6 +851,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-view">Skip to films</a>
+
   <nav id="navbar">
     <div class="nav-left">
       <div class="logo" onclick="showView('main')">UNDRGRND</div>
@@ -865,7 +877,7 @@
     </div>
   </nav>
 
-  <main id="main-view">
+  <main id="main-view" tabindex="-1">
     <!-- Hero -->
     <section class="hero" id="hero-section">
       <video id="hero-video" autoplay muted playsinline preload="auto" poster="/assets/dead_of_night.jpg">
@@ -910,19 +922,19 @@
           <p>The home for independent documentaries and street journalism. No algorithms. No corporate gatekeepers. Just real stories from real creators.</p>
         </div>
         <div class="footer-col">
-          <h4>Platform</h4>
+          <h3>Platform</h3>
           <a href="#" onclick="showView('main'); return false;">Browse</a>
           <a href="#" onclick="showView('profile'); return false;">Profile</a>
           <a href="#" onclick="showView('creator'); return false;">Upload</a>
         </div>
         <div class="footer-col">
-          <h4>Company</h4>
+          <h3>Company</h3>
           <a href="#" onclick="showView('about'); return false;">About Us</a>
           <a href="#">Press</a>
           <a href="#">Contact</a>
         </div>
         <div class="footer-col">
-          <h4>Legal</h4>
+          <h3>Legal</h3>
           <a href="#" onclick="showView('legal'); return false;">Terms</a>
           <a href="#" onclick="showView('legal'); return false;">Privacy</a>
           <a href="#" onclick="showView('legal'); return false;">Content Policy</a>
@@ -980,7 +992,7 @@
                 <button class="control-btn" id="mute-btn" title="Mute (m)" aria-label="Mute or unmute">
                   <svg id="volume-icon-svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                 </button>
-                <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="1">
+                <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="1" aria-label="Volume">
               </div>
               <div class="time-display" id="time-display">0:00 / 0:00</div>
             </div>
@@ -1087,7 +1099,7 @@
           </div>
         </div>
 
-        <h3 style="margin-bottom: 16px;">How We Calculated Your Payout</h3>
+        <h2 style="margin-bottom: 16px;">How We Calculated Your Payout</h2>
         <div class="math-breakdown" id="math-breakdown">
           Loading revenue math...
         </div>
@@ -1099,7 +1111,7 @@
             <svg class="upload-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
             <div class="upload-text">Drag & Drop Video File</div>
             <div class="upload-subtext">MP4, WebM, or MKV up to 10GB (Cloudflare R2 Direct)</div>
-            <input type="file" id="file-input" style="display: none;" accept="video/*">
+            <input type="file" id="file-input" style="display: none;" accept="video/*" aria-label="Choose a video file to upload">
           </div>
 
           <div class="form-group">
@@ -1160,13 +1172,13 @@
         <p>UNDRGRND Docs was born out of frustration. Frustration with mainstream platforms that demonetize raw true crime, age-restrict bodycam footage, and shadowban independent street journalists just for documenting reality.</p>
         <p>If you cover intense topics—like crime, raw police encounters, or unfiltered historical events—the corporate gatekeepers have decided your stories are "unsafe for advertisers." You shouldn't have to censor your own documentaries just to survive the algorithm.</p>
         
-        <h3>The "Upload to Underground First" Program</h3>
+        <h2>The "Upload to Underground First" Program</h2>
         <p>We created this platform specifically to rescue channels that cover the darkest and most intense aspects of human reality. You don't need a million subscribers to make a living here. Our main goal is to support and fund creators like you.</p>
         
-        <h3>The Subscription Model</h3>
+        <h2>The Subscription Model</h2>
         <p>UNDRGRND Docs is entirely subscriber-funded. Users pay a flat monthly subscription to access the unvarnished truth. Because we answer to our subscribers and not to corporate advertisers, there is zero censorship and zero demonetization.</p>
         
-        <h3>The Payout Engine</h3>
+        <h2>The Payout Engine</h2>
         <p>We pay out based on <strong>view time</strong>. 100% of the platform's revenue pool is distributed directly to creators based on how long users watch your documentaries.</p>
         <ul>
           <li style="margin-bottom: 10px; color: var(--text-sub);"><strong>Upload First Exclusivity:</strong> This is our core promise. Creators who sign to upload their raw, uncensored cuts to UNDRGRND <em>first</em> (before putting a censored version on YouTube) receive a massive 1.5x multiplier on their view-time payouts.</li>
@@ -1184,16 +1196,16 @@
       <p class="page-desc" style="margin-bottom: 40px;">Clear, transparent, and uncensorious rules of engagement.</p>
       
       <div class="manifesto">
-        <h3>1. Terms of Service & Subscription Terms</h3>
+        <h2>1. Terms of Service & Subscription Terms</h2>
         <p>By subscribing to UNDRGRND Docs, users agree to pay a recurring monthly fee for unrestricted access to the platform's content. Subscriptions can be canceled at any time. We do not offer refunds for partial billing cycles. Users agree not to rip, pirate, or redistribute exclusive content hosted on this platform.</p>
         
-        <h3>2. Creator Agreement & Payouts</h3>
+        <h2>2. Creator Agreement & Payouts</h2>
         <p>Creators retain 100% ownership of their intellectual property. UNDRGRND merely licenses the right to stream the content. Payouts are calculated dynamically at the end of each month based on the creator's share of total platform view time. Exclusivity agreements are opt-in and require the creator to refrain from posting the licensed documentary on competing video platforms for a period of 12 months.</p>
         
-        <h3>3. Content Policy (Uncensored, but Legal)</h3>
+        <h2>3. Content Policy (Uncensored, but Legal)</h2>
         <p>We do not censor based on political ideology, harsh realities, or advertiser preferences. However, we are a legal entity. We strictly prohibit: (a) Content depicting unsimulated, non-consensual violence or abuse; (b) CSAM; (c) Direct incitement to imminent lawless action. Raw street journalism, combat footage, and controversial political documentaries are expressly protected.</p>
         
-        <h3>4. Privacy Policy</h3>
+        <h2>4. Privacy Policy</h2>
         <p>We collect minimal data. We track view time exclusively to calculate creator payouts. We do not sell user data to data brokers, advertising agencies, or third-party tracking networks. Your billing information is handled securely by Stripe.</p>
       </div>
     </div>
