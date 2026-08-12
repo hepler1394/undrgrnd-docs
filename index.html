@@ -4,11 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>UNDRGRND Docs — Independent Documentary Streaming</title>
-  <meta name="description" content="The home for indie documentaries, street journalism, and uncensored stories. Revenue-sharing platform for up-and-coming filmmakers.">
+  <meta name="description" content="Twenty-four public-domain documentaries, streamed free: Dust Bowl newsreels, civil-defence propaganda, city symphonies and the films the government made about itself.">
   <meta name="theme-color" content="#0d0d0d">
-  <meta property="og:title" content="UNDRGRND Docs">
-  <meta property="og:description" content="Independent documentary streaming. Real stories, real creators, real revenue sharing.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="canonical" href="https://undrgrnd-docs.vercel.app/">
+
+  <!-- Shared links previewed as a blank card: there was no og:image and no
+       Twitter card at all. Both point at a frame from Manhatta (1921). -->
+  <meta property="og:title" content="UNDRGRND Docs — public-domain documentary streaming">
+  <meta property="og:description" content="Twenty-four documentaries from 1906 to 2007, free to watch. Dust Bowl newsreels, civil-defence propaganda and city symphonies.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://undrgrnd-docs.vercel.app/">
+  <meta property="og:site_name" content="UNDRGRND Docs">
+  <meta property="og:image" content="https://undrgrnd-docs.vercel.app/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Manhattan skyscrapers from Manhatta, 1921">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UNDRGRND Docs — public-domain documentary streaming">
+  <meta name="twitter:description" content="Twenty-four documentaries from 1906 to 2007, free to watch.">
+  <meta name="twitter:image" content="https://undrgrnd-docs.vercel.app/og-image.jpg">
+
   <link rel="manifest" href="/manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -948,7 +965,7 @@
   </main>
 
   <!-- Detail / Watch View -->
-  <main id="detail-view">
+  <section id="detail-view" aria-label="Now watching">
     <div class="detail-container">
       <button class="back-btn" onclick="showMainView()">
         <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
@@ -1047,10 +1064,10 @@
         <div class="row-scroll" id="more-like-this"></div>
       </section>
     </div>
-  </main>
+  </section>
 
   <!-- Creator Dashboard / Upload -->
-  <main id="creator-view" style="display: none;">
+  <section id="creator-view" style="display: none;" aria-label="Creator studio">
     <div class="page-container">
       
       <!-- Creator Onboarding Gate (Curious Creator POV) -->
@@ -1162,10 +1179,10 @@
         </div>
       </div>
 
-  </main>
+  </section>
 
   <!-- About / Manifesto -->
-  <main id="about-view" style="display: none;">
+  <section id="about-view" style="display: none;" aria-label="About">
     <div class="page-container">
       <h1 class="page-title" style="text-transform: uppercase; font-size: clamp(2.5rem, 6vw, 4rem);">We Built This<br>For You.</h1>
       <div class="manifesto">
@@ -1187,10 +1204,10 @@
         <p style="margin-top: 20px;">You provide the raw stories. We provide the uncensored infrastructure. You get paid. Welcome to the Underground.</p>
       </div>
     </div>
-  </main>
+  </section>
 
   <!-- Legal Hub -->
-  <main id="legal-view" style="display: none;">
+  <section id="legal-view" style="display: none;" aria-label="Legal and policies">
     <div class="page-container">
       <h1 class="page-title">Legal & Policies</h1>
       <p class="page-desc" style="margin-bottom: 40px;">Clear, transparent, and uncensorious rules of engagement.</p>
@@ -1209,10 +1226,10 @@
         <p>We collect minimal data. We track view time exclusively to calculate creator payouts. We do not sell user data to data brokers, advertising agencies, or third-party tracking networks. Your billing information is handled securely by Stripe.</p>
       </div>
     </div>
-  </main>
+  </section>
 
   <!-- User Profile / Watchlist -->
-<main id="profile-view" style="display: none;">
+<section id="profile-view" style="display: none;" aria-label="Your profile">
     <div class="page-container">
       <h1 class="page-title">Your Watchlist</h1>
       <p class="page-desc">Pick up right where you left off.</p>
@@ -1221,7 +1238,7 @@
         <!-- Rendered via JS -->
       </div>
     </div>
-  </main>
+  </section>
 
   <style>
     .card img { display: block; }
