@@ -1552,14 +1552,36 @@
     }
 
     // ─── Render Cards ───
+    // One delegated listener for every card, anywhere in the document.
+    // Each card previously inlined a full JSON copy of its doc twice - once for
+    // onclick and again for onkeydown - so the markup carried two serialised
+    // records per tile and any change to activation meant editing a template
+    // string. Cards now carry only data-doc-id.
+    function activateCardFrom(el) {
+      const id = Number(el.getAttribute('data-doc-id'));
+      const doc = docs.find(d => d.id === id);
+      if (doc) openDetail(doc);
+    }
+
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.card[data-doc-id]');
+      if (card) activateCardFrom(card);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const card = e.target.closest && e.target.closest('.card[data-doc-id]');
+      if (!card) return;
+      e.preventDefault();
+      activateCardFrom(card);
+    });
+
     function createCard(doc) {
       const progress = getProgress(doc.id);
       const progressBar = progress > 0 ? `<div class="card-progress"><div class="card-progress-fill" style="width:${progress}%"></div></div>` : '';
       return `
-        <div class="card" role="button" tabindex="0"
-             aria-label="Watch ${doc.title}, ${doc.year}, ${doc.runtime}"
-             onclick='openDetail(${JSON.stringify(doc).replace(/'/g, "&#39;")})'
-             onkeydown='if(event.key==="Enter"||event.key===" "){event.preventDefault();openDetail(${JSON.stringify(doc).replace(/'/g, "&#39;")});}'>
+        <div class="card" role="button" tabindex="0" data-doc-id="${doc.id}"
+             aria-label="Watch ${doc.title}, ${doc.year}, ${doc.runtime}">
           <img src="${doc.poster}" alt="${doc.title}" loading="lazy"
                onload="this.parentElement.classList.remove('loading')"
                onerror="this.parentElement.classList.remove('loading')">
