@@ -416,6 +416,9 @@
       padding: 16px; display: flex; flex-direction: column;
       justify-content: flex-end;
       opacity: 1; transition: background 0.3s;
+      /* Resting scrim: text-shadow alone loses against light archival
+         frames (Before the Fall's washed-out sky). */
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.38) 34%, transparent 60%);
     }
     .card:hover .card-overlay { 
       background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 50%); 
@@ -732,6 +735,9 @@
       .search-wrap { display: none; }
       .card { width: 200px; }
       .hero-actions .btn { padding: 11px 20px; font-size: 0.85rem; }
+      /* When the row wraps, the auto margin strands the sound button
+         right-aligned on its own line. */
+      .hero-sound-btn { margin-left: 0 !important; }
       .footer-grid { grid-template-columns: 1fr; }
       .video-controls { padding: 20px 12px 12px; }
       .controls-left, .controls-right { gap: 12px; }
@@ -1080,7 +1086,7 @@
       
       <!-- Creator Onboarding Gate (Curious Creator POV) -->
       <div id="creator-onboarding" style="text-align: center; padding: 60px 20px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 40px;">
-        <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; text-transform: uppercase;">Join the Underground</h1>
+        <h1 class="page-title" style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; text-transform: uppercase;">Join the Underground</h1>
         <p style="font-size: 1.1rem; color: var(--text-sub); max-width: 600px; margin: 0 auto 30px;">
           Tired of being demonetized and shadowbanned? Apply for the <strong>Upload First Program</strong>. Upload your raw, uncut documentaries here first and earn a <strong>1.5x multiplier</strong> on your view-time payouts.
         </p>
@@ -1624,7 +1630,8 @@
     const rowDefs = [
       { id: 'continue', title: 'Continue Watching', filter: d => getProgress(d.id) > 0 },
       { id: 'trending', title: 'Trending This Week', filter: () => true, slice: [0, 6] },
-      { id: 'new', title: 'New Arrivals', filter: () => true, slice: [2, 8] },
+      // [2,8] overlapped Trending's [0,6]; the same films fronted both rows.
+      { id: 'new', title: 'New Arrivals', filter: () => true, slice: [6, 12] },
       { id: 'exclusives', title: 'Underground Exclusives', filter: () => true, reverse: true, slice: [0, 6] },
     ];
 
@@ -2135,7 +2142,8 @@
       const savedDocs = docs.filter(d => getProgress(d.id) > 0);
       
       if (savedDocs.length === 0) {
-        grid.innerHTML = '<div class="empty-state">You haven\'t started watching anything yet.</div>';
+        grid.innerHTML = '<div class="empty-state">Nothing here yet — anything you start watching resumes from this page.<br><br>' +
+          '<button class="btn btn-primary" onclick="showView(\'main\')">Browse the catalog</button></div>';
         return;
       }
       grid.innerHTML = savedDocs.map(createCard).join('');
