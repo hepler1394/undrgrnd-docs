@@ -488,12 +488,16 @@
     .player-error-title { font-size: 1.05rem; font-weight: 600; color: var(--text-main); }
     .player-error-body { font-size: 0.9rem; color: var(--text-sub); max-width: 34ch; line-height: 1.5; }
     .progress-bar {
-      width: 100%; height: 4px;
+      width: 100%; height: 6px;
       background: rgba(255,255,255,0.15);
       cursor: pointer; border-radius: 2px;
-      position: relative; transition: height 0.15s;
+      position: relative;
+      /* Rests at two thirds height and scales up under the pointer. Scaling
+         avoids the reflow that animating height caused on every hover. */
+      transform: scaleY(0.667); transform-origin: center;
+      transition: transform 0.15s ease-out;
     }
-    .progress-bar:hover { height: 6px; }
+    .progress-bar:hover { transform: scaleY(1); }
     .progress-filled {
       height: 100%; background: var(--accent);
       width: 0%; border-radius: 2px; position: relative;
@@ -750,7 +754,9 @@
     }
     .uploading-overlay.active { display: block; }
     .progress-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 20px 0; overflow: hidden; }
-    .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease; }
+    .progress-fill { height: 100%; width: 100%; background: var(--accent);
+      transform: scaleX(0); transform-origin: left center;
+      transition: transform 0.3s ease; }
     /* Profile Grid */
     .watchlist-grid {
       display: grid;
@@ -784,7 +790,7 @@
        .stat-row and are meant to read as small caps-and-value pairs. */
     .stat-card .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
     .stat-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
-    .math-breakdown { background: rgba(229,160,13,0.05); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 40px; font-family: monospace; font-size: 0.95rem; line-height: 1.6; color: var(--text-sub); }
+    .math-breakdown { background: rgba(229,160,13,0.05); border: 1px solid rgba(229,160,13,0.28); padding: 20px; border-radius: var(--radius); margin-bottom: 40px; font-family: monospace; font-size: 0.95rem; line-height: 1.6; color: var(--text-sub); }
     .math-breakdown strong { color: var(--text-main); }
     .creator-tabs { display: flex; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
     .creator-tab { padding: 10px 0; color: var(--text-sub); cursor: pointer; border-bottom: 2px solid transparent; font-weight: 600; }
@@ -2035,7 +2041,7 @@
             alert('Success! Note: This is a frontend prototype. Database connection is pending.');
             document.getElementById('upload-form-container').style.display = 'block';
             progressOverlay.classList.remove('active');
-            bar.style.width = '0%';
+            bar.style.transform = 'scaleX(0)';
             document.getElementById('upload-title').value = '';
             document.getElementById('upload-desc').value = '';
             document.getElementById('upload-genre').value = '';
@@ -2044,7 +2050,7 @@
         } else {
           status.textContent = `Uploading... ${Math.floor(p)}%`;
         }
-        bar.style.width = `${p}%`;
+        bar.style.transform = `scaleX(${p / 100})`;
       }, 300);
     }
     
