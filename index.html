@@ -1293,6 +1293,9 @@
           document.getElementById('auth-modal').style.display = 'none';
           document.getElementById('creator-onboarding').style.display = 'none';
           document.getElementById('creator-dashboard-content').style.display = 'block';
+          // Redraw: the chart was first drawn while this div was hidden, so
+          // the canvas had no size and the line collapses into a spike.
+          calculateAnalytics();
         }
       } catch (err) {
         errorDiv.textContent = err.message;
