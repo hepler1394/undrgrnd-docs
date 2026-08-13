@@ -1897,17 +1897,21 @@
       pause() { player.pause(); }
     };
 
+    // Between `new YT.Player()` and onReady the object exists but has none of
+    // the player methods, and the 250ms poll lands in that window — so guard
+    // on the method, not the object.
+    const ytPlayerReady = () => ytPlayer && typeof ytPlayer.getPlayerState === 'function';
     const ytMedia = {
-      get paused()      { return !ytPlayer || ytPlayer.getPlayerState() !== 1; },
-      get currentTime() { return ytPlayer ? ytPlayer.getCurrentTime() : 0; },
-      set currentTime(t){ if (ytPlayer) ytPlayer.seekTo(t, true); },
-      get duration()    { return ytPlayer ? ytPlayer.getDuration() : 0; },
-      get muted()       { return ytPlayer ? ytPlayer.isMuted() : false; },
-      set muted(m)      { if (ytPlayer) m ? ytPlayer.mute() : ytPlayer.unMute(); },
-      get volume()      { return ytPlayer ? ytPlayer.getVolume() / 100 : 1; },
-      set volume(v)     { if (ytPlayer) ytPlayer.setVolume(v * 100); },
-      play()  { if (ytPlayer) ytPlayer.playVideo(); },
-      pause() { if (ytPlayer) ytPlayer.pauseVideo(); }
+      get paused()      { return !ytPlayerReady() || ytPlayer.getPlayerState() !== 1; },
+      get currentTime() { return ytPlayerReady() ? ytPlayer.getCurrentTime() : 0; },
+      set currentTime(t){ if (ytPlayerReady()) ytPlayer.seekTo(t, true); },
+      get duration()    { return ytPlayerReady() ? ytPlayer.getDuration() : 0; },
+      get muted()       { return ytPlayerReady() ? ytPlayer.isMuted() : false; },
+      set muted(m)      { if (ytPlayerReady()) m ? ytPlayer.mute() : ytPlayer.unMute(); },
+      get volume()      { return ytPlayerReady() ? ytPlayer.getVolume() / 100 : 1; },
+      set volume(v)     { if (ytPlayerReady()) ytPlayer.setVolume(v * 100); },
+      play()  { if (ytPlayerReady()) ytPlayer.playVideo(); },
+      pause() { if (ytPlayerReady()) ytPlayer.pauseVideo(); }
     };
 
     // `media` is what every control below reads and writes.
@@ -1947,8 +1951,29 @@
     player.addEventListener('error', () => {
       if (usingYouTube) return;
       if (!player.currentSrc) return;
+      // Self-hosted films keep a YouTube original in sourceUrl. If the CDN
+      // copy dies (a lapsed Bunny zone, most likely), fall back to the embed
+      // before surrendering to the error panel. One attempt per film per
+      // visit: a successful fallback sticks for the session, and an
+      // unembeddable original (the FOX deposition) lands on the panel via
+      // the embed's own onError.
+      const doc = docs.find(d => d.id === currentDocId);
+      const ytId = doc && !doc.youtubeId && youtubeIdFrom(doc.sourceUrl);
+      if (ytId && !doc.triedYtFallback) {
+        doc.triedYtFallback = true;
+        doc.youtubeId = ytId;
+        hidePlayerError();
+        openYouTubeSource(doc, getProgress(doc.id));
+        return;
+      }
       showPlayerError();
     }, true);
+
+    function youtubeIdFrom(url) {
+      if (!url) return null;
+      const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/);
+      return m ? m[1] : null;
+    }
 
     function hideAllViews() {
       if (currentDocId && media.duration && !media.paused) {
@@ -2098,6 +2123,12 @@
 
       const start = resumePct ? Math.floor((resumePct / 100) * (doc.durationSec || 0)) : 0;
 
+      if (ytPlayer && typeof ytPlayer.loadVideoById !== 'function') {
+        // Constructed but never became ready (e.g. the user backed out
+        // mid-spin-up); a stale husk cannot load anything — rebuild.
+        try { ytPlayer.destroy(); } catch (e) {}
+        ytPlayer = null;
+      }
       if (ytPlayer) {
         ytPlayer.loadVideoById({ videoId: doc.youtubeId, startSeconds: start });
       } else {
@@ -2119,7 +2150,7 @@
             onReady: (e) => { e.target.playVideo(); startYtPolling(); updateVolumeIcon(); },
             onStateChange: () => { updatePlayIcon(); updateProgress(); },
             // 2 invalid id, 5 html5 error, 100 gone, 101/150 embedding disabled
-            onError: () => showPlayerError()
+            onError: (e) => { console.warn('yt embed error', e.data, 'for', doc.youtubeId); showPlayerError(); }
           }
         });
       }
