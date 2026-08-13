@@ -31,9 +31,13 @@ normal browser tells the truth.
   solver was missing; it is now enabled (`--js-runtimes node
   --remote-components ejs:github` — the EJS lib is cached). Challenges
   solve, and the googlevideo media servers STILL 403 every client,
-  confirming an IP-level block, not tooling. Next viable step is
-  `--cookies-from-browser chrome`, which fails while Chrome is running
-  (locked cookie DB) — needs Chrome closed for one run, i.e. Cory's call.
+  confirming an IP-level block, not tooling. `--cookies-from-browser` is a
+  DEAD END on this machine for both Chrome and Edge: tested with Chrome
+  fully closed (0 processes) and it fails on App-Bound Encryption
+  (Chrome 127+, yt-dlp issue 10927) — do not retry. Working paths:
+  a one-time cookies.txt export via the "Get cookies.txt LOCALLY"
+  extension (then `yt-dlp --cookies <file>`), or fetching from a
+  different network.
 
 - Storage zone `undrgrnd-docs` (id 1734660, New York), pull zone
   `undrgrnddocs.b-cdn.net`.
