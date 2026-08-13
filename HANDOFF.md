@@ -18,7 +18,22 @@ it is the funding step that matters, not the cost.
 
 Softened but not solved (2026-08-12): the player-error panel now shows
 "Watch at the source" linking each film's original upload, so a lapsed zone
-degrades to a redirect rather than a dead end. The catalog still breaks.
+degrades to a redirect rather than a dead end. Additionally, a dead
+self-hosted stream now auto-falls-back to its YouTube original as an embed
+(one attempt per film per visit); films whose owners disallow embedding
+land on the panel as before. How many of the six actually embed is
+unknowable from automation: BOTH headless Chrome and the preview pane
+return YT error 150 for every video — including "Me at the zoo", which
+embeds everywhere — so never trust an embed verdict from either. Only a
+normal browser tells the truth.
+
+- **YT Grabber 403, diagnosed deeper (2026-08-12):** yt-dlp's n-challenge
+  solver was missing; it is now enabled (`--js-runtimes node
+  --remote-components ejs:github` — the EJS lib is cached). Challenges
+  solve, and the googlevideo media servers STILL 403 every client,
+  confirming an IP-level block, not tooling. Next viable step is
+  `--cookies-from-browser chrome`, which fails while Chrome is running
+  (locked cookie DB) — needs Chrome closed for one run, i.e. Cory's call.
 
 - Storage zone `undrgrnd-docs` (id 1734660, New York), pull zone
   `undrgrnddocs.b-cdn.net`.
