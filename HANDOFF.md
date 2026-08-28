@@ -79,9 +79,10 @@ return YT error 150 for everything); only a normal browser tells the truth.
   shimmer hides with `opacity: 0` and card posters load eagerly — the whole
   poster set is ~480KB, cheaper than one second of hero video.
 - **Playback is auth-gated** (`checkPlatformAuthForPlayback` in
-  `src/platform.js`): every openDetail requires a signed-in Firebase user.
-  For player tests, stub it to `() => true` in the page rather than minting
-  test accounts.
+  `src/platform.js`): openDetail requires a signed-in Firebase user, except
+  entries flagged `freeToWatch: true` (currently only The Sick Mind of
+  EDP445, per Cory 2026-08-27). For player tests on gated films, stub the
+  check to `() => true` in the page rather than minting test accounts.
 - **Chart.js loads on demand**, only when the creator view opens.
 - **Headless screenshots freeze entry animations at frame 0.** The payout
   chart looks like a collapsed spike in a headless capture; its computed
