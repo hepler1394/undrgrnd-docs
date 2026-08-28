@@ -171,6 +171,7 @@ window.cancelAuthModal = function cancelAuthModal() {
 };
 
 window.checkPlatformAuthForPlayback = function checkPlatformAuthForPlayback(documentary) {
+  if (documentary?.freeToWatch) return true;
   if (currentUser) return true;
   window.pendingDocumentaryId = documentary?.id;
   window.openAuthModal('Create a free account or sign in to watch.');
