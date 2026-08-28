@@ -1,12 +1,29 @@
 {
   "name": "UNDRGRND Docs",
   "short_name": "UNDRGRND",
-  "description": "Public-domain documentaries, restored and streamed free.",
+  "id": "/",
+  "description": "Independent documentaries, street journalism and essential archival films.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0d0d0d",
   "theme_color": "#0d0d0d",
   "orientation": "any",
+  "categories": ["entertainment", "news", "education"],
+  "shortcuts": [
+    {
+      "name": "Browse documentaries",
+      "short_name": "Browse",
+      "url": "/#browse",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Pitch a documentary",
+      "short_name": "Pitch",
+      "url": "/#creator",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ],
   "icons": [
     {
       "src": "/icon-192.png",

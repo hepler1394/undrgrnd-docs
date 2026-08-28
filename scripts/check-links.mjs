@@ -74,6 +74,7 @@ async function readCatalog() {
       url: m[3] || null,
       youtubeId: m[4] || null,
       runtime: m[5],
+      comingSoon: /comingSoon:\s*true/.test(m[0]),
     });
   }
   if (!entries.length) throw new Error('no catalog entries found in index.html');
@@ -173,11 +174,12 @@ async function checkStream(url) {
   let moovAt = null;
   let moovSize = 0;
   let status = 0;
+  let readFailed = false;
 
   for (let i = 0; i < 12; i++) {
     const { status: s, buf } = await readRange(url, off, off + 15);
     status = s;
-    if (!buf || buf.length < 8) break;
+    if (!buf || buf.length < 8) { readFailed = true; break; }
 
     let size = buf.readUInt32BE(0);
     const type = buf.toString('latin1', 4, 8);
@@ -194,6 +196,14 @@ async function checkStream(url) {
   }
 
   if (!order.length) return { ok: false, status };
+
+  // A read that died mid-walk before reaching moov or mdat proves nothing
+  // about atom order — freshly uploaded blobs 429/timeout on cold range
+  // reads and were falsely condemned as "moov after mdat" (2026-08-27).
+  // Surface the status instead of inventing a moov verdict.
+  if (readFailed && !order.includes('moov') && !order.includes('mdat')) {
+    return { ok: false, status };
+  }
 
   const moov = order.indexOf('moov');
   const mdat = order.indexOf('mdat');
@@ -260,6 +270,7 @@ console.log(`${c.bold}Checking ${catalog.length} catalog entries${c.reset}\n`);
 
 const broken = [];
 const warnings = [];
+let deferred = 0;
 
 for (const doc of catalog) {
   const label = `${String(doc.id).padStart(2)} ${doc.title}`.padEnd(34).slice(0, 34);
@@ -267,6 +278,12 @@ for (const doc of catalog) {
 
   const problems = [];
   const notes = [];
+
+  if (doc.comingSoon) {
+    console.log(`${c.cyan}COMING SOON${c.reset}`);
+    deferred += 1;
+    continue;
+  }
 
   if (doc.youtubeId) {
     const yt = await checkYouTube(doc.youtubeId);
@@ -318,10 +335,10 @@ for (const doc of catalog) {
         }
       }
 
-      if (stream && !stream.ok && stream.status >= 500) {
-        // Survived the retries but still 5xx. That is archive.org struggling,
-        // not a missing file, and swapping the entry out would be wrong.
-        notes.push(`archive.org returned HTTP ${stream.status} - transient, re-check later`);
+      if (stream && !stream.ok && (stream.status >= 500 || stream.status === 429)) {
+        // Survived the retries but still 5xx/429. That is the host struggling
+        // or throttling, not a missing file; swapping the entry would be wrong.
+        notes.push(`host returned HTTP ${stream.status} - transient, re-check later`);
       } else if (stream && !stream.ok) {
         problems.push(`HTTP ${stream.status}`);
       } else if (stream) {
@@ -381,7 +398,7 @@ if (SUGGEST && broken.length) {
   }
 }
 
-const summary = `${catalog.length - broken.length - warnings.length} ok, ${warnings.length} warn, ${broken.length} broken`;
+const summary = `${catalog.length - broken.length - warnings.length - deferred} ok, ${deferred} coming soon, ${warnings.length} warn, ${broken.length} broken`;
 if (broken.length) {
   console.log(`${c.red}${c.bold}${summary}${c.reset}`);
   if (!SUGGEST) console.log(`${c.dim}re-run with --suggest to search for replacements${c.reset}`);

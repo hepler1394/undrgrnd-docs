@@ -1,0 +1,1090 @@
+# UNDRGRND Docs — 1,000-improvement register
+
+Generated from 25 product areas × 10 concrete targets × 4 delivery lenses. Every item has a stable ID and a launch priority. P1 items protect access, security, publishing, playback, or trust; P2 items materially improve the product; P3 items deepen the platform after launch.
+
+Status at generation: **71 implemented · 929 queued**.
+
+This is an execution register, not a claim that all 1,000 items should ship at once. Each item should be accepted only with evidence: code, copy, a test, an operating procedure, or a measured result.
+
+## Delivery rules
+
+- Preserve the current Vite/Firebase/Vercel architecture until a measured limitation justifies migration.
+- Never publish creator-supplied work without documented rights and editorial review.
+- Never send outreach to a scraped or private address; use a clearly public business contact and honor suppression immediately.
+- Never label proposed monetization as a guaranteed rate or earning.
+- Record implemented IDs in release notes with verification evidence.
+
+## 01. Brand & positioning
+
+- [ ] **UD-0001 · P2 · Clarity:** Clarify homepage value proposition so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0002 · P2 · Accessibility:** Make homepage value proposition keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0003 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for homepage value proposition so a failure is never silent.
+- [ ] **UD-0004 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for homepage value proposition.
+- [ ] **UD-0005 · P2 · Clarity:** Clarify viewer promise so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0006 · P2 · Accessibility:** Make viewer promise keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0007 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for viewer promise so a failure is never silent.
+- [ ] **UD-0008 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for viewer promise.
+- [ ] **UD-0009 · P2 · Clarity:** Clarify creator promise so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0010 · P2 · Accessibility:** Make creator promise keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0011 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator promise so a failure is never silent.
+- [ ] **UD-0012 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator promise.
+- [ ] **UD-0013 · P2 · Clarity:** Clarify independence claim so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0014 · P2 · Accessibility:** Make independence claim keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0015 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for independence claim so a failure is never silent.
+- [ ] **UD-0016 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for independence claim.
+- [ ] **UD-0017 · P2 · Clarity:** Clarify editorial mission so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0018 · P2 · Accessibility:** Make editorial mission keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0019 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for editorial mission so a failure is never silent.
+- [ ] **UD-0020 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for editorial mission.
+- [x] **UD-0021 · P2 · Clarity:** Clarify launch-stage disclosure so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0022 · P2 · Accessibility:** Make launch-stage disclosure keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0023 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for launch-stage disclosure so a failure is never silent.
+- [ ] **UD-0024 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for launch-stage disclosure.
+- [ ] **UD-0025 · P2 · Clarity:** Clarify brand voice so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0026 · P2 · Accessibility:** Make brand voice keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0027 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for brand voice so a failure is never silent.
+- [ ] **UD-0028 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for brand voice.
+- [ ] **UD-0029 · P2 · Clarity:** Clarify trust signals so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0030 · P2 · Accessibility:** Make trust signals keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0031 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for trust signals so a failure is never silent.
+- [ ] **UD-0032 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for trust signals.
+- [ ] **UD-0033 · P2 · Clarity:** Clarify audience definition so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0034 · P2 · Accessibility:** Make audience definition keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0035 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for audience definition so a failure is never silent.
+- [ ] **UD-0036 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for audience definition.
+- [ ] **UD-0037 · P2 · Clarity:** Clarify competitive differentiation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0038 · P2 · Accessibility:** Make competitive differentiation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0039 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for competitive differentiation so a failure is never silent.
+- [ ] **UD-0040 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for competitive differentiation.
+
+## 02. Information architecture
+
+- [x] **UD-0041 · P2 · Clarity:** Clarify primary navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0042 · P2 · Accessibility:** Make primary navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0043 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for primary navigation so a failure is never silent.
+- [ ] **UD-0044 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for primary navigation.
+- [ ] **UD-0045 · P2 · Clarity:** Clarify footer navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0046 · P2 · Accessibility:** Make footer navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0047 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for footer navigation so a failure is never silent.
+- [ ] **UD-0048 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for footer navigation.
+- [ ] **UD-0049 · P2 · Clarity:** Clarify view hierarchy so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0050 · P2 · Accessibility:** Make view hierarchy keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0051 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for view hierarchy so a failure is never silent.
+- [ ] **UD-0052 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for view hierarchy.
+- [ ] **UD-0053 · P2 · Clarity:** Clarify page naming so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0054 · P2 · Accessibility:** Make page naming keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0055 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for page naming so a failure is never silent.
+- [ ] **UD-0056 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for page naming.
+- [ ] **UD-0057 · P2 · Clarity:** Clarify URL behavior so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0058 · P2 · Accessibility:** Make URL behavior keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0059 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for URL behavior so a failure is never silent.
+- [ ] **UD-0060 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for URL behavior.
+- [ ] **UD-0061 · P2 · Clarity:** Clarify back navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0062 · P2 · Accessibility:** Make back navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0063 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for back navigation so a failure is never silent.
+- [ ] **UD-0064 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for back navigation.
+- [ ] **UD-0065 · P2 · Clarity:** Clarify mobile menu so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0066 · P2 · Accessibility:** Make mobile menu keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0067 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for mobile menu so a failure is never silent.
+- [ ] **UD-0068 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for mobile menu.
+- [ ] **UD-0069 · P2 · Clarity:** Clarify cross-links so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0070 · P2 · Accessibility:** Make cross-links keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0071 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for cross-links so a failure is never silent.
+- [ ] **UD-0072 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for cross-links.
+- [ ] **UD-0073 · P2 · Clarity:** Clarify legal navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0074 · P2 · Accessibility:** Make legal navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0075 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for legal navigation so a failure is never silent.
+- [ ] **UD-0076 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for legal navigation.
+- [ ] **UD-0077 · P2 · Clarity:** Clarify creator/admin separation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0078 · P2 · Accessibility:** Make creator/admin separation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0079 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator/admin separation so a failure is never silent.
+- [ ] **UD-0080 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator/admin separation.
+
+## 03. Homepage discovery
+
+- [ ] **UD-0081 · P2 · Clarity:** Clarify hero selection so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0082 · P2 · Accessibility:** Make hero selection keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0083 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for hero selection so a failure is never silent.
+- [ ] **UD-0084 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for hero selection.
+- [x] **UD-0085 · P2 · Clarity:** Clarify hero controls so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0086 · P2 · Accessibility:** Make hero controls keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0087 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for hero controls so a failure is never silent.
+- [ ] **UD-0088 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for hero controls.
+- [ ] **UD-0089 · P2 · Clarity:** Clarify featured synopsis so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0090 · P2 · Accessibility:** Make featured synopsis keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0091 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for featured synopsis so a failure is never silent.
+- [ ] **UD-0092 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for featured synopsis.
+- [ ] **UD-0093 · P2 · Clarity:** Clarify genre filter so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0094 · P2 · Accessibility:** Make genre filter keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0095 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for genre filter so a failure is never silent.
+- [ ] **UD-0096 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for genre filter.
+- [ ] **UD-0097 · P2 · Clarity:** Clarify content-row ordering so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0098 · P2 · Accessibility:** Make content-row ordering keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0099 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for content-row ordering so a failure is never silent.
+- [ ] **UD-0100 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for content-row ordering.
+- [ ] **UD-0101 · P2 · Clarity:** Clarify continue-watching row so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0102 · P2 · Accessibility:** Make continue-watching row keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0103 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for continue-watching row so a failure is never silent.
+- [ ] **UD-0104 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for continue-watching row.
+- [ ] **UD-0105 · P2 · Clarity:** Clarify new-arrivals row so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0106 · P2 · Accessibility:** Make new-arrivals row keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0107 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for new-arrivals row so a failure is never silent.
+- [ ] **UD-0108 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for new-arrivals row.
+- [ ] **UD-0109 · P2 · Clarity:** Clarify exclusive row so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0110 · P2 · Accessibility:** Make exclusive row keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0111 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for exclusive row so a failure is never silent.
+- [ ] **UD-0112 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for exclusive row.
+- [ ] **UD-0113 · P2 · Clarity:** Clarify empty catalog state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0114 · P2 · Accessibility:** Make empty catalog state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0115 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for empty catalog state so a failure is never silent.
+- [ ] **UD-0116 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for empty catalog state.
+- [ ] **UD-0117 · P2 · Clarity:** Clarify signed-out discovery so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0118 · P2 · Accessibility:** Make signed-out discovery keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0119 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for signed-out discovery so a failure is never silent.
+- [ ] **UD-0120 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for signed-out discovery.
+
+## 04. Search & filtering
+
+- [x] **UD-0121 · P2 · Clarity:** Clarify search input so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0122 · P2 · Accessibility:** Make search input keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0123 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for search input so a failure is never silent.
+- [ ] **UD-0124 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for search input.
+- [x] **UD-0125 · P2 · Clarity:** Clarify search suggestions so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0126 · P2 · Accessibility:** Make search suggestions keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0127 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for search suggestions so a failure is never silent.
+- [ ] **UD-0128 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for search suggestions.
+- [ ] **UD-0129 · P2 · Clarity:** Clarify result ranking so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0130 · P2 · Accessibility:** Make result ranking keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0131 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for result ranking so a failure is never silent.
+- [ ] **UD-0132 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for result ranking.
+- [ ] **UD-0133 · P2 · Clarity:** Clarify zero-results state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0134 · P2 · Accessibility:** Make zero-results state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0135 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for zero-results state so a failure is never silent.
+- [ ] **UD-0136 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for zero-results state.
+- [ ] **UD-0137 · P2 · Clarity:** Clarify keyboard navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0138 · P2 · Accessibility:** Make keyboard navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0139 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for keyboard navigation so a failure is never silent.
+- [ ] **UD-0140 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for keyboard navigation.
+- [ ] **UD-0141 · P2 · Clarity:** Clarify query clearing so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0142 · P2 · Accessibility:** Make query clearing keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0143 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for query clearing so a failure is never silent.
+- [ ] **UD-0144 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for query clearing.
+- [ ] **UD-0145 · P2 · Clarity:** Clarify creator matching so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0146 · P2 · Accessibility:** Make creator matching keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0147 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator matching so a failure is never silent.
+- [ ] **UD-0148 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator matching.
+- [ ] **UD-0149 · P2 · Clarity:** Clarify genre matching so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0150 · P2 · Accessibility:** Make genre matching keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0151 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for genre matching so a failure is never silent.
+- [ ] **UD-0152 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for genre matching.
+- [ ] **UD-0153 · P2 · Clarity:** Clarify description matching so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0154 · P2 · Accessibility:** Make description matching keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0155 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for description matching so a failure is never silent.
+- [ ] **UD-0156 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for description matching.
+- [ ] **UD-0157 · P2 · Clarity:** Clarify large-catalog scaling so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0158 · P2 · Accessibility:** Make large-catalog scaling keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0159 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for large-catalog scaling so a failure is never silent.
+- [ ] **UD-0160 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for large-catalog scaling.
+
+## 05. Catalog cards
+
+- [ ] **UD-0161 · P2 · Clarity:** Clarify card title so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0162 · P2 · Accessibility:** Make card title keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0163 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for card title so a failure is never silent.
+- [ ] **UD-0164 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for card title.
+- [ ] **UD-0165 · P2 · Clarity:** Clarify poster image so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0166 · P2 · Accessibility:** Make poster image keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0167 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for poster image so a failure is never silent.
+- [ ] **UD-0168 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for poster image.
+- [ ] **UD-0169 · P2 · Clarity:** Clarify creator credit so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0170 · P2 · Accessibility:** Make creator credit keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0171 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator credit so a failure is never silent.
+- [ ] **UD-0172 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator credit.
+- [ ] **UD-0173 · P2 · Clarity:** Clarify metadata line so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0174 · P2 · Accessibility:** Make metadata line keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0175 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for metadata line so a failure is never silent.
+- [ ] **UD-0176 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for metadata line.
+- [ ] **UD-0177 · P2 · Clarity:** Clarify progress indicator so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0178 · P2 · Accessibility:** Make progress indicator keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0179 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for progress indicator so a failure is never silent.
+- [ ] **UD-0180 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for progress indicator.
+- [ ] **UD-0181 · P2 · Clarity:** Clarify play affordance so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0182 · P2 · Accessibility:** Make play affordance keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0183 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for play affordance so a failure is never silent.
+- [ ] **UD-0184 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for play affordance.
+- [ ] **UD-0185 · P2 · Clarity:** Clarify focus state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0186 · P2 · Accessibility:** Make focus state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0187 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for focus state so a failure is never silent.
+- [ ] **UD-0188 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for focus state.
+- [ ] **UD-0189 · P2 · Clarity:** Clarify loading state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0190 · P2 · Accessibility:** Make loading state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0191 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for loading state so a failure is never silent.
+- [ ] **UD-0192 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for loading state.
+- [ ] **UD-0193 · P2 · Clarity:** Clarify broken-image state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0194 · P2 · Accessibility:** Make broken-image state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0195 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for broken-image state so a failure is never silent.
+- [ ] **UD-0196 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for broken-image state.
+- [ ] **UD-0197 · P2 · Clarity:** Clarify touch target so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0198 · P2 · Accessibility:** Make touch target keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0199 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for touch target so a failure is never silent.
+- [ ] **UD-0200 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for touch target.
+
+## 06. Film detail
+
+- [ ] **UD-0201 · P2 · Clarity:** Clarify title presentation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0202 · P2 · Accessibility:** Make title presentation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0203 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for title presentation so a failure is never silent.
+- [ ] **UD-0204 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for title presentation.
+- [ ] **UD-0205 · P2 · Clarity:** Clarify creator attribution so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0206 · P2 · Accessibility:** Make creator attribution keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0207 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator attribution so a failure is never silent.
+- [ ] **UD-0208 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator attribution.
+- [ ] **UD-0209 · P2 · Clarity:** Clarify synopsis so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0210 · P2 · Accessibility:** Make synopsis keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0211 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for synopsis so a failure is never silent.
+- [ ] **UD-0212 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for synopsis.
+- [ ] **UD-0213 · P2 · Clarity:** Clarify rights label so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0214 · P2 · Accessibility:** Make rights label keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0215 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for rights label so a failure is never silent.
+- [ ] **UD-0216 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for rights label.
+- [ ] **UD-0217 · P2 · Clarity:** Clarify quality label so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0218 · P2 · Accessibility:** Make quality label keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0219 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for quality label so a failure is never silent.
+- [ ] **UD-0220 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for quality label.
+- [ ] **UD-0221 · P2 · Clarity:** Clarify subtitle label so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0222 · P2 · Accessibility:** Make subtitle label keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0223 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for subtitle label so a failure is never silent.
+- [ ] **UD-0224 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for subtitle label.
+- [ ] **UD-0225 · P2 · Clarity:** Clarify related titles so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0226 · P2 · Accessibility:** Make related titles keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0227 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for related titles so a failure is never silent.
+- [ ] **UD-0228 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for related titles.
+- [ ] **UD-0229 · P2 · Clarity:** Clarify source credit so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0230 · P2 · Accessibility:** Make source credit keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0231 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for source credit so a failure is never silent.
+- [ ] **UD-0232 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for source credit.
+- [ ] **UD-0233 · P2 · Clarity:** Clarify resume state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0234 · P2 · Accessibility:** Make resume state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0235 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for resume state so a failure is never silent.
+- [ ] **UD-0236 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for resume state.
+- [ ] **UD-0237 · P2 · Clarity:** Clarify content advisory so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0238 · P2 · Accessibility:** Make content advisory keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0239 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for content advisory so a failure is never silent.
+- [ ] **UD-0240 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for content advisory.
+
+## 07. Video playback
+
+- [ ] **UD-0241 · P1 · Clarity:** Clarify play/pause control so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0242 · P1 · Accessibility:** Make play/pause control keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0243 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for play/pause control so a failure is never silent.
+- [ ] **UD-0244 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for play/pause control.
+- [ ] **UD-0245 · P1 · Clarity:** Clarify timeline scrubbing so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0246 · P1 · Accessibility:** Make timeline scrubbing keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0247 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for timeline scrubbing so a failure is never silent.
+- [ ] **UD-0248 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for timeline scrubbing.
+- [ ] **UD-0249 · P1 · Clarity:** Clarify volume control so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0250 · P1 · Accessibility:** Make volume control keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0251 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for volume control so a failure is never silent.
+- [ ] **UD-0252 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for volume control.
+- [ ] **UD-0253 · P1 · Clarity:** Clarify caption control so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0254 · P1 · Accessibility:** Make caption control keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0255 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for caption control so a failure is never silent.
+- [ ] **UD-0256 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for caption control.
+- [ ] **UD-0257 · P1 · Clarity:** Clarify fullscreen control so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0258 · P1 · Accessibility:** Make fullscreen control keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0259 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for fullscreen control so a failure is never silent.
+- [ ] **UD-0260 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for fullscreen control.
+- [ ] **UD-0261 · P1 · Clarity:** Clarify keyboard shortcuts so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0262 · P1 · Accessibility:** Make keyboard shortcuts keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0263 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for keyboard shortcuts so a failure is never silent.
+- [ ] **UD-0264 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for keyboard shortcuts.
+- [ ] **UD-0265 · P1 · Clarity:** Clarify playback errors so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0266 · P1 · Accessibility:** Make playback errors keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0267 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for playback errors so a failure is never silent.
+- [ ] **UD-0268 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for playback errors.
+- [ ] **UD-0269 · P1 · Clarity:** Clarify source fallback so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0270 · P1 · Accessibility:** Make source fallback keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0271 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for source fallback so a failure is never silent.
+- [ ] **UD-0272 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for source fallback.
+- [ ] **UD-0273 · P1 · Clarity:** Clarify resume persistence so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0274 · P1 · Accessibility:** Make resume persistence keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0275 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for resume persistence so a failure is never silent.
+- [ ] **UD-0276 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for resume persistence.
+- [ ] **UD-0277 · P1 · Clarity:** Clarify mobile playback so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0278 · P1 · Accessibility:** Make mobile playback keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0279 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for mobile playback so a failure is never silent.
+- [ ] **UD-0280 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for mobile playback.
+
+## 08. Auth & onboarding
+
+- [ ] **UD-0281 · P1 · Clarity:** Clarify Google sign-in so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0282 · P1 · Accessibility:** Make Google sign-in keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0283 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for Google sign-in so a failure is never silent.
+- [ ] **UD-0284 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for Google sign-in.
+- [ ] **UD-0285 · P1 · Clarity:** Clarify email sign-up so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0286 · P1 · Accessibility:** Make email sign-up keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0287 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for email sign-up so a failure is never silent.
+- [ ] **UD-0288 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for email sign-up.
+- [ ] **UD-0289 · P1 · Clarity:** Clarify email login so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0290 · P1 · Accessibility:** Make email login keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0291 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for email login so a failure is never silent.
+- [ ] **UD-0292 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for email login.
+- [ ] **UD-0293 · P1 · Clarity:** Clarify email verification so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0294 · P1 · Accessibility:** Make email verification keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0295 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for email verification so a failure is never silent.
+- [ ] **UD-0296 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for email verification.
+- [x] **UD-0297 · P1 · Clarity:** Clarify password guidance so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0298 · P1 · Accessibility:** Make password guidance keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0299 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for password guidance so a failure is never silent.
+- [ ] **UD-0300 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for password guidance.
+- [x] **UD-0301 · P1 · Clarity:** Clarify auth errors so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0302 · P1 · Accessibility:** Make auth errors keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0303 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for auth errors so a failure is never silent.
+- [ ] **UD-0304 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for auth errors.
+- [ ] **UD-0305 · P1 · Clarity:** Clarify auth modal focus so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0306 · P1 · Accessibility:** Make auth modal focus keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0307 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for auth modal focus so a failure is never silent.
+- [ ] **UD-0308 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for auth modal focus.
+- [ ] **UD-0309 · P1 · Clarity:** Clarify post-login return so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0310 · P1 · Accessibility:** Make post-login return keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0311 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for post-login return so a failure is never silent.
+- [ ] **UD-0312 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for post-login return.
+- [ ] **UD-0313 · P1 · Clarity:** Clarify sign-out flow so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0314 · P1 · Accessibility:** Make sign-out flow keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0315 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for sign-out flow so a failure is never silent.
+- [ ] **UD-0316 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for sign-out flow.
+- [ ] **UD-0317 · P1 · Clarity:** Clarify first-session orientation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0318 · P1 · Accessibility:** Make first-session orientation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0319 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for first-session orientation so a failure is never silent.
+- [ ] **UD-0320 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for first-session orientation.
+
+## 09. Profiles & watchlist
+
+- [ ] **UD-0321 · P2 · Clarity:** Clarify account identity so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0322 · P2 · Accessibility:** Make account identity keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0323 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for account identity so a failure is never silent.
+- [ ] **UD-0324 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for account identity.
+- [ ] **UD-0325 · P2 · Clarity:** Clarify watch history so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0326 · P2 · Accessibility:** Make watch history keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0327 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for watch history so a failure is never silent.
+- [ ] **UD-0328 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for watch history.
+- [ ] **UD-0329 · P2 · Clarity:** Clarify continue watching so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0330 · P2 · Accessibility:** Make continue watching keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0331 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for continue watching so a failure is never silent.
+- [ ] **UD-0332 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for continue watching.
+- [ ] **UD-0333 · P2 · Clarity:** Clarify completed films so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0334 · P2 · Accessibility:** Make completed films keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0335 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for completed films so a failure is never silent.
+- [ ] **UD-0336 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for completed films.
+- [ ] **UD-0337 · P2 · Clarity:** Clarify progress reset so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0338 · P2 · Accessibility:** Make progress reset keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0339 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for progress reset so a failure is never silent.
+- [ ] **UD-0340 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for progress reset.
+- [ ] **UD-0341 · P2 · Clarity:** Clarify watchlist empty state so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0342 · P2 · Accessibility:** Make watchlist empty state keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0343 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for watchlist empty state so a failure is never silent.
+- [ ] **UD-0344 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for watchlist empty state.
+- [ ] **UD-0345 · P2 · Clarity:** Clarify privacy controls so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0346 · P2 · Accessibility:** Make privacy controls keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0347 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for privacy controls so a failure is never silent.
+- [ ] **UD-0348 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for privacy controls.
+- [ ] **UD-0349 · P2 · Clarity:** Clarify account deletion path so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0350 · P2 · Accessibility:** Make account deletion path keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0351 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for account deletion path so a failure is never silent.
+- [ ] **UD-0352 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for account deletion path.
+- [ ] **UD-0353 · P2 · Clarity:** Clarify email preferences so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0354 · P2 · Accessibility:** Make email preferences keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0355 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for email preferences so a failure is never silent.
+- [ ] **UD-0356 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for email preferences.
+- [ ] **UD-0357 · P2 · Clarity:** Clarify cross-device synchronization so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0358 · P2 · Accessibility:** Make cross-device synchronization keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0359 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for cross-device synchronization so a failure is never silent.
+- [ ] **UD-0360 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for cross-device synchronization.
+
+## 10. Admin content operations
+
+- [ ] **UD-0361 · P1 · Clarity:** Clarify release creation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0362 · P1 · Accessibility:** Make release creation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0363 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for release creation so a failure is never silent.
+- [ ] **UD-0364 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for release creation.
+- [ ] **UD-0365 · P1 · Clarity:** Clarify release editing so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0366 · P1 · Accessibility:** Make release editing keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0367 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for release editing so a failure is never silent.
+- [ ] **UD-0368 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for release editing.
+- [ ] **UD-0369 · P1 · Clarity:** Clarify draft publishing so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0370 · P1 · Accessibility:** Make draft publishing keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0371 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for draft publishing so a failure is never silent.
+- [ ] **UD-0372 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for draft publishing.
+- [ ] **UD-0373 · P1 · Clarity:** Clarify release archiving so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0374 · P1 · Accessibility:** Make release archiving keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0375 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for release archiving so a failure is never silent.
+- [ ] **UD-0376 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for release archiving.
+- [x] **UD-0377 · P1 · Clarity:** Clarify metadata validation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0378 · P1 · Accessibility:** Make metadata validation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0379 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for metadata validation so a failure is never silent.
+- [ ] **UD-0380 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for metadata validation.
+- [ ] **UD-0381 · P1 · Clarity:** Clarify rights documentation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0382 · P1 · Accessibility:** Make rights documentation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0383 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for rights documentation so a failure is never silent.
+- [ ] **UD-0384 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for rights documentation.
+- [ ] **UD-0385 · P1 · Clarity:** Clarify poster management so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0386 · P1 · Accessibility:** Make poster management keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0387 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for poster management so a failure is never silent.
+- [ ] **UD-0388 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for poster management.
+- [ ] **UD-0389 · P1 · Clarity:** Clarify video replacement so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0390 · P1 · Accessibility:** Make video replacement keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0391 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for video replacement so a failure is never silent.
+- [ ] **UD-0392 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for video replacement.
+- [ ] **UD-0393 · P1 · Clarity:** Clarify content list so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0394 · P1 · Accessibility:** Make content list keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0395 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for content list so a failure is never silent.
+- [ ] **UD-0396 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for content list.
+- [ ] **UD-0397 · P1 · Clarity:** Clarify admin permissions so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0398 · P1 · Accessibility:** Make admin permissions keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0399 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for admin permissions so a failure is never silent.
+- [ ] **UD-0400 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for admin permissions.
+
+## 11. Upload & storage
+
+- [ ] **UD-0401 · P1 · Clarity:** Clarify direct video upload so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0402 · P1 · Accessibility:** Make direct video upload keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0403 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for direct video upload so a failure is never silent.
+- [ ] **UD-0404 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for direct video upload.
+- [ ] **UD-0405 · P1 · Clarity:** Clarify poster upload so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0406 · P1 · Accessibility:** Make poster upload keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0407 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for poster upload so a failure is never silent.
+- [ ] **UD-0408 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for poster upload.
+- [x] **UD-0409 · P1 · Clarity:** Clarify file-type checks so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0410 · P1 · Accessibility:** Make file-type checks keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0411 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for file-type checks so a failure is never silent.
+- [ ] **UD-0412 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for file-type checks.
+- [x] **UD-0413 · P1 · Clarity:** Clarify file-size checks so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0414 · P1 · Accessibility:** Make file-size checks keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0415 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for file-size checks so a failure is never silent.
+- [ ] **UD-0416 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for file-size checks.
+- [x] **UD-0417 · P1 · Clarity:** Clarify upload progress so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0418 · P1 · Accessibility:** Make upload progress keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0419 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for upload progress so a failure is never silent.
+- [ ] **UD-0420 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for upload progress.
+- [ ] **UD-0421 · P1 · Clarity:** Clarify upload cancellation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0422 · P1 · Accessibility:** Make upload cancellation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0423 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for upload cancellation so a failure is never silent.
+- [ ] **UD-0424 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for upload cancellation.
+- [ ] **UD-0425 · P1 · Clarity:** Clarify retry behavior so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0426 · P1 · Accessibility:** Make retry behavior keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0427 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for retry behavior so a failure is never silent.
+- [ ] **UD-0428 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for retry behavior.
+- [ ] **UD-0429 · P1 · Clarity:** Clarify orphan cleanup so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0430 · P1 · Accessibility:** Make orphan cleanup keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0431 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for orphan cleanup so a failure is never silent.
+- [ ] **UD-0432 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for orphan cleanup.
+- [ ] **UD-0433 · P1 · Clarity:** Clarify media URL validation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0434 · P1 · Accessibility:** Make media URL validation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0435 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for media URL validation so a failure is never silent.
+- [ ] **UD-0436 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for media URL validation.
+- [ ] **UD-0437 · P1 · Clarity:** Clarify storage cost visibility so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0438 · P1 · Accessibility:** Make storage cost visibility keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0439 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for storage cost visibility so a failure is never silent.
+- [ ] **UD-0440 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for storage cost visibility.
+
+## 12. Creator recruitment
+
+- [ ] **UD-0441 · P2 · Clarity:** Clarify journalist headline so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0442 · P2 · Accessibility:** Make journalist headline keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0443 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for journalist headline so a failure is never silent.
+- [ ] **UD-0444 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for journalist headline.
+- [ ] **UD-0445 · P2 · Clarity:** Clarify creator eligibility so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0446 · P2 · Accessibility:** Make creator eligibility keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0447 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator eligibility so a failure is never silent.
+- [ ] **UD-0448 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator eligibility.
+- [ ] **UD-0449 · P2 · Clarity:** Clarify ownership explanation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0450 · P2 · Accessibility:** Make ownership explanation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0451 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for ownership explanation so a failure is never silent.
+- [ ] **UD-0452 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for ownership explanation.
+- [x] **UD-0453 · P2 · Clarity:** Clarify application form so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0454 · P2 · Accessibility:** Make application form keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0455 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for application form so a failure is never silent.
+- [ ] **UD-0456 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for application form.
+- [ ] **UD-0457 · P2 · Clarity:** Clarify application confirmation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0458 · P2 · Accessibility:** Make application confirmation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0459 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for application confirmation so a failure is never silent.
+- [ ] **UD-0460 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for application confirmation.
+- [ ] **UD-0461 · P2 · Clarity:** Clarify rights attestation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0462 · P2 · Accessibility:** Make rights attestation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0463 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for rights attestation so a failure is never silent.
+- [ ] **UD-0464 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for rights attestation.
+- [ ] **UD-0465 · P2 · Clarity:** Clarify work-sample request so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0466 · P2 · Accessibility:** Make work-sample request keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0467 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for work-sample request so a failure is never silent.
+- [ ] **UD-0468 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for work-sample request.
+- [ ] **UD-0469 · P2 · Clarity:** Clarify audience-size framing so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0470 · P2 · Accessibility:** Make audience-size framing keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0471 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for audience-size framing so a failure is never silent.
+- [ ] **UD-0472 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for audience-size framing.
+- [ ] **UD-0473 · P2 · Clarity:** Clarify creator FAQ so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0474 · P2 · Accessibility:** Make creator FAQ keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0475 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator FAQ so a failure is never silent.
+- [ ] **UD-0476 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator FAQ.
+- [ ] **UD-0477 · P2 · Clarity:** Clarify contact alternative so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0478 · P2 · Accessibility:** Make contact alternative keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0479 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for contact alternative so a failure is never silent.
+- [ ] **UD-0480 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for contact alternative.
+
+## 13. Creator outreach
+
+- [ ] **UD-0481 · P2 · Clarity:** Clarify prospect discovery so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0482 · P2 · Accessibility:** Make prospect discovery keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0483 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for prospect discovery so a failure is never silent.
+- [ ] **UD-0484 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for prospect discovery.
+- [ ] **UD-0485 · P2 · Clarity:** Clarify business-email capture so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0486 · P2 · Accessibility:** Make business-email capture keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0487 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for business-email capture so a failure is never silent.
+- [ ] **UD-0488 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for business-email capture.
+- [ ] **UD-0489 · P2 · Clarity:** Clarify prospect review so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0490 · P2 · Accessibility:** Make prospect review keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0491 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for prospect review so a failure is never silent.
+- [ ] **UD-0492 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for prospect review.
+- [ ] **UD-0493 · P2 · Clarity:** Clarify email composer so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0494 · P2 · Accessibility:** Make email composer keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0495 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for email composer so a failure is never silent.
+- [ ] **UD-0496 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for email composer.
+- [ ] **UD-0497 · P2 · Clarity:** Clarify message personalization so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0498 · P2 · Accessibility:** Make message personalization keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0499 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for message personalization so a failure is never silent.
+- [ ] **UD-0500 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for message personalization.
+- [ ] **UD-0501 · P2 · Clarity:** Clarify send confirmation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0502 · P2 · Accessibility:** Make send confirmation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0503 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for send confirmation so a failure is never silent.
+- [ ] **UD-0504 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for send confirmation.
+- [ ] **UD-0505 · P2 · Clarity:** Clarify unsubscribe handling so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0506 · P2 · Accessibility:** Make unsubscribe handling keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0507 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for unsubscribe handling so a failure is never silent.
+- [ ] **UD-0508 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for unsubscribe handling.
+- [ ] **UD-0509 · P2 · Clarity:** Clarify suppression list so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0510 · P2 · Accessibility:** Make suppression list keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0511 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for suppression list so a failure is never silent.
+- [ ] **UD-0512 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for suppression list.
+- [ ] **UD-0513 · P2 · Clarity:** Clarify outreach history so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0514 · P2 · Accessibility:** Make outreach history keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0515 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for outreach history so a failure is never silent.
+- [ ] **UD-0516 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for outreach history.
+- [ ] **UD-0517 · P2 · Clarity:** Clarify follow-up cadence so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0518 · P2 · Accessibility:** Make follow-up cadence keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0519 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for follow-up cadence so a failure is never silent.
+- [ ] **UD-0520 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for follow-up cadence.
+
+## 14. Monetization & transparency
+
+- [x] **UD-0521 · P2 · Clarity:** Clarify 75-percent proposal so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0522 · P2 · Accessibility:** Make 75-percent proposal keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0523 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for 75-percent proposal so a failure is never silent.
+- [ ] **UD-0524 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for 75-percent proposal.
+- [ ] **UD-0525 · P2 · Clarity:** Clarify net-revenue definition so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0526 · P2 · Accessibility:** Make net-revenue definition keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0527 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for net-revenue definition so a failure is never silent.
+- [ ] **UD-0528 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for net-revenue definition.
+- [ ] **UD-0529 · P2 · Clarity:** Clarify watch-time allocation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0530 · P2 · Accessibility:** Make watch-time allocation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0531 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for watch-time allocation so a failure is never silent.
+- [ ] **UD-0532 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for watch-time allocation.
+- [ ] **UD-0533 · P2 · Clarity:** Clarify first-window weighting so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0534 · P2 · Accessibility:** Make first-window weighting keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0535 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for first-window weighting so a failure is never silent.
+- [ ] **UD-0536 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for first-window weighting.
+- [ ] **UD-0537 · P2 · Clarity:** Clarify earnings disclaimer so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0538 · P2 · Accessibility:** Make earnings disclaimer keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0539 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for earnings disclaimer so a failure is never silent.
+- [ ] **UD-0540 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for earnings disclaimer.
+- [ ] **UD-0541 · P2 · Clarity:** Clarify worked payout example so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0542 · P2 · Accessibility:** Make worked payout example keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0543 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for worked payout example so a failure is never silent.
+- [ ] **UD-0544 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for worked payout example.
+- [ ] **UD-0545 · P2 · Clarity:** Clarify creator statements so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0546 · P2 · Accessibility:** Make creator statements keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0547 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator statements so a failure is never silent.
+- [ ] **UD-0548 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator statements.
+- [ ] **UD-0549 · P2 · Clarity:** Clarify fee disclosure so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0550 · P2 · Accessibility:** Make fee disclosure keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0551 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for fee disclosure so a failure is never silent.
+- [ ] **UD-0552 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for fee disclosure.
+- [ ] **UD-0553 · P2 · Clarity:** Clarify subscription launch notice so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0554 · P2 · Accessibility:** Make subscription launch notice keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0555 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for subscription launch notice so a failure is never silent.
+- [ ] **UD-0556 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for subscription launch notice.
+- [ ] **UD-0557 · P2 · Clarity:** Clarify model-change notice so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0558 · P2 · Accessibility:** Make model-change notice keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0559 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for model-change notice so a failure is never silent.
+- [ ] **UD-0560 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for model-change notice.
+
+## 15. Legal, trust & safety
+
+- [x] **UD-0561 · P1 · Clarity:** Clarify terms status so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0562 · P1 · Accessibility:** Make terms status keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0563 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for terms status so a failure is never silent.
+- [ ] **UD-0564 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for terms status.
+- [x] **UD-0565 · P1 · Clarity:** Clarify privacy notice so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0566 · P1 · Accessibility:** Make privacy notice keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0567 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for privacy notice so a failure is never silent.
+- [ ] **UD-0568 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for privacy notice.
+- [x] **UD-0569 · P1 · Clarity:** Clarify content policy so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0570 · P1 · Accessibility:** Make content policy keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0571 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for content policy so a failure is never silent.
+- [ ] **UD-0572 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for content policy.
+- [ ] **UD-0573 · P1 · Clarity:** Clarify copyright complaints so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0574 · P1 · Accessibility:** Make copyright complaints keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0575 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for copyright complaints so a failure is never silent.
+- [ ] **UD-0576 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for copyright complaints.
+- [ ] **UD-0577 · P1 · Clarity:** Clarify creator license so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0578 · P1 · Accessibility:** Make creator license keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0579 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator license so a failure is never silent.
+- [ ] **UD-0580 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator license.
+- [ ] **UD-0581 · P1 · Clarity:** Clarify community reporting so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0582 · P1 · Accessibility:** Make community reporting keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0583 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for community reporting so a failure is never silent.
+- [ ] **UD-0584 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for community reporting.
+- [ ] **UD-0585 · P1 · Clarity:** Clarify age-sensitive content so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0586 · P1 · Accessibility:** Make age-sensitive content keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0587 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for age-sensitive content so a failure is never silent.
+- [ ] **UD-0588 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for age-sensitive content.
+- [ ] **UD-0589 · P1 · Clarity:** Clarify defamation review so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0590 · P1 · Accessibility:** Make defamation review keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0591 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for defamation review so a failure is never silent.
+- [ ] **UD-0592 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for defamation review.
+- [ ] **UD-0593 · P1 · Clarity:** Clarify source protection so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0594 · P1 · Accessibility:** Make source protection keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0595 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for source protection so a failure is never silent.
+- [ ] **UD-0596 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for source protection.
+- [ ] **UD-0597 · P1 · Clarity:** Clarify law-enforcement requests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0598 · P1 · Accessibility:** Make law-enforcement requests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0599 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for law-enforcement requests so a failure is never silent.
+- [ ] **UD-0600 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for law-enforcement requests.
+
+## 16. Accessibility
+
+- [ ] **UD-0601 · P1 · Clarity:** Clarify skip navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0602 · P1 · Accessibility:** Make skip navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0603 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for skip navigation so a failure is never silent.
+- [ ] **UD-0604 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for skip navigation.
+- [ ] **UD-0605 · P1 · Clarity:** Clarify heading hierarchy so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0606 · P1 · Accessibility:** Make heading hierarchy keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0607 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for heading hierarchy so a failure is never silent.
+- [ ] **UD-0608 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for heading hierarchy.
+- [ ] **UD-0609 · P1 · Clarity:** Clarify landmark structure so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0610 · P1 · Accessibility:** Make landmark structure keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0611 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for landmark structure so a failure is never silent.
+- [ ] **UD-0612 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for landmark structure.
+- [ ] **UD-0613 · P1 · Clarity:** Clarify accessible names so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0614 · P1 · Accessibility:** Make accessible names keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0615 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for accessible names so a failure is never silent.
+- [ ] **UD-0616 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for accessible names.
+- [ ] **UD-0617 · P1 · Clarity:** Clarify dialog behavior so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0618 · P1 · Accessibility:** Make dialog behavior keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0619 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for dialog behavior so a failure is never silent.
+- [ ] **UD-0620 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for dialog behavior.
+- [x] **UD-0621 · P1 · Clarity:** Clarify form labels so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0622 · P1 · Accessibility:** Make form labels keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0623 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for form labels so a failure is never silent.
+- [ ] **UD-0624 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for form labels.
+- [x] **UD-0625 · P1 · Clarity:** Clarify error announcements so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0626 · P1 · Accessibility:** Make error announcements keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0627 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for error announcements so a failure is never silent.
+- [ ] **UD-0628 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for error announcements.
+- [ ] **UD-0629 · P1 · Clarity:** Clarify focus visibility so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0630 · P1 · Accessibility:** Make focus visibility keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0631 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for focus visibility so a failure is never silent.
+- [ ] **UD-0632 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for focus visibility.
+- [x] **UD-0633 · P1 · Clarity:** Clarify reduced motion so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [x] **UD-0634 · P1 · Accessibility:** Make reduced motion keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0635 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for reduced motion so a failure is never silent.
+- [ ] **UD-0636 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for reduced motion.
+- [ ] **UD-0637 · P1 · Clarity:** Clarify zoom and reflow so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0638 · P1 · Accessibility:** Make zoom and reflow keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0639 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for zoom and reflow so a failure is never silent.
+- [ ] **UD-0640 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for zoom and reflow.
+
+## 17. Mobile & responsive
+
+- [ ] **UD-0641 · P2 · Clarity:** Clarify mobile header so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0642 · P2 · Accessibility:** Make mobile header keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0643 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for mobile header so a failure is never silent.
+- [ ] **UD-0644 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for mobile header.
+- [ ] **UD-0645 · P2 · Clarity:** Clarify mobile navigation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0646 · P2 · Accessibility:** Make mobile navigation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0647 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for mobile navigation so a failure is never silent.
+- [ ] **UD-0648 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for mobile navigation.
+- [ ] **UD-0649 · P2 · Clarity:** Clarify hero viewport so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0650 · P2 · Accessibility:** Make hero viewport keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0651 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for hero viewport so a failure is never silent.
+- [ ] **UD-0652 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for hero viewport.
+- [ ] **UD-0653 · P2 · Clarity:** Clarify card rails so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0654 · P2 · Accessibility:** Make card rails keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0655 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for card rails so a failure is never silent.
+- [ ] **UD-0656 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for card rails.
+- [ ] **UD-0657 · P2 · Clarity:** Clarify film detail layout so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0658 · P2 · Accessibility:** Make film detail layout keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0659 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for film detail layout so a failure is never silent.
+- [ ] **UD-0660 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for film detail layout.
+- [ ] **UD-0661 · P2 · Clarity:** Clarify player controls so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0662 · P2 · Accessibility:** Make player controls keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0663 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for player controls so a failure is never silent.
+- [ ] **UD-0664 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for player controls.
+- [ ] **UD-0665 · P2 · Clarity:** Clarify creator form so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0666 · P2 · Accessibility:** Make creator form keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0667 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator form so a failure is never silent.
+- [ ] **UD-0668 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator form.
+- [ ] **UD-0669 · P2 · Clarity:** Clarify admin tables so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0670 · P2 · Accessibility:** Make admin tables keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0671 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for admin tables so a failure is never silent.
+- [ ] **UD-0672 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for admin tables.
+- [ ] **UD-0673 · P2 · Clarity:** Clarify modal sizing so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0674 · P2 · Accessibility:** Make modal sizing keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0675 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for modal sizing so a failure is never silent.
+- [ ] **UD-0676 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for modal sizing.
+- [ ] **UD-0677 · P2 · Clarity:** Clarify safe-area support so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0678 · P2 · Accessibility:** Make safe-area support keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0679 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for safe-area support so a failure is never silent.
+- [ ] **UD-0680 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for safe-area support.
+
+## 18. Performance & Core Web Vitals
+
+- [ ] **UD-0681 · P2 · Clarity:** Clarify font loading so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0682 · P2 · Accessibility:** Make font loading keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0683 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for font loading so a failure is never silent.
+- [ ] **UD-0684 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for font loading.
+- [ ] **UD-0685 · P2 · Clarity:** Clarify poster loading so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0686 · P2 · Accessibility:** Make poster loading keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0687 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for poster loading so a failure is never silent.
+- [ ] **UD-0688 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for poster loading.
+- [x] **UD-0689 · P2 · Clarity:** Clarify hero media loading so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0690 · P2 · Accessibility:** Make hero media loading keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0691 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for hero media loading so a failure is never silent.
+- [ ] **UD-0692 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for hero media loading.
+- [x] **UD-0693 · P2 · Clarity:** Clarify JavaScript payload so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0694 · P2 · Accessibility:** Make JavaScript payload keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0695 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for JavaScript payload so a failure is never silent.
+- [ ] **UD-0696 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for JavaScript payload.
+- [ ] **UD-0697 · P2 · Clarity:** Clarify Firebase startup so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0698 · P2 · Accessibility:** Make Firebase startup keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0699 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for Firebase startup so a failure is never silent.
+- [ ] **UD-0700 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for Firebase startup.
+- [ ] **UD-0701 · P2 · Clarity:** Clarify layout stability so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0702 · P2 · Accessibility:** Make layout stability keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0703 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for layout stability so a failure is never silent.
+- [ ] **UD-0704 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for layout stability.
+- [ ] **UD-0705 · P2 · Clarity:** Clarify interaction latency so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0706 · P2 · Accessibility:** Make interaction latency keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0707 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for interaction latency so a failure is never silent.
+- [ ] **UD-0708 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for interaction latency.
+- [ ] **UD-0709 · P2 · Clarity:** Clarify service-worker caching so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0710 · P2 · Accessibility:** Make service-worker caching keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0711 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for service-worker caching so a failure is never silent.
+- [ ] **UD-0712 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for service-worker caching.
+- [ ] **UD-0713 · P2 · Clarity:** Clarify third-party scripts so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0714 · P2 · Accessibility:** Make third-party scripts keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0715 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for third-party scripts so a failure is never silent.
+- [ ] **UD-0716 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for third-party scripts.
+- [ ] **UD-0717 · P2 · Clarity:** Clarify low-bandwidth mode so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0718 · P2 · Accessibility:** Make low-bandwidth mode keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0719 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for low-bandwidth mode so a failure is never silent.
+- [ ] **UD-0720 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for low-bandwidth mode.
+
+## 19. SEO & social discovery
+
+- [ ] **UD-0721 · P2 · Clarity:** Clarify page title so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0722 · P2 · Accessibility:** Make page title keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0723 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for page title so a failure is never silent.
+- [ ] **UD-0724 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for page title.
+- [ ] **UD-0725 · P2 · Clarity:** Clarify meta description so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0726 · P2 · Accessibility:** Make meta description keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0727 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for meta description so a failure is never silent.
+- [ ] **UD-0728 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for meta description.
+- [ ] **UD-0729 · P2 · Clarity:** Clarify canonical URL so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0730 · P2 · Accessibility:** Make canonical URL keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0731 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for canonical URL so a failure is never silent.
+- [ ] **UD-0732 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for canonical URL.
+- [ ] **UD-0733 · P2 · Clarity:** Clarify Open Graph image so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0734 · P2 · Accessibility:** Make Open Graph image keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0735 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for Open Graph image so a failure is never silent.
+- [ ] **UD-0736 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for Open Graph image.
+- [ ] **UD-0737 · P2 · Clarity:** Clarify Twitter card so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0738 · P2 · Accessibility:** Make Twitter card keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0739 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for Twitter card so a failure is never silent.
+- [ ] **UD-0740 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for Twitter card.
+- [x] **UD-0741 · P2 · Clarity:** Clarify structured data so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0742 · P2 · Accessibility:** Make structured data keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0743 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for structured data so a failure is never silent.
+- [ ] **UD-0744 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for structured data.
+- [x] **UD-0745 · P2 · Clarity:** Clarify sitemap so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0746 · P2 · Accessibility:** Make sitemap keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0747 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for sitemap so a failure is never silent.
+- [ ] **UD-0748 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for sitemap.
+- [x] **UD-0749 · P2 · Clarity:** Clarify robots policy so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0750 · P2 · Accessibility:** Make robots policy keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0751 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for robots policy so a failure is never silent.
+- [ ] **UD-0752 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for robots policy.
+- [ ] **UD-0753 · P2 · Clarity:** Clarify film-specific URLs so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0754 · P2 · Accessibility:** Make film-specific URLs keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0755 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for film-specific URLs so a failure is never silent.
+- [ ] **UD-0756 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for film-specific URLs.
+- [ ] **UD-0757 · P2 · Clarity:** Clarify creator-specific URLs so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0758 · P2 · Accessibility:** Make creator-specific URLs keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0759 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator-specific URLs so a failure is never silent.
+- [ ] **UD-0760 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator-specific URLs.
+
+## 20. Security & abuse prevention
+
+- [x] **UD-0761 · P1 · Clarity:** Clarify Firestore authorization so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0762 · P1 · Accessibility:** Make Firestore authorization keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0763 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for Firestore authorization so a failure is never silent.
+- [ ] **UD-0764 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for Firestore authorization.
+- [ ] **UD-0765 · P1 · Clarity:** Clarify admin identity so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0766 · P1 · Accessibility:** Make admin identity keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0767 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for admin identity so a failure is never silent.
+- [ ] **UD-0768 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for admin identity.
+- [x] **UD-0769 · P1 · Clarity:** Clarify API token checks so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0770 · P1 · Accessibility:** Make API token checks keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0771 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for API token checks so a failure is never silent.
+- [ ] **UD-0772 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for API token checks.
+- [x] **UD-0773 · P1 · Clarity:** Clarify upload signatures so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0774 · P1 · Accessibility:** Make upload signatures keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0775 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for upload signatures so a failure is never silent.
+- [ ] **UD-0776 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for upload signatures.
+- [ ] **UD-0777 · P1 · Clarity:** Clarify file-content validation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0778 · P1 · Accessibility:** Make file-content validation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0779 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for file-content validation so a failure is never silent.
+- [ ] **UD-0780 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for file-content validation.
+- [ ] **UD-0781 · P1 · Clarity:** Clarify outreach rate limits so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0782 · P1 · Accessibility:** Make outreach rate limits keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0783 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for outreach rate limits so a failure is never silent.
+- [ ] **UD-0784 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for outreach rate limits.
+- [ ] **UD-0785 · P1 · Clarity:** Clarify application spam so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0786 · P1 · Accessibility:** Make application spam keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0787 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for application spam so a failure is never silent.
+- [ ] **UD-0788 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for application spam.
+- [x] **UD-0789 · P1 · Clarity:** Clarify security headers so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0790 · P1 · Accessibility:** Make security headers keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0791 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for security headers so a failure is never silent.
+- [ ] **UD-0792 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for security headers.
+- [x] **UD-0793 · P1 · Clarity:** Clarify dependency hygiene so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0794 · P1 · Accessibility:** Make dependency hygiene keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0795 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for dependency hygiene so a failure is never silent.
+- [ ] **UD-0796 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for dependency hygiene.
+- [ ] **UD-0797 · P1 · Clarity:** Clarify incident contact so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0798 · P1 · Accessibility:** Make incident contact keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0799 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for incident contact so a failure is never silent.
+- [ ] **UD-0800 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for incident contact.
+
+## 21. Observability & analytics
+
+- [ ] **UD-0801 · P2 · Clarity:** Clarify authentication failures so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0802 · P2 · Accessibility:** Make authentication failures keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0803 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for authentication failures so a failure is never silent.
+- [ ] **UD-0804 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for authentication failures.
+- [ ] **UD-0805 · P2 · Clarity:** Clarify playback starts so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0806 · P2 · Accessibility:** Make playback starts keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0807 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for playback starts so a failure is never silent.
+- [ ] **UD-0808 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for playback starts.
+- [ ] **UD-0809 · P2 · Clarity:** Clarify playback failures so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0810 · P2 · Accessibility:** Make playback failures keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0811 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for playback failures so a failure is never silent.
+- [ ] **UD-0812 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for playback failures.
+- [ ] **UD-0813 · P2 · Clarity:** Clarify search success so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0814 · P2 · Accessibility:** Make search success keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0815 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for search success so a failure is never silent.
+- [ ] **UD-0816 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for search success.
+- [ ] **UD-0817 · P2 · Clarity:** Clarify creator applications so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0818 · P2 · Accessibility:** Make creator applications keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0819 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator applications so a failure is never silent.
+- [ ] **UD-0820 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator applications.
+- [ ] **UD-0821 · P2 · Clarity:** Clarify upload failures so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0822 · P2 · Accessibility:** Make upload failures keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0823 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for upload failures so a failure is never silent.
+- [ ] **UD-0824 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for upload failures.
+- [ ] **UD-0825 · P2 · Clarity:** Clarify outreach delivery so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0826 · P2 · Accessibility:** Make outreach delivery keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0827 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for outreach delivery so a failure is never silent.
+- [ ] **UD-0828 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for outreach delivery.
+- [ ] **UD-0829 · P2 · Clarity:** Clarify API latency so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0830 · P2 · Accessibility:** Make API latency keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0831 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for API latency so a failure is never silent.
+- [ ] **UD-0832 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for API latency.
+- [ ] **UD-0833 · P2 · Clarity:** Clarify storage growth so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0834 · P2 · Accessibility:** Make storage growth keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0835 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for storage growth so a failure is never silent.
+- [ ] **UD-0836 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for storage growth.
+- [ ] **UD-0837 · P2 · Clarity:** Clarify release health dashboard so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0838 · P2 · Accessibility:** Make release health dashboard keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0839 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for release health dashboard so a failure is never silent.
+- [ ] **UD-0840 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for release health dashboard.
+
+## 22. Email & deliverability
+
+- [ ] **UD-0841 · P2 · Clarity:** Clarify sending-domain authentication so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0842 · P2 · Accessibility:** Make sending-domain authentication keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0843 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for sending-domain authentication so a failure is never silent.
+- [ ] **UD-0844 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for sending-domain authentication.
+- [ ] **UD-0845 · P2 · Clarity:** Clarify creator outreach template so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0846 · P2 · Accessibility:** Make creator outreach template keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0847 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator outreach template so a failure is never silent.
+- [ ] **UD-0848 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator outreach template.
+- [ ] **UD-0849 · P2 · Clarity:** Clarify plain-text fallback so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0850 · P2 · Accessibility:** Make plain-text fallback keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0851 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for plain-text fallback so a failure is never silent.
+- [ ] **UD-0852 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for plain-text fallback.
+- [ ] **UD-0853 · P2 · Clarity:** Clarify reply handling so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0854 · P2 · Accessibility:** Make reply handling keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0855 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for reply handling so a failure is never silent.
+- [ ] **UD-0856 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for reply handling.
+- [ ] **UD-0857 · P2 · Clarity:** Clarify unsubscribe path so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0858 · P2 · Accessibility:** Make unsubscribe path keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0859 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for unsubscribe path so a failure is never silent.
+- [ ] **UD-0860 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for unsubscribe path.
+- [ ] **UD-0861 · P2 · Clarity:** Clarify bounce handling so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0862 · P2 · Accessibility:** Make bounce handling keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0863 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for bounce handling so a failure is never silent.
+- [ ] **UD-0864 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for bounce handling.
+- [ ] **UD-0865 · P2 · Clarity:** Clarify complaint handling so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0866 · P2 · Accessibility:** Make complaint handling keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0867 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for complaint handling so a failure is never silent.
+- [ ] **UD-0868 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for complaint handling.
+- [ ] **UD-0869 · P2 · Clarity:** Clarify send idempotency so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0870 · P2 · Accessibility:** Make send idempotency keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0871 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for send idempotency so a failure is never silent.
+- [ ] **UD-0872 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for send idempotency.
+- [ ] **UD-0873 · P2 · Clarity:** Clarify email audit trail so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0874 · P2 · Accessibility:** Make email audit trail keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0875 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for email audit trail so a failure is never silent.
+- [ ] **UD-0876 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for email audit trail.
+- [ ] **UD-0877 · P2 · Clarity:** Clarify reputation monitoring so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0878 · P2 · Accessibility:** Make reputation monitoring keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0879 · P2 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for reputation monitoring so a failure is never silent.
+- [ ] **UD-0880 · P2 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for reputation monitoring.
+
+## 23. Firebase & data quality
+
+- [ ] **UD-0881 · P1 · Clarity:** Clarify user profile schema so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0882 · P1 · Accessibility:** Make user profile schema keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0883 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for user profile schema so a failure is never silent.
+- [ ] **UD-0884 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for user profile schema.
+- [ ] **UD-0885 · P1 · Clarity:** Clarify content schema so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0886 · P1 · Accessibility:** Make content schema keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0887 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for content schema so a failure is never silent.
+- [ ] **UD-0888 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for content schema.
+- [x] **UD-0889 · P1 · Clarity:** Clarify creator application schema so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0890 · P1 · Accessibility:** Make creator application schema keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0891 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator application schema so a failure is never silent.
+- [ ] **UD-0892 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator application schema.
+- [ ] **UD-0893 · P1 · Clarity:** Clarify creator lead schema so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0894 · P1 · Accessibility:** Make creator lead schema keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0895 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator lead schema so a failure is never silent.
+- [ ] **UD-0896 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator lead schema.
+- [ ] **UD-0897 · P1 · Clarity:** Clarify outreach log schema so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0898 · P1 · Accessibility:** Make outreach log schema keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0899 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for outreach log schema so a failure is never silent.
+- [ ] **UD-0900 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for outreach log schema.
+- [ ] **UD-0901 · P1 · Clarity:** Clarify server timestamps so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0902 · P1 · Accessibility:** Make server timestamps keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0903 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for server timestamps so a failure is never silent.
+- [ ] **UD-0904 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for server timestamps.
+- [x] **UD-0905 · P1 · Clarity:** Clarify document size limits so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0906 · P1 · Accessibility:** Make document size limits keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0907 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for document size limits so a failure is never silent.
+- [ ] **UD-0908 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for document size limits.
+- [x] **UD-0909 · P1 · Clarity:** Clarify required fields so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0910 · P1 · Accessibility:** Make required fields keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0911 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for required fields so a failure is never silent.
+- [ ] **UD-0912 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for required fields.
+- [ ] **UD-0913 · P1 · Clarity:** Clarify data migration so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0914 · P1 · Accessibility:** Make data migration keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0915 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for data migration so a failure is never silent.
+- [ ] **UD-0916 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for data migration.
+- [ ] **UD-0917 · P1 · Clarity:** Clarify backup and restore so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0918 · P1 · Accessibility:** Make backup and restore keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0919 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for backup and restore so a failure is never silent.
+- [ ] **UD-0920 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for backup and restore.
+
+## 24. Testing & release engineering
+
+- [x] **UD-0921 · P1 · Clarity:** Clarify HTML validation so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0922 · P1 · Accessibility:** Make HTML validation keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0923 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for HTML validation so a failure is never silent.
+- [ ] **UD-0924 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for HTML validation.
+- [x] **UD-0925 · P1 · Clarity:** Clarify unit tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0926 · P1 · Accessibility:** Make unit tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [x] **UD-0927 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for unit tests so a failure is never silent.
+- [ ] **UD-0928 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for unit tests.
+- [ ] **UD-0929 · P1 · Clarity:** Clarify auth integration tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0930 · P1 · Accessibility:** Make auth integration tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0931 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for auth integration tests so a failure is never silent.
+- [ ] **UD-0932 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for auth integration tests.
+- [ ] **UD-0933 · P1 · Clarity:** Clarify Firestore rule tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0934 · P1 · Accessibility:** Make Firestore rule tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0935 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for Firestore rule tests so a failure is never silent.
+- [ ] **UD-0936 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for Firestore rule tests.
+- [ ] **UD-0937 · P1 · Clarity:** Clarify API contract tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0938 · P1 · Accessibility:** Make API contract tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0939 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for API contract tests so a failure is never silent.
+- [ ] **UD-0940 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for API contract tests.
+- [ ] **UD-0941 · P1 · Clarity:** Clarify player tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0942 · P1 · Accessibility:** Make player tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0943 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for player tests so a failure is never silent.
+- [ ] **UD-0944 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for player tests.
+- [ ] **UD-0945 · P1 · Clarity:** Clarify accessibility tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0946 · P1 · Accessibility:** Make accessibility tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0947 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for accessibility tests so a failure is never silent.
+- [ ] **UD-0948 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for accessibility tests.
+- [ ] **UD-0949 · P1 · Clarity:** Clarify mobile regression tests so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0950 · P1 · Accessibility:** Make mobile regression tests keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0951 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for mobile regression tests so a failure is never silent.
+- [ ] **UD-0952 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for mobile regression tests.
+- [ ] **UD-0953 · P1 · Clarity:** Clarify preview deployment checks so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0954 · P1 · Accessibility:** Make preview deployment checks keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0955 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for preview deployment checks so a failure is never silent.
+- [ ] **UD-0956 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for preview deployment checks.
+- [ ] **UD-0957 · P1 · Clarity:** Clarify rollback procedure so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0958 · P1 · Accessibility:** Make rollback procedure keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0959 · P1 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for rollback procedure so a failure is never silent.
+- [ ] **UD-0960 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for rollback procedure.
+
+## 25. Community & retention
+
+- [ ] **UD-0961 · P3 · Clarity:** Clarify new-release communication so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0962 · P3 · Accessibility:** Make new-release communication keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0963 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for new-release communication so a failure is never silent.
+- [ ] **UD-0964 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for new-release communication.
+- [ ] **UD-0965 · P3 · Clarity:** Clarify editorial collections so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0966 · P3 · Accessibility:** Make editorial collections keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0967 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for editorial collections so a failure is never silent.
+- [ ] **UD-0968 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for editorial collections.
+- [ ] **UD-0969 · P3 · Clarity:** Clarify creator follow feature so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0970 · P3 · Accessibility:** Make creator follow feature keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0971 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator follow feature so a failure is never silent.
+- [ ] **UD-0972 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator follow feature.
+- [ ] **UD-0973 · P3 · Clarity:** Clarify viewer feedback so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0974 · P3 · Accessibility:** Make viewer feedback keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0975 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for viewer feedback so a failure is never silent.
+- [ ] **UD-0976 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for viewer feedback.
+- [ ] **UD-0977 · P3 · Clarity:** Clarify content reporting so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0978 · P3 · Accessibility:** Make content reporting keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0979 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for content reporting so a failure is never silent.
+- [ ] **UD-0980 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for content reporting.
+- [ ] **UD-0981 · P3 · Clarity:** Clarify release calendar so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0982 · P3 · Accessibility:** Make release calendar keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0983 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for release calendar so a failure is never silent.
+- [ ] **UD-0984 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for release calendar.
+- [ ] **UD-0985 · P3 · Clarity:** Clarify community guidelines so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0986 · P3 · Accessibility:** Make community guidelines keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0987 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for community guidelines so a failure is never silent.
+- [ ] **UD-0988 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for community guidelines.
+- [ ] **UD-0989 · P3 · Clarity:** Clarify member referrals so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0990 · P3 · Accessibility:** Make member referrals keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0991 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for member referrals so a failure is never silent.
+- [ ] **UD-0992 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for member referrals.
+- [ ] **UD-0993 · P3 · Clarity:** Clarify creator Q&A so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0994 · P3 · Accessibility:** Make creator Q&A keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0995 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for creator Q&A so a failure is never silent.
+- [ ] **UD-0996 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for creator Q&A.
+- [ ] **UD-0997 · P3 · Clarity:** Clarify returning-viewer recommendations so a first-time visitor understands its purpose, next action, and limitations without insider knowledge.
+- [ ] **UD-0998 · P3 · Accessibility:** Make returning-viewer recommendations keyboard-, screen-reader-, zoom-, and touch-operable with an explicit name and visible focus where applicable.
+- [ ] **UD-0999 · P3 · Resilience:** Add loading, empty, error, retry, and degraded-network behavior for returning-viewer recommendations so a failure is never silent.
+- [ ] **UD-1000 · P3 · Measurement:** Define a privacy-conscious success event, owner, baseline, target, and review cadence for returning-viewer recommendations.

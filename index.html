@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>UNDRGRND Docs — Independent Documentary Streaming</title>
-  <meta name="description" content="Twenty-four public-domain documentaries, streamed free: Dust Bowl newsreels, civil-defence propaganda, city symphonies and the films the government made about itself.">
+  <meta name="description" content="Independent documentaries, street journalism and essential archival films. Sign in free to watch and meet the creators documenting what larger platforms miss.">
   <meta name="theme-color" content="#0d0d0d">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icon-192.png">
-  <link rel="canonical" href="https://undrgrnd-docs.vercel.app/">
+  <link rel="canonical" href="https://undrgrnddocs.com/">
 
-  <!-- Shared links previewed as a blank card: there was no og:image and no
-       Twitter card at all. Both point at a frame from Manhatta (1921). -->
-  <meta property="og:title" content="UNDRGRND Docs — public-domain documentary streaming">
-  <meta property="og:description" content="Twenty-four documentaries from 1906 to 2007, free to watch. Dust Bowl newsreels, civil-defence propaganda and city symphonies.">
+  <meta property="og:title" content="UNDRGRND Docs — Independent Documentary Streaming">
+  <meta property="og:description" content="Independent documentaries, street journalism and essential archival films—built around direct creator relationships.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://undrgrnd-docs.vercel.app/">
+  <meta property="og:url" content="https://undrgrnddocs.com/">
   <meta property="og:site_name" content="UNDRGRND Docs">
-  <meta property="og:image" content="https://undrgrnd-docs.vercel.app/og-image.jpg">
+  <meta property="og:image" content="https://undrgrnddocs.com/og-v2.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Manhattan skyscrapers from Manhatta, 1921">
+  <meta property="og:image:alt" content="UNDRGRND Docs — Independent stories. Direct audience.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="UNDRGRND Docs — public-domain documentary streaming">
-  <meta name="twitter:description" content="Twenty-four documentaries from 1906 to 2007, free to watch.">
-  <meta name="twitter:image" content="https://undrgrnd-docs.vercel.app/og-image.jpg">
+  <meta name="twitter:title" content="UNDRGRND Docs — Independent Documentary Streaming">
+  <meta name="twitter:description" content="Independent documentaries, street journalism and essential archival films.">
+  <meta name="twitter:image" content="https://undrgrnddocs.com/og-v2.jpg">
 
   <link rel="manifest" href="/manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,17 @@
        contrast reads like a title card, which suits a film archive. Bodoni is
        loaded with its optical-size axis so it stays solid at heading sizes. -->
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500..800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "UNDRGRND Docs",
+      "url": "https://undrgrnddocs.com/",
+      "logo": "https://undrgrnddocs.com/icon-512.png",
+      "description": "Independent documentaries, street journalism and essential archival films.",
+      "email": "hello@undrgrnddocs.com"
+    }
+  </script>
   <style>
     :root {
       --font-display: 'Bodoni Moda', 'Iowan Old Style', Georgia, serif;
@@ -71,6 +82,15 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+    body.modal-open { overflow: hidden; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 3px;
+    }
+    :where(button, input, select, textarea):disabled { cursor: not-allowed; opacity: .58; }
 
     /* ─── Scrollbar ─── */
     ::-webkit-scrollbar { width: 6px; height: 0; }
@@ -100,6 +120,7 @@
       letter-spacing: 0.01em; cursor: pointer;
       color: var(--text-main); user-select: none;
     }
+    .logo-button { border: 0; background: transparent; font: inherit; padding: 0; }
     .nav-links { display: flex; gap: 24px; }
     .nav-links a {
       color: var(--text-sub); text-decoration: none;
@@ -151,16 +172,18 @@
       align-items: center; cursor: pointer;
       transition: background 0.15s;
       border-bottom: 1px solid var(--border);
+      width: 100%; color: var(--text-main); text-align: left;
+      background: transparent; font: inherit;
     }
     .search-result-item:last-child { border-bottom: none; }
-    .search-result-item:hover { background: var(--bg-surface); }
+    .search-result-item:hover, .search-result-item:focus-visible { background: var(--bg-surface); }
     .search-result-thumb {
       width: 80px; height: 45px; border-radius: 3px;
       object-fit: cover; flex-shrink: 0;
     }
     .search-result-info { flex: 1; min-width: 0; }
-    .search-result-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .search-result-creator { font-size: 0.75rem; color: var(--text-sub); }
+    .search-result-title { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .search-result-creator { display: block; font-size: 0.75rem; color: var(--text-sub); }
     .search-empty { padding: 24px 16px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
 
     /* Mobile hamburger */
@@ -311,6 +334,7 @@
 
     /* Hero sound button */
     .hero-sound-btn { border: 1px solid rgba(255,255,255,0.35); }
+    .hero-actions .hero-sound-btn { margin-left: auto; }
     .hero-sound-btn.nudge { animation: soundNudge 2.4s ease-in-out infinite; }
     @keyframes soundNudge {
       0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.0); }
@@ -440,6 +464,12 @@
       text-transform: uppercase; letter-spacing: 0.5px;
       color: var(--accent); margin-bottom: 6px;
     }
+    .card-coming-soon {
+      position: absolute; top: 12px; right: 12px; z-index: 3;
+      border-radius: 999px; padding: 6px 9px; background: rgba(13,13,13,.88);
+      border: 1px solid rgba(229,160,13,.55); color: var(--accent);
+      font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    }
     .play-icon {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -453,8 +483,10 @@
     .card:hover .play-icon {
       opacity: 1; transform: translate(-50%, -50%) scale(1);
     }
-    /* Shimmer loading state */
-    .card.loading img { display: none; }
+    /* Shimmer loading state. Hide with opacity, never display:none — a
+       hidden img has no layout box, so the browser deprioritizes or skips
+       loading it and the shimmer never resolves. */
+    .card.loading img { opacity: 0; }
     .card.loading::before {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);
@@ -516,6 +548,7 @@
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; z-index: 2;
       opacity: 0; transition: opacity 0.3s;
+      border: 0; width: 100%; background: transparent; color: inherit;
     }
     .video-container.paused .big-play-overlay { opacity: 1; }
     .big-play-circle {
@@ -877,9 +910,120 @@
     .creator-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    /* Accounts, journalist program and admin operations */
+    .account-button { border: 1px solid var(--border); background: transparent; color: var(--text-main); border-radius: 999px; padding: 9px 15px; font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .account-button:hover, .account-button.signed-in { border-color: var(--accent); color: var(--accent); }
+    .eyebrow { color: var(--accent); font-size: .76rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .journalist-hero { min-height: 520px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(310px, .75fr); gap: 44px; align-items: center; padding: 70px 0 50px; }
+    .journalist-hero h1 { font-size: clamp(3rem, 7vw, 6.7rem); line-height: .92; letter-spacing: -.06em; text-transform: uppercase; margin: 14px 0 24px; }
+    .journalist-hero p { color: var(--text-sub); font-size: 1.08rem; line-height: 1.72; max-width: 720px; }
+    .journalist-proof { background: linear-gradient(145deg, rgba(229,160,13,.14), rgba(255,255,255,.02)); border: 1px solid rgba(229,160,13,.35); border-radius: 18px; padding: 30px; }
+    .journalist-proof h2 { margin: 8px 0 18px; font-size: 1.55rem; }
+    .proof-row { display: flex; gap: 14px; align-items: flex-start; padding: 15px 0; border-top: 1px solid var(--border); }
+    .proof-number { color: var(--accent); font-weight: 900; min-width: 34px; }
+    .proof-row p { font-size: .9rem; margin: 0; }
+    .creator-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 24px 0 70px; }
+    .creator-principle { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .creator-principle h3 { margin: 0 0 12px; }
+    .creator-principle p { color: var(--text-sub); line-height: 1.6; margin: 0; font-size: .93rem; }
+    .creator-model { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 0 0 70px; }
+    .model-card { background: #101010; border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+    .model-card strong { color: var(--accent); font-size: 2.4rem; display: block; margin-bottom: 10px; }
+    .model-card p { color: var(--text-sub); line-height: 1.65; margin: 0; }
+    .creator-application { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 16px; padding: clamp(24px, 5vw, 50px); margin-bottom: 70px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-grid .form-group.full { grid-column: 1 / -1; }
+    .form-help { color: var(--text-sub); font-size: .8rem; line-height: 1.5; }
+    .check-row { display: flex; gap: 12px; align-items: flex-start; color: var(--text-sub); line-height: 1.5; }
+    .check-row input { margin-top: 4px; accent-color: var(--accent); }
+    .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--text-sub); font-size: .75rem; margin: 16px 0; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
+    .google-button { width: 100%; justify-content: center; display: flex; align-items: center; gap: 10px; background: #fff; color: #171717; border: 0; border-radius: 6px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
+    .google-mark { width: 18px; height: 18px; border-radius: 50%; background: conic-gradient(from -45deg, #4285f4 0 25%, #34a853 0 50%, #fbbc05 0 75%, #ea4335 0); position: relative; }
+    .google-mark::after { content: ''; position: absolute; inset: 4px; background: white; border-radius: 50%; }
+    #platform-toast { position: fixed; right: 22px; bottom: 22px; max-width: 420px; padding: 14px 18px; border-radius: 8px; background: #202018; border: 1px solid rgba(229,160,13,.55); color: var(--text-main); z-index: 12000; transform: translateY(140%); opacity: 0; transition: .25s ease; box-shadow: 0 16px 50px rgba(0,0,0,.4); }
+    #platform-toast.visible { transform: translateY(0); opacity: 1; }
+    #platform-toast[data-kind="error"] { background: #271414; border-color: #8e3434; }
+
+    #admin-view { min-height: 100vh; padding-top: 76px; }
+    .admin-shell { max-width: 1500px; margin: 0 auto; padding: 38px 4vw 90px; }
+    .admin-topbar { display: flex; justify-content: space-between; gap: 28px; align-items: flex-end; margin-bottom: 30px; }
+    .admin-topbar h1 { font-size: clamp(2.3rem, 5vw, 4.5rem); letter-spacing: -.05em; margin: 7px 0 0; }
+    .admin-stats { display: grid; grid-template-columns: repeat(4, minmax(140px,1fr)); gap: 12px; margin-bottom: 28px; }
+    .admin-stat { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+    .admin-stat span { display: block; color: var(--text-sub); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 9px; }
+    .admin-stat strong { font-size: 1.35rem; }
+    .admin-status[data-ready="true"] { color: #68d391; }
+    .admin-status[data-ready="false"] { color: #f4bd4f; }
+    .admin-tabs { display: flex; gap: 6px; overflow-x: auto; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+    .admin-tab { background: transparent; border: 0; color: var(--text-sub); padding: 13px 16px; font: inherit; font-weight: 700; white-space: nowrap; border-bottom: 2px solid transparent; cursor: pointer; }
+    .admin-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+    .admin-work-grid { display: grid; grid-template-columns: minmax(360px,.85fr) minmax(480px,1.15fr); gap: 22px; align-items: start; }
+    .admin-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .admin-card h2 { font-size: 1.3rem; margin: 0 0 6px; }
+    .admin-card > p { color: var(--text-sub); font-size: .88rem; line-height: 1.5; margin: 0 0 22px; }
+    .admin-list { display: grid; gap: 10px; }
+    .admin-list-row { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: center; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+    .admin-list-row img { width: 72px; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 5px; }
+    .admin-list-row span, .lead-main span, .application-card span { display: block; color: var(--text-sub); font-size: .77rem; margin-top: 5px; }
+    .admin-row-actions { display: flex; gap: 7px; }
+    .admin-row-actions .btn-outline { padding: 8px 10px; font-size: .72rem; }
+    .admin-empty { border: 1px dashed var(--border); border-radius: 8px; color: var(--text-sub); text-align: center; padding: 34px 20px; }
+    .admin-progress { color: var(--accent); font-size: .8rem; min-height: 24px; margin: 12px 0; }
+    .lead-row { display: grid; grid-template-columns: 52px minmax(180px,1fr) minmax(210px,.75fr) auto auto; gap: 12px; align-items: center; border-bottom: 1px solid var(--border); padding: 14px 0; }
+    .lead-row img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+    .lead-main a { color: var(--text-main); text-decoration: none; }
+    .text-button { border: 0; background: none; color: var(--text-sub); font: inherit; font-size: .72rem; text-decoration: underline; cursor: pointer; }
+    .application-card { border: 1px solid var(--border); border-radius: 8px; padding: 18px; display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+    .application-card p { grid-column: 1 / -1; color: var(--text-sub); line-height: 1.55; margin: 0; }
+    .application-card a { color: var(--accent); }
+    .readiness-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .readiness-item { border: 1px solid var(--border); border-radius: 9px; padding: 20px; }
+    .readiness-item h3 { margin: 0 0 8px; }
+    .readiness-item p { color: var(--text-sub); font-size: .85rem; line-height: 1.5; margin: 0; }
+    .modal-scrim { display: none; position: fixed; inset: 0; z-index: 11000; background: rgba(0,0,0,.82); align-items: center; justify-content: center; padding: 20px; }
+    .modal-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; width: min(620px,100%); max-height: 90vh; overflow-y: auto; padding: 30px; }
+    .modal-title { font-size: 2rem; margin: 8px 0 8px; }
+    .modal-reason { color: var(--text-sub); margin: 0 0 22px; }
+    .auth-error { color: #f28b82; font-size: .88rem; margin-bottom: 16px; }
+    .auth-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .modal-cancel { width: 100%; margin-top: 18px; }
+    .journalist-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .creator-heading { font-size: clamp(2rem,4vw,3.5rem); margin: 10px 0 8px; }
+    .creator-status { margin-bottom: 28px; }
+    .creator-disclaimer { margin-top: 16px; }
+    .admin-card-spaced { margin-bottom: 20px; }
+    .legal-list { margin: 0 0 20px 22px; }
+    .legal-list li { margin-bottom: 10px; color: var(--text-sub); }
+    .legal-closing { margin-top: 20px; }
+    .related-row { margin-top: 50px; padding: 0; }
+    .auth-modal-card { max-width: 430px; }
+    .about-title { text-transform: uppercase; font-size: clamp(2.5rem, 6vw, 4rem); }
+    .legal-intro { margin-bottom: 40px; }
+
+    @media (max-width: 980px) {
+      .journalist-hero, .creator-model, .admin-work-grid { grid-template-columns: 1fr; }
+      .creator-grid { grid-template-columns: 1fr; }
+      .admin-stats { grid-template-columns: repeat(2,1fr); }
+      .lead-row { grid-template-columns: 48px 1fr auto; }
+      .lead-row .lead-email { grid-column: 2 / -1; }
+      .lead-suppress { grid-column: 2 / -1; justify-self: start; }
+    }
+    @media (max-width: 640px) {
+      .account-button { display: none; }
+      .form-grid, .readiness-grid { grid-template-columns: 1fr; }
+      .form-grid .form-group.full { grid-column: auto; }
+      .journalist-hero { padding-top: 35px; }
+      .journalist-hero h1 { font-size: clamp(2.25rem, 12vw, 3rem); letter-spacing: -.045em; }
+      .admin-stats { grid-template-columns: 1fr 1fr; }
+      .admin-list-row { grid-template-columns: 60px 1fr; }
+      .admin-row-actions { grid-column: 1 / -1; }
+      .auth-actions { grid-template-columns: 1fr; }
+    }
   </style>
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -887,24 +1031,28 @@
 
   <nav id="navbar">
     <div class="nav-left">
-      <div class="logo" onclick="showView('main')">UNDRGRND</div>
+      <button class="logo logo-button" type="button" onclick="showView('main')" aria-label="UNDRGRND Docs home">UNDRGRND</button>
       <div class="nav-links" id="nav-links">
-        <a href="#" id="nav-main" class="active" onclick="showView('main'); return false;">Browse</a>
-        <a href="#" id="nav-creator" onclick="showView('creator'); return false;">Upload</a>
-        <a href="#" id="nav-about" onclick="showView('about'); return false;">About</a>
+        <a href="#browse" id="nav-main" class="active" onclick="showView('main'); return false;">Browse</a>
+        <a href="#journalist" id="nav-creator" onclick="showView('creator'); return false;">Are you a journalist?</a>
+        <a href="#admin" id="nav-admin" hidden onclick="showView('admin'); return false;">Admin</a>
+        <a href="#about" id="nav-about" onclick="showView('about'); return false;">About</a>
       </div>
     </div>
     <div class="nav-right">
       <div class="search-wrap" id="search-wrap">
-        <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        <input class="search-input" id="search-input" type="text" placeholder="Search docs..." autocomplete="off">
-        <div class="search-results" id="search-results"></div>
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <label class="sr-only" for="search-input">Search documentaries</label>
+        <input class="search-input" id="search-input" type="search" placeholder="Search docs..." autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results">
+        <!-- [html-validate-disable-next prefer-native-element] -->
+        <div class="search-results" id="search-results" role="listbox" aria-label="Documentary search results"></div>
       </div>
-      <button class="profile-btn" onclick="showView('profile'); return false;" title="Profile">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <button class="account-button" id="auth-nav-button" type="button" onclick="platformUser ? showView('profile') : openAuthModal('Sign in to continue')">Sign in</button>
+      <button class="profile-btn" type="button" onclick="platformUser ? showView('profile') : openAuthModal('Sign in to view your profile'); return false;" title="Profile" aria-label="Open your profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
       </button>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileNav()">
-        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
       </button>
     </div>
   </nav>
@@ -912,25 +1060,24 @@
   <main id="main-view" tabindex="-1">
     <!-- Hero -->
     <section class="hero" id="hero-section">
-      <video id="hero-video" autoplay muted playsinline preload="auto" poster="/assets/dead_of_night.jpg">
-        <source src="https://archive.org/download/Night.Of.The.Living.Dead_1080p/NightOfTheLivingDead_720p_512kb.mp4#t=470" type="video/mp4">
+      <video id="hero-video" muted playsinline preload="metadata" poster="/assets/sick-mind-edp445.jpg" aria-hidden="true" tabindex="-1">
       </video>
       <div class="hero-overlay"></div>
 
       <div class="hero-content" id="hero-content">
-        <div class="hero-genre" id="hero-genre">Horror Documentary</div>
-        <h1 class="hero-title" id="hero-title">Dead of Night</h1>
-        <p class="hero-desc" id="hero-desc">Before zombies were mainstream, George A. Romero's 1968 masterpiece defined the genre. A copyright error on the title card sent it straight into the public domain.</p>
+        <div class="hero-genre" id="hero-genre">True Crime Documentary</div>
+        <h1 class="hero-title" id="hero-title">The Sick Mind of EDP445</h1>
+        <p class="hero-desc" id="hero-desc">Mike Clum examines the rise, public collapse and aftermath of internet personality EDP445 through interviews, reporting and firsthand documentation.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" id="hero-watch-btn">
+          <button class="btn btn-primary" id="hero-watch-btn" type="button">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             Watch Now
           </button>
-          <button class="btn btn-secondary" id="hero-info-btn">
+          <button class="btn btn-secondary" id="hero-info-btn" type="button">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
             More Info
           </button>
-          <button class="btn btn-secondary hero-sound-btn" id="hero-mute-btn" onclick="toggleHeroMute()" style="margin-left: auto;">
+          <button class="btn btn-secondary hero-sound-btn" id="hero-mute-btn" type="button" onclick="toggleHeroMute()" aria-pressed="false">
             <svg id="mute-icon" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
             <span id="mute-label">Tap for sound</span>
           </button>
@@ -955,21 +1102,21 @@
         </div>
         <div class="footer-col">
           <h3>Platform</h3>
-          <a href="#" onclick="showView('main'); return false;">Browse</a>
-          <a href="#" onclick="showView('profile'); return false;">Profile</a>
-          <a href="#" onclick="showView('creator'); return false;">Upload</a>
+          <a href="#browse" onclick="showView('main'); return false;">Browse</a>
+          <a href="#profile" onclick="showView('profile'); return false;">Profile</a>
+          <a href="#journalist" onclick="showView('creator'); return false;">Are you a journalist?</a>
         </div>
         <div class="footer-col">
           <h3>Company</h3>
-          <a href="#" onclick="showView('about'); return false;">About Us</a>
-          <a href="#">Press</a>
-          <a href="#">Contact</a>
+          <a href="#about" onclick="showView('about'); return false;">About Us</a>
+          <a href="mailto:hello@undrgrnddocs.com?subject=Press%20inquiry">Press</a>
+          <a href="mailto:hello@undrgrnddocs.com">Contact</a>
         </div>
         <div class="footer-col">
           <h3>Legal</h3>
-          <a href="#" onclick="showView('legal'); return false;">Terms</a>
-          <a href="#" onclick="showView('legal'); return false;">Privacy</a>
-          <a href="#" onclick="showView('legal'); return false;">Content Policy</a>
+          <a href="#legal" onclick="showView('legal'); return false;">Terms</a>
+          <a href="#legal" onclick="showView('legal'); return false;">Privacy</a>
+          <a href="#legal" onclick="showView('legal'); return false;">Content Policy</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -982,13 +1129,13 @@
   <!-- Detail / Watch View -->
   <section id="detail-view" aria-label="Now watching">
     <div class="detail-container">
-      <button class="back-btn" onclick="showMainView()">
+      <button class="back-btn" type="button" onclick="showMainView()">
         <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         Back
       </button>
 
       <div class="video-container paused" id="video-container">
-        <video id="main-player" controlsList="nodownload" disablepictureinpicture oncontextmenu="return false;">
+        <video id="main-player" controlslist="nodownload" disablepictureinpicture oncontextmenu="return false;" preload="metadata">
           <source id="main-source" src="" type="video/mp4">
         </video>
 
@@ -997,20 +1144,20 @@
              it through the IFrame API, so both kinds of entry look and behave
              the same to a viewer. -->
         <div id="yt-player" hidden></div>
-        <div class="yt-click-shield" id="yt-click-shield" hidden onclick="togglePlay()"></div>
+        <button class="yt-click-shield" id="yt-click-shield" type="button" hidden onclick="togglePlay()" aria-label="Play or pause documentary"></button>
 
-        <div class="player-error" id="player-error" hidden>
+        <div class="player-error" id="player-error" role="alert" hidden>
           <p class="player-error-title">This film won't stream right now.</p>
           <p class="player-error-body">The archive copy is unavailable. Try again shortly, or pick another title.</p>
-          <button class="btn btn-secondary" onclick="retryPlayback()">Try again</button>
-          <a id="player-error-source" class="btn btn-secondary" target="_blank" rel="noopener" hidden>Watch at the source</a>
+          <button class="btn btn-secondary" type="button" onclick="retryPlayback()">Try again</button>
+          <a id="player-error-source" class="btn btn-secondary" href="#" target="_blank" rel="noopener noreferrer" hidden>Watch at the source</a>
         </div>
 
-        <div class="big-play-overlay" onclick="togglePlay()">
-          <div class="big-play-circle">
+        <button class="big-play-overlay" type="button" onclick="togglePlay()" aria-label="Play documentary">
+          <span class="big-play-circle">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
+          </span>
+        </button>
 
         <div class="video-controls">
           <div class="progress-bar" id="progress-bar">
@@ -1018,11 +1165,11 @@
           </div>
           <div class="controls-main">
             <div class="controls-left">
-              <button class="control-btn" id="play-pause-btn" title="Play/Pause (Space)" aria-label="Play or pause">
+              <button class="control-btn" id="play-pause-btn" type="button" title="Play/Pause (Space)" aria-label="Play or pause">
                 <svg id="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
               </button>
               <div class="volume-container">
-                <button class="control-btn" id="mute-btn" title="Mute (m)" aria-label="Mute or unmute">
+                <button class="control-btn" id="mute-btn" type="button" title="Mute (m)" aria-label="Mute or unmute">
                   <svg id="volume-icon-svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                 </button>
                 <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="1" aria-label="Volume">
@@ -1030,10 +1177,10 @@
               <div class="time-display" id="time-display">0:00 / 0:00</div>
             </div>
             <div class="controls-right">
-              <button class="control-btn" id="cc-btn" title="Subtitles (c)" aria-label="Toggle subtitles">
+              <button class="control-btn" id="cc-btn" type="button" title="Subtitles (c)" aria-label="Toggle subtitles">
                 <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5v-4c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V11zm7 0h-1.5v-.5h-2v3h2V13H18v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5v-4c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V11z"/></svg>
               </button>
-              <button class="control-btn" id="fullscreen-btn" title="Fullscreen (f)" aria-label="Toggle fullscreen">
+              <button class="control-btn" id="fullscreen-btn" type="button" title="Fullscreen (f)" aria-label="Toggle fullscreen">
                 <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
               </button>
             </div>
@@ -1075,154 +1222,190 @@
       </div>
 
       <!-- More Like This -->
-      <section class="row" style="margin-top: 50px; padding: 0;">
-        <div class="row-header"><h2>More Like This</h2></div>
+      <section class="row related-row" aria-labelledby="more-like-heading">
+        <div class="row-header"><h2 id="more-like-heading">More Like This</h2></div>
         <div class="row-scroll" id="more-like-this"></div>
       </section>
     </div>
   </section>
 
-  <!-- Creator Dashboard / Upload -->
-  <section id="creator-view" style="display: none;" aria-label="Creator studio">
+  <!-- Public creator recruitment -->
+  <section id="creator-view" style="display: none;" aria-label="Are you a journalist?">
     <div class="page-container">
-      
-      <!-- Creator Onboarding Gate (Curious Creator POV) -->
-      <div id="creator-onboarding" style="text-align: center; padding: 60px 20px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 40px;">
-        <h1 class="page-title" style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; text-transform: uppercase;">Join the Underground</h1>
-        <p style="font-size: 1.1rem; color: var(--text-sub); max-width: 600px; margin: 0 auto 30px;">
-          Tired of being demonetized and shadowbanned? Apply for the <strong>Upload First Program</strong>. Upload your raw, uncut documentaries here first and earn a <strong>1.5x multiplier</strong> on your view-time payouts.
-        </p>
-        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-          <button class="btn btn-primary" onclick="document.getElementById('auth-modal').style.display='flex'">Login / Apply</button>
+      <div class="journalist-hero">
+        <div>
+          <div class="eyebrow">Independent work belongs somewhere independent</div>
+          <h1>Are you a journalist?</h1>
+          <p>If you report from the street, investigate local power, or make documentaries that do not fit an advertiser-safe box, we want to see your work. UNDRGRND is building direct relationships with emerging creators before an algorithm decides who matters.</p>
+          <div class="journalist-actions">
+            <a class="btn btn-primary" href="#creator-application" onclick="document.getElementById('creator-application').scrollIntoView({behavior:'smooth'});return false;">Pitch a project</a>
+            <a class="btn btn-secondary" href="mailto:creators@undrgrnddocs.com">creators@undrgrnddocs.com</a>
+          </div>
         </div>
+        <aside class="journalist-proof">
+          <div class="eyebrow">Who this is for</div>
+          <h2>The next essential reporter may still be under 100,000 subscribers.</h2>
+          <div class="proof-row"><span class="proof-number">01</span><p>Original field reporting, interviews, investigations and feature documentaries.</p></div>
+          <div class="proof-row"><span class="proof-number">02</span><p>Creators who can document their ownership, permissions and source material.</p></div>
+          <div class="proof-row"><span class="proof-number">03</span><p>Editorial independence without promises of censorship-proof or guaranteed income.</p></div>
+        </aside>
       </div>
 
-      <!-- Actual Dashboard (Hidden until Login) -->
-      <div id="creator-dashboard-content" style="display: none;">
-        <div class="dashboard-header">
-          <div>
-            <h1 class="page-title" style="margin-bottom: 5px;">Creator Studio</h1>
-            <p class="page-desc" style="margin-bottom: 0;" id="dashboard-welcome">Welcome back.</p>
-          </div>
-          <div style="display: flex; gap: 12px;">
-            <button class="btn-outline" onclick="handleLogout()" style="border-color: var(--border); color: var(--text-sub);">Log Out</button>
-            <button class="btn-outline" onclick="switchCreatorTab('upload')">+ New Upload</button>
-          </div>
-        </div>
-
-      <div class="creator-tabs">
-        <div class="creator-tab active" onclick="switchCreatorTab('analytics')">Analytics & Revenue</div>
-        <div class="creator-tab" onclick="switchCreatorTab('upload')">Upload Content</div>
+      <div class="eyebrow">The creator compact</div>
+      <div class="creator-grid">
+        <article class="creator-principle"><h3>You keep ownership</h3><p>Every release starts with a written license describing exactly what UNDRGRND may stream, for how long, and where. Your underlying copyright stays yours.</p></article>
+        <article class="creator-principle"><h3>Terms before upload</h3><p>No surprise exclusivity. A first-window release is optional and must be agreed in writing before a finished film is published.</p></article>
+        <article class="creator-principle"><h3>Transparent reporting</h3><p>Creators receive the view-time and revenue information used for calculations. Illustrative numbers are always labeled as examples.</p></article>
       </div>
 
-      <div id="tab-analytics" class="tab-content active">
-        <p class="sample-notice">
-          <strong>Sample data.</strong> These figures are a worked example of the
-          payout model, not a record of earnings. Real numbers appear once uploads
-          and subscriptions are connected.
-        </p>
-        <div class="chart-container" style="position: relative; height: 350px; margin-bottom: 40px; background: var(--bg-elevated); padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
-          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
-            <div>
-              <div style="font-size: 0.9rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Est. Payout (This Month)</div>
-              <div id="stat-payout" style="font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1.1;">$0.00</div>
-            </div>
-            <div style="text-align: right;">
-              <div style="font-size: 0.9rem; color: var(--text-sub);">Watch Time: <strong id="stat-watchtime" style="color: var(--text-main);">0</strong> mins</div>
-              <div style="font-size: 0.9rem; color: var(--text-sub);">Views: <strong id="stat-views" style="color: var(--text-main);">0</strong></div>
-            </div>
-          </div>
-          <div style="height: 250px;">
-            <canvas id="revenueChart"></canvas>
-          </div>
-        </div>
-
-        <h2 style="margin-bottom: 16px;">How We Calculated Your Payout</h2>
-        <div class="math-breakdown" id="math-breakdown">
-          Loading revenue math...
-        </div>
+      <div class="eyebrow">Proposed launch economics</div>
+      <div class="creator-model">
+        <article class="model-card"><strong>75%</strong><p>Our proposed creator pool is 75% of net subscription revenue after payment processing, refunds and taxes. The remaining share supports hosting, moderation, insurance, legal and platform operations.</p></article>
+        <article class="model-card"><strong>Watch time</strong><p>The pool is allocated by each licensed title’s share of eligible watch time. Optional first-window projects may receive extra weighting only when the agreement says so. There are no guaranteed earnings.</p></article>
       </div>
 
-      <div id="tab-upload" class="tab-content">
-        <div id="upload-form-container">
-          <div class="upload-box" id="drop-zone" onclick="document.getElementById('file-input').click()">
-            <svg class="upload-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-            <div class="upload-text">Drag & Drop Video File</div>
-            <div class="upload-subtext">MP4, WebM, or MKV up to 10GB (Cloudflare R2 Direct)</div>
-            <input type="file" id="file-input" style="display: none;" accept="video/*" aria-label="Choose a video file to upload">
+      <div class="creator-application" id="creator-application">
+        <div class="eyebrow">Introduce your work</div>
+        <h2 class="creator-heading">Pitch UNDRGRND</h2>
+        <p id="creator-login-status" class="page-desc creator-status">Sign in before sending an application.</p>
+        <form onsubmit="submitCreatorApplication(event)">
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label" for="creator-name">Your name</label><input class="form-input" id="creator-name" type="text" required maxlength="120" autocomplete="name"></div>
+            <div class="form-group"><label class="form-label" for="creator-email">Account email</label><input class="form-input" id="creator-email" type="email" readonly></div>
+            <div class="form-group"><label class="form-label" for="creator-channel-name">Channel or publication</label><input class="form-input" id="creator-channel-name" type="text" required maxlength="120"></div>
+            <div class="form-group"><label class="form-label" for="creator-audience">Current audience</label><input class="form-input" id="creator-audience" type="text" maxlength="120" placeholder="e.g. 18,000 YouTube subscribers"></div>
+            <div class="form-group full"><label class="form-label" for="creator-channel-url">Best example of your work</label><input class="form-input" id="creator-channel-url" type="url" required maxlength="500" placeholder="https://youtube.com/..."></div>
+            <div class="form-group full"><label class="form-label" for="creator-pitch">What are you documenting?</label><textarea class="form-input" id="creator-pitch" required minlength="40" maxlength="5000" rows="6" placeholder="Tell us about the story, access, reporting already completed and what makes the project distinct."></textarea></div>
+            <div class="form-group full"><label class="check-row"><input id="creator-rights" type="checkbox" required><span>I own this work or can document the permissions needed to publish it. I understand that submitting this form is not a distribution agreement.</span></label></div>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">Documentary Title</label>
-            <input type="text" class="form-input" id="upload-title" placeholder="e.g. Shadows of the Concrete">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Description</label>
-            <textarea class="form-input" id="upload-desc" placeholder="What is this story about?"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Genre</label>
-            <input type="text" class="form-input" id="upload-genre" placeholder="e.g. Urban, History, Experimental">
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="simulateUpload()">
-            Publish to Network
-          </button>
-        </div>
-
-        <div class="uploading-overlay" id="upload-progress">
-          <h2 style="margin-bottom: 10px;">Encrypting & Uploading...</h2>
-          <p class="upload-subtext" id="upload-status">Connecting to nodes...</p>
-          <div class="progress-track">
-            <div class="progress-fill" id="upload-bar"></div>
-          </div>
-        </div>
+          <button class="btn btn-primary" type="submit">Send application</button>
+        </form>
+        <p class="form-help creator-disclaimer">Nick Shirley and Andrew Callaghan are examples of the field-reporting scale many creators aspire to; they are not affiliated with or endorsed by UNDRGRND. This program is focused on discovering strong smaller channels earlier.</p>
       </div>
-
     </div>
+  </section>
 
-      <!-- Auth Modal -->
-      <div id="auth-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
-        <div style="background: var(--bg-elevated); padding: 40px; border-radius: var(--radius); width: 100%; max-width: 400px; border: 1px solid var(--border);">
-          <h2 style="margin-bottom: 20px;">Join the Underground</h2>
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-input" id="auth-email" placeholder="you@example.com">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-input" id="auth-password" placeholder="••••••••">
-          </div>
-          <div style="color: var(--accent); font-size: 0.9rem; margin-bottom: 20px; display: none;" id="auth-error"></div>
-          <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="handleAuth('login')">Log In</button>
-          <button class="btn-outline" style="width: 100%;" onclick="handleAuth('signup')">Create Account</button>
-          <button class="btn-outline" style="width: 100%; margin-top: 10px; border: none; font-size: 0.8rem; color: var(--text-sub);" onclick="document.getElementById('auth-modal').style.display='none'">Cancel</button>
+  <!-- Administrator workspace -->
+  <section id="admin-view" style="display:none;" aria-label="Administrator workspace">
+    <div class="admin-shell">
+      <div class="admin-topbar">
+        <div><div class="eyebrow">Owner workspace</div><h1>Programming &amp; creator desk</h1></div>
+        <button class="btn-outline" type="button" onclick="handleLogout()">Sign out</button>
+      </div>
+      <div class="admin-stats">
+        <div class="admin-stat"><span>Managed releases</span><strong id="admin-content-count">0</strong></div>
+        <div class="admin-stat"><span>Creator prospects</span><strong id="admin-lead-count">0</strong></div>
+        <div class="admin-stat"><span>Firebase</span><strong class="admin-status" id="admin-firebase-status">Checking</strong></div>
+        <div class="admin-stat"><span>Media storage</span><strong class="admin-status" id="admin-media-status">Checking</strong></div>
+      </div>
+      <div class="admin-tabs" role="tablist" aria-label="Administrator workspace sections">
+        <button class="admin-tab active" id="admin-tab-content" type="button" role="tab" aria-selected="true" aria-controls="admin-panel-content" data-panel="content" onclick="switchAdminPanel('content')">Content library</button>
+        <button class="admin-tab" id="admin-tab-creators" type="button" role="tab" aria-selected="false" aria-controls="admin-panel-creators" data-panel="creators" onclick="switchAdminPanel('creators')">Creator radar</button>
+        <button class="admin-tab" id="admin-tab-applications" type="button" role="tab" aria-selected="false" aria-controls="admin-panel-applications" data-panel="applications" onclick="switchAdminPanel('applications')">Applications</button>
+        <button class="admin-tab" id="admin-tab-readiness" type="button" role="tab" aria-selected="false" aria-controls="admin-panel-readiness" data-panel="readiness" onclick="switchAdminPanel('readiness')">Operations</button>
+      </div>
+
+      <div class="admin-panel active" id="admin-panel-content" role="tabpanel" aria-labelledby="admin-tab-content">
+        <div class="admin-work-grid">
+          <form class="admin-card" id="admin-content-form" onsubmit="saveAdminContent(event)">
+            <h2>Publish a documentary</h2><p>Upload the master directly to inexpensive media storage, or attach an existing hosted URL.</p>
+            <input type="hidden" id="admin-content-id">
+            <div class="form-grid">
+              <div class="form-group full"><label class="form-label" for="admin-title">Title</label><input class="form-input" id="admin-title" type="text" required maxlength="160"></div>
+              <div class="form-group"><label class="form-label" for="admin-creator">Creator</label><input class="form-input" id="admin-creator" type="text" required maxlength="120"></div>
+              <div class="form-group"><label class="form-label" for="admin-status">Status</label><select class="form-input" id="admin-status"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></div>
+              <div class="form-group"><label class="form-label" for="admin-year">Year</label><input class="form-input" id="admin-year" type="number" min="1888" max="2100" inputmode="numeric"></div>
+              <div class="form-group"><label class="form-label" for="admin-runtime">Runtime</label><input class="form-input" id="admin-runtime" type="text" maxlength="40" placeholder="1h 34m"></div>
+              <div class="form-group full"><label class="form-label" for="admin-genre">Genre</label><input class="form-input" id="admin-genre" type="text" maxlength="80" placeholder="Investigation"></div>
+              <div class="form-group full"><label class="form-label" for="admin-description">Description</label><textarea class="form-input" id="admin-description" maxlength="5000" rows="5"></textarea></div>
+              <div class="form-group full"><label class="form-label" for="admin-rights">Rights / license note</label><input class="form-input" id="admin-rights" type="text" maxlength="500" placeholder="Licensed by creator"></div>
+              <div class="form-group full"><label class="form-label" for="admin-video-file">Video master</label><input class="form-input" id="admin-video-file" type="file" accept="video/mp4,video/webm,video/x-matroska"><p class="form-help">MP4, WebM or MKV up to 10 GB. Uploads go directly to Cloudflare R2.</p></div>
+              <div class="form-group full"><label class="form-label" for="admin-videoUrl">Or hosted video URL</label><input class="form-input" id="admin-videoUrl" type="url"></div>
+              <div class="form-group"><label class="form-label" for="admin-poster-file">Poster image</label><input class="form-input" id="admin-poster-file" type="file" accept="image/jpeg,image/png,image/webp"></div>
+              <div class="form-group"><label class="form-label" for="admin-posterUrl">Or poster URL</label><input class="form-input" id="admin-posterUrl" type="url"></div>
+            </div>
+            <div class="admin-progress" id="admin-upload-progress" role="status" aria-live="polite"></div>
+            <button class="btn btn-primary" id="admin-content-submit" type="submit">Save release</button>
+          </form>
+          <div class="admin-card"><h2>Firebase-managed releases</h2><p>Draft, publish, update or archive without editing the website code.</p><div class="admin-list" id="admin-content-list"></div></div>
         </div>
       </div>
 
+      <div class="admin-panel" id="admin-panel-creators" role="tabpanel" aria-labelledby="admin-tab-creators" hidden>
+        <div class="admin-card admin-card-spaced">
+          <h2>Find emerging channels</h2><p>YouTube’s API identifies public channels by audience size. It does not provide private or hidden email addresses—add only a creator’s clearly published business contact.</p>
+          <div class="form-grid"><div class="form-group full"><label class="form-label" for="creator-search-queries">Search themes, one per line</label><textarea class="form-input" id="creator-search-queries" rows="4">independent street journalist documentary
+local investigative documentary channel
+independent field reporting documentary</textarea></div></div>
+          <button class="btn btn-primary" id="creator-scan-button" type="button" onclick="scanCreatorCandidates()">Scan YouTube</button>
+        </div>
+        <div class="admin-card"><h2>Outreach pipeline</h2><p>Review work manually, record public contact information, then send a personalized note. Suppressed creators cannot be emailed.</p><div id="creator-lead-list"></div></div>
+      </div>
+
+      <div class="admin-panel" id="admin-panel-applications" role="tabpanel" aria-labelledby="admin-tab-applications" hidden><div class="admin-card"><h2>Inbound creator applications</h2><p>Signed-in journalists appear here after submitting their work.</p><div class="admin-list" id="creator-application-list"></div></div></div>
+
+      <div class="admin-panel" id="admin-panel-readiness" role="tabpanel" aria-labelledby="admin-tab-readiness" hidden>
+        <div class="readiness-grid">
+          <article class="readiness-item"><h3>Email delivery</h3><p><strong class="admin-status" id="admin-email-status">Checking</strong><br>Resend sends from creators@undrgrnddocs.com with DKIM, SPF, DMARC and unsubscribe instructions.</p></article>
+          <article class="readiness-item"><h3>Creator monitoring</h3><p><strong class="admin-status" id="admin-youtube-status">Checking</strong><br>A weekly radar email and the manual scan both require one server-side YouTube Data API key.</p></article>
+          <article class="readiness-item"><h3>Editorial review</h3><p>Confirm identity, ownership, releases, defamation risk, privacy and safety before publishing creator-supplied reporting.</p></article>
+          <article class="readiness-item"><h3>Monetization</h3><p>The public page describes a proposed 75% net creator pool. Do not promise rates or exclusivity weighting until the signed creator agreement is ready.</p></article>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <!-- Shared account dialog -->
+  <div id="auth-modal" class="modal-scrim" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-reason">
+    <form class="modal-card auth-modal-card" onsubmit="handleAuth(event.submitter?.dataset.authAction || 'login', event)">
+      <div class="eyebrow">Viewer account</div>
+      <h2 id="auth-title" class="modal-title">Join UNDRGRND</h2>
+      <p id="auth-reason" class="modal-reason">Sign in to continue.</p>
+      <button class="google-button" type="button" data-auth-action="google" onclick="signInWithGoogle()"><span class="google-mark" aria-hidden="true"></span>Continue with Google</button>
+      <div class="auth-divider">or use email</div>
+      <div class="form-group"><label class="form-label" for="auth-email">Email address</label><input type="email" class="form-input" id="auth-email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="you@example.com"></div>
+      <div class="form-group"><label class="form-label" for="auth-password">Password</label><input type="password" class="form-input" id="auth-password" autocomplete="current-password" minlength="6" maxlength="128" required aria-describedby="auth-password-help" placeholder="At least 6 characters"><p class="form-help" id="auth-password-help">Use at least 6 characters. A password manager is recommended.</p></div>
+      <div class="auth-error" id="auth-error" role="alert" aria-live="assertive" hidden></div>
+      <div class="auth-actions"><button class="btn btn-primary" type="submit" data-auth-action="login">Log in</button><button class="btn-outline" type="submit" data-auth-action="signup">Create account</button></div>
+      <button class="text-button modal-cancel" type="button" onclick="cancelAuthModal()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Admin outreach confirmation and composer -->
+  <div id="outreach-modal" class="modal-scrim" role="dialog" aria-modal="true" aria-labelledby="outreach-title">
+    <form class="modal-card" onsubmit="sendCreatorOutreach(event)">
+      <div class="eyebrow">Personalized creator outreach</div><h2 id="outreach-title" class="modal-title">Review before sending</h2>
+      <input type="hidden" id="outreach-lead-id"><input type="hidden" id="outreach-creator-name">
+      <div class="form-group"><label class="form-label" for="outreach-recipient">To</label><input class="form-input" id="outreach-recipient" type="email" required></div>
+      <div class="form-group"><label class="form-label" for="outreach-subject">Subject</label><input class="form-input" id="outreach-subject" type="text" maxlength="180" required></div>
+      <div class="form-group"><label class="form-label" for="outreach-message">Message</label><textarea class="form-input" id="outreach-message" rows="10" required></textarea></div>
+      <p class="form-help">The email automatically includes the transparent launch model and an unsubscribe option. Only contact creators whose public work you reviewed.</p>
+      <div class="journalist-actions"><button class="btn btn-primary" id="outreach-send-button" type="submit">Send outreach</button><button class="btn-outline" type="button" onclick="closeOutreachModal()">Cancel</button></div>
+    </form>
+  </div>
+  <div id="platform-toast" role="status" aria-live="polite"></div>
 
   <!-- About / Manifesto -->
   <section id="about-view" style="display: none;" aria-label="About">
     <div class="page-container">
-      <h1 class="page-title" style="text-transform: uppercase; font-size: clamp(2.5rem, 6vw, 4rem);">We Built This<br>For You.</h1>
+      <h1 class="page-title about-title">We Built This<br>For You.</h1>
       <div class="manifesto">
-        <p>UNDRGRND Docs was born out of frustration. Frustration with mainstream platforms that demonetize raw true crime, age-restrict bodycam footage, and shadowban independent street journalists just for documenting reality.</p>
-        <p>If you cover intense topics—like crime, raw police encounters, or unfiltered historical events—the corporate gatekeepers have decided your stories are "unsafe for advertisers." You shouldn't have to censor your own documentaries just to survive the algorithm.</p>
-        
-        <h2>The "Upload to Underground First" Program</h2>
-        <p>We created this platform specifically to rescue channels that cover the darkest and most intense aspects of human reality. You don't need a million subscribers to make a living here. Our main goal is to support and fund creators like you.</p>
-        
+        <p>UNDRGRND Docs was born from a simple problem: independent reporting and difficult documentary subjects do not always fit the incentives of large, advertiser-supported platforms.</p>
+        <p>If you cover intense topics—crime, raw police encounters or unfiltered historical events—you deserve a distribution conversation based on the work, the rights and the audience, not only its advertising category.</p>
+
+        <h2>The First Release Program</h2>
+        <p>We created this platform to give emerging documentary makers and field reporters a direct relationship with viewers. Optional first-window releases are negotiated project by project; creators never give up ownership merely by applying.</p>
+
         <h2>The Subscription Model</h2>
-        <p>UNDRGRND Docs is entirely subscriber-funded. Users pay a flat monthly subscription to access the unvarnished truth. Because we answer to our subscribers and not to corporate advertisers, there is zero censorship and zero demonetization.</p>
-        
+        <p>UNDRGRND Docs is being designed around subscriber support rather than behavioral advertising. Subscription pricing, launch timing and final creator terms will be published before paid access begins.</p>
+
         <h2>The Payout Engine</h2>
-        <p>We pay out based on <strong>view time</strong>. 100% of the platform's revenue pool is distributed directly to creators based on how long users watch your documentaries.</p>
-        <ul>
-          <li style="margin-bottom: 10px; color: var(--text-sub);"><strong>Upload First Exclusivity:</strong> This is our core promise. Creators who sign to upload their raw, uncensored cuts to UNDRGRND <em>first</em> (before putting a censored version on YouTube) receive a massive 1.5x multiplier on their view-time payouts.</li>
-          <li style="margin-bottom: 10px; color: var(--text-sub);"><strong>Fair Scaling:</strong> Smaller, emerging creators get specialized multipliers to ensure they earn a sustainable living wage for their early work, while established channels earn premium rates for driving massive subscriber volume.</li>
+        <p>The proposed model assigns <strong>75% of net subscription revenue</strong> to a creator pool allocated by eligible view time. Net revenue means money remaining after payment processing, refunds and required taxes.</p>
+        <ul class="legal-list">
+          <li><strong>Optional first window:</strong> Additional weighting may be offered for a defined first-release period, but only when a creator agreement states the duration and calculation.</li>
+          <li><strong>No guaranteed earnings:</strong> Audience demand and the total creator pool change each month. Worked examples are labeled and are not promises of income.</li>
         </ul>
-        <p style="margin-top: 20px;">You provide the raw stories. We provide the uncensored infrastructure. You get paid. Welcome to the Underground.</p>
+        <p class="legal-closing">You provide the reporting. We provide distribution tools, a direct viewer relationship and clearly documented terms. Any payment starts only after both sides sign a creator agreement.</p>
       </div>
     </div>
   </section>
@@ -1230,21 +1413,21 @@
   <!-- Legal Hub -->
   <section id="legal-view" style="display: none;" aria-label="Legal and policies">
     <div class="page-container">
-      <h1 class="page-title">Legal & Policies</h1>
-      <p class="page-desc" style="margin-bottom: 40px;">Clear, transparent, and uncensorious rules of engagement.</p>
-      
+      <h1 class="page-title">Legal &amp; Policies</h1>
+      <p class="page-desc legal-intro">Plain-language launch policies. These are not a substitute for a final creator agreement or the full notices required before paid subscriptions begin.</p>
+
       <div class="manifesto">
-        <h2>1. Terms of Service & Subscription Terms</h2>
-        <p>By subscribing to UNDRGRND Docs, users agree to pay a recurring monthly fee for unrestricted access to the platform's content. Subscriptions can be canceled at any time. We do not offer refunds for partial billing cycles. Users agree not to rip, pirate, or redistribute exclusive content hosted on this platform.</p>
-        
-        <h2>2. Creator Agreement & Payouts</h2>
-        <p>Creators retain 100% ownership of their intellectual property. UNDRGRND merely licenses the right to stream the content. Payouts are calculated dynamically at the end of each month based on the creator's share of total platform view time. Exclusivity agreements are opt-in and require the creator to refrain from posting the licensed documentary on competing video platforms for a period of 12 months.</p>
-        
-        <h2>3. Content Policy (Uncensored, but Legal)</h2>
-        <p>We do not censor based on political ideology, harsh realities, or advertiser preferences. However, we are a legal entity. We strictly prohibit: (a) Content depicting unsimulated, non-consensual violence or abuse; (b) CSAM; (c) Direct incitement to imminent lawless action. Raw street journalism, combat footage, and controversial political documentaries are expressly protected.</p>
-        
+        <h2>1. Current viewer access</h2>
+        <p>UNDRGRND Docs is in a free pre-launch stage. An account is required to watch, but no paid subscription is currently offered and this page does not authorize a recurring charge. Pricing, cancellation, refund and payment-provider terms will be shown for affirmative acceptance before billing begins. Users may not copy or redistribute films beyond the license shown for each title.</p>
+
+        <h2>2. Creator Agreement &amp; Payouts</h2>
+        <p>Creators retain ownership of their intellectual property. UNDRGRND streams creator-supplied work only under a written license. The proposed launch model allocates a 75% share of net subscription revenue to a creator pool based on eligible watch time. Any first-window or exclusivity term is optional, project-specific and valid only when written in the signed agreement. Earnings are not guaranteed.</p>
+
+        <h2>3. Editorial and content policy</h2>
+        <p>Editorial decisions are not based solely on advertiser preference or political viewpoint. Every submission is still reviewed for lawful rights, consent, privacy, safety, accuracy and platform risk. Prohibited material includes child sexual abuse material, credible threats, unlawful incitement, non-consensual intimate imagery, instructions facilitating serious wrongdoing and uploads the creator does not have the right to distribute. Newsworthy context is considered, but publication is never guaranteed.</p>
+
         <h2>4. Privacy Policy</h2>
-        <p>We collect minimal data. We track view time exclusively to calculate creator payouts. We do not sell user data to data brokers, advertising agencies, or third-party tracking networks. Your billing information is handled securely by Stripe.</p>
+        <p>We use account information to provide access, secure administrator tools and respond to creator applications. Viewing progress is currently stored in the browser and account records are stored in Firebase. Creator applications are visible to the verified site administrator. We do not sell personal data. A complete privacy notice, retention schedule, deletion request process and payment-provider disclosure will be published before subscriptions begin. Privacy requests can be sent to <a href="mailto:hello@undrgrnddocs.com">hello@undrgrnddocs.com</a>.</p>
       </div>
     </div>
   </section>
@@ -1254,69 +1437,14 @@
     <div class="page-container">
       <h1 class="page-title">Your Watchlist</h1>
       <p class="page-desc">Pick up right where you left off.</p>
-      
+
       <div class="watchlist-grid" id="watchlist-grid">
         <!-- Rendered via JS -->
       </div>
     </div>
   </section>
 
-  <style>
-    .card img { display: block; }
-  </style>
-
   <script>
-    // ─── Supabase Initialization ───
-    const supabaseUrl = 'https://jjvtectyosssuldtvnau.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdnRlY3R5b3Nzc3VsZHR2bmF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyODYzNzEsImV4cCI6MjEwMDg2MjM3MX0.5_YBveWIp1ZOicwUmkyUeFvDSb7V8-oWxj5MlDkGCgY';
-    // Must NOT be named `supabase`: the CDN bundle declares a global `var
-    // supabase`, and a global `const supabase` collides with it at script
-    // instantiation — a SyntaxError that kills this whole block (hero, rows, nav).
-    // Guard also keeps a CDN failure from breaking the page.
-    const sbClient = window.supabase
-      ? window.supabase.createClient(supabaseUrl, supabaseKey)
-      : { auth: {
-            signUp: async () => ({ error: new Error('Auth service unavailable — please try again later.') }),
-            signInWithPassword: async () => ({ error: new Error('Auth service unavailable — please try again later.') }),
-            signOut: async () => ({})
-          } };
-
-    async function handleAuth(action) {
-      const email = document.getElementById('auth-email').value;
-      const password = document.getElementById('auth-password').value;
-      const errorDiv = document.getElementById('auth-error');
-      errorDiv.style.display = 'none';
-
-      try {
-        let result;
-        if (action === 'signup') {
-          result = await sbClient.auth.signUp({ email, password });
-          if (result.error) throw result.error;
-          alert('Check your email for the confirmation link!');
-        } else {
-          result = await sbClient.auth.signInWithPassword({ email, password });
-          if (result.error) throw result.error;
-          
-          document.getElementById('dashboard-welcome').textContent = 'Welcome back, ' + result.data.user.email;
-          document.getElementById('auth-modal').style.display = 'none';
-          document.getElementById('creator-onboarding').style.display = 'none';
-          document.getElementById('creator-dashboard-content').style.display = 'block';
-          // Redraw: the chart was first drawn while this div was hidden, so
-          // the canvas had no size and the line collapses into a spike.
-          calculateAnalytics();
-        }
-      } catch (err) {
-        errorDiv.textContent = err.message;
-        errorDiv.style.display = 'block';
-      }
-    }
-
-    async function handleLogout() {
-      await sbClient.auth.signOut();
-      document.getElementById('creator-dashboard-content').style.display = 'none';
-      document.getElementById('creator-onboarding').style.display = 'block';
-    }
-
     // ─── Documentary Data ───
     const docs = [
       {
@@ -1475,7 +1603,7 @@
         id: 19, title: 'Power and the Land',
         creator: 'Joris Ivens',
         desc: 'A Dutch documentary master was hired by the US government to film an Ohio farm family living without electricity. The result is a quiet argument that light and running water are not luxuries.',
-        video: 'https://undrgrnddocs.b-cdn.net/videos/power-and-the-land-1940.mp4',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/power-and-the-land-1940.mp4',
         sourceChannel: 'US National Archives',
         sourceUrl: 'https://archive.org/details/16-p-854-r-1',
         poster: '/assets/power_and_the_land.jpg',
@@ -1493,7 +1621,7 @@
         id: 20, title: 'Running for POTUS',
         creator: 'The Tonight Show with Jay Leno',
         desc: 'Twenty-six years before his second term, Trump sat on Leno\'s couch and talked through a presidential run as light entertainment. The studio audience treats it as a bit.',
-        video: 'https://undrgrnddocs.b-cdn.net/videos/running-for-potus-1999.mp4?v=h264',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/running-for-potus-1999.mp4',
         sourceUrl: 'https://www.youtube.com/watch?v=Q2-5Wy_CMIE',
         sourceChannel: 'Trump Fan Network',
         durationSec: 607,
@@ -1504,7 +1632,7 @@
         id: 21, title: 'The Montel Interview',
         creator: 'The Montel Williams Show',
         desc: 'A daytime talk show appearance from 1997, recovered almost complete from a lost broadcast. Trump on wealth, fame and the press, two decades before any of it was political.',
-        video: 'https://undrgrnddocs.b-cdn.net/videos/montel-interview-1997.mp4?v=h264',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/montel-interview-1997.mp4',
         sourceUrl: 'https://www.youtube.com/watch?v=E5Xp5pjAhjw',
         sourceChannel: 'Lost TV Archive',
         durationSec: 1999,
@@ -1515,7 +1643,7 @@
         id: 22, title: 'The Deposition',
         creator: 'US District Court, SDNY',
         desc: 'The full deposition recorded for the E. Jean Carroll civil trial, released by the court. Nearly an hour of sworn testimony, unedited and without commentary.',
-        video: 'https://undrgrnddocs.b-cdn.net/videos/the-deposition-2023.mp4?v=h264',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/the-deposition-2023.mp4',
         sourceUrl: 'https://www.youtube.com/watch?v=wrYGg95SBY0',
         sourceChannel: 'FOX 5 New York',
         durationSec: 2884,
@@ -1526,7 +1654,7 @@
         id: 23, title: 'Town Meeting of the World',
         creator: 'CBS News',
         desc: 'In 1967 a sitting governor and a senator argued Vietnam by satellite with students in London. Reagan came prepared, Kennedy did not, and it is often called the debate that cost him.',
-        video: 'https://undrgrnddocs.b-cdn.net/videos/town-meeting-1967.mp4?v=h264',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/town-meeting-1967.mp4',
         sourceUrl: 'https://www.youtube.com/watch?v=_7J_ghhVR8k',
         sourceChannel: "C-SPAN's American History TV",
         durationSec: 3172,
@@ -1537,14 +1665,46 @@
         id: 24, title: 'Predicting Everything',
         creator: 'Elon Musk',
         desc: 'A 2007 interview from before the rockets landed and before the cars sold. Musk dismisses the legacy carmakers and describes almost exactly what the next fifteen years would look like.',
-        video: 'https://undrgrnddocs.b-cdn.net/videos/predicting-everything-2007.mp4?v=h264',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/predicting-everything-2007.mp4',
         sourceUrl: 'https://www.youtube.com/watch?v=xyCOvT1Y5YQ',
         sourceChannel: 'TheMightyKappa',
         durationSec: 1205,
         poster: '/assets/predicting_everything.jpg',
         year: '2007', runtime: '20m', genre: 'Technology'
+      },
+      {
+        id: 25, title: 'The Sick Mind of EDP445',
+        creator: 'Mike Clum',
+        desc: 'Mike Clum examines the rise, public collapse and aftermath of internet personality EDP445 through interviews, reporting and firsthand documentation.',
+        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/mike-clum-the-sick-mind-of-edp445.mp4',
+        sourceUrl: 'https://www.youtube.com/watch?v=qOqYIVKfV-U',
+        sourceChannel: 'Mike Clum',
+        durationSec: 5658,
+        poster: '/assets/sick-mind-edp445.jpg',
+        year: '2026', runtime: '1h 34m', genre: 'True Crime'
       }
     ];
+    window.UNDRGRNDDocs = docs;
+
+    function escapeMarkup(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function safeMediaUrl(value, fallback = '') {
+      const raw = String(value ?? '').trim();
+      if (raw.startsWith('/')) return escapeMarkup(raw);
+      try {
+        const parsed = new URL(raw, window.location.origin);
+        return ['http:', 'https:'].includes(parsed.protocol) ? escapeMarkup(parsed.href) : escapeMarkup(fallback);
+      } catch {
+        return escapeMarkup(fallback);
+      }
+    }
 
     // ─── Watch Progress (localStorage) ───
     function getProgress(id) {
@@ -1561,8 +1721,10 @@
     const filterBar = document.getElementById('filter-bar');
     genres.forEach(g => {
       const chip = document.createElement('button');
+      chip.type = 'button';
       chip.className = `filter-chip${g === 'All' ? ' active' : ''}`;
       chip.textContent = g;
+      chip.setAttribute('aria-pressed', String(g === 'All'));
       chip.onclick = () => filterByGenre(g);
       filterBar.appendChild(chip);
     });
@@ -1571,6 +1733,7 @@
       activeGenre = genre;
       document.querySelectorAll('.filter-chip').forEach(c => {
         c.classList.toggle('active', c.textContent === genre);
+        c.setAttribute('aria-pressed', String(c.textContent === genre));
       });
       // A filtered view shouldn't be headlined by a film outside the filter;
       // pause the hero video while it's hidden so it doesn't burn bandwidth.
@@ -1578,8 +1741,8 @@
       const heroVid = document.getElementById('hero-video');
       if (genre === 'All') {
         heroSection.style.display = '';
-        if (heroVid) heroVid.play().catch(() => {});
-        resetHeroTimer();
+        if (heroVid && heroMotionAllowed) heroVid.play().catch(() => {});
+        if (heroMotionAllowed) resetHeroTimer();
       } else {
         heroSection.style.display = 'none';
         if (heroVid && !heroVid.paused) heroVid.pause();
@@ -1595,8 +1758,8 @@
     // records per tile and any change to activation meant editing a template
     // string. Cards now carry only data-doc-id.
     function activateCardFrom(el) {
-      const id = Number(el.getAttribute('data-doc-id'));
-      const doc = docs.find(d => d.id === id);
+      const id = el.getAttribute('data-doc-id');
+      const doc = docs.find(d => String(d.id) === id);
       if (doc) openDetail(doc);
     }
 
@@ -1614,28 +1777,30 @@
     });
 
     function createCard(doc) {
-      const progress = getProgress(doc.id);
+      const progress = Math.max(0, Math.min(100, getProgress(doc.id)));
       const progressBar = progress > 0 ? `<div class="card-progress"><div class="card-progress-fill" style="width:${progress}%"></div></div>` : '';
+      const availability = doc.comingSoon ? '<span class="card-coming-soon">Coming soon</span>' : '';
       return `
-        <div class="card" role="button" tabindex="0" data-doc-id="${doc.id}"
-             aria-label="Watch ${doc.title}, ${doc.year}, ${doc.runtime}">
-          <img src="${doc.poster}" alt="${doc.title}" loading="lazy"
+        <div class="card loading" role="button" tabindex="0" data-doc-id="${escapeMarkup(doc.id)}"
+             aria-label="${doc.comingSoon ? 'Coming soon: ' : 'Watch '}${escapeMarkup(doc.title)}, ${escapeMarkup(doc.year)}, ${escapeMarkup(doc.runtime)}">
+          <img src="${safeMediaUrl(doc.poster, '/og-image.jpg')}" alt="Poster for ${escapeMarkup(doc.title)}" decoding="async"
                onload="this.parentElement.classList.remove('loading')"
                onerror="this.parentElement.classList.remove('loading')">
           <div class="play-icon">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </div>
           <div class="card-overlay">
-            <div class="card-genre-tag">${doc.genre}</div>
-            <div class="card-title">${doc.title}</div>
+            <div class="card-genre-tag">${escapeMarkup(doc.genre)}</div>
+            <div class="card-title">${escapeMarkup(doc.title)}</div>
             <div class="card-meta-line">
-              <span>${doc.creator}</span>
+              <span>${escapeMarkup(doc.creator)}</span>
               <span>&middot;</span>
-              <span>${doc.year}</span>
+              <span>${escapeMarkup(doc.year)}</span>
               <span>&middot;</span>
-              <span>${doc.runtime}</span>
+              <span>${escapeMarkup(doc.runtime)}</span>
             </div>
           </div>
+          ${availability}
           ${progressBar}
         </div>
       `;
@@ -1654,17 +1819,17 @@
       return `
         <section class="row">
           <div class="row-header">
-            <h2>${title}</h2>
+            <h2>${escapeMarkup(title)}</h2>
             <div class="row-arrows">
-              <button class="row-arrow" onclick="scrollRow('row-${id}', -1)">
+              <button class="row-arrow" type="button" onclick="scrollRow('row-${escapeMarkup(id)}', -1)" aria-label="Scroll ${escapeMarkup(title)} left">
                 <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
               </button>
-              <button class="row-arrow" onclick="scrollRow('row-${id}', 1)">
+              <button class="row-arrow" type="button" onclick="scrollRow('row-${escapeMarkup(id)}', 1)" aria-label="Scroll ${escapeMarkup(title)} right">
                 <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
               </button>
             </div>
           </div>
-          <div class="row-scroll" id="row-${id}">
+          <div class="row-scroll" id="row-${escapeMarkup(id)}" aria-label="${escapeMarkup(title)}">
             ${items.map(createCard).join('')}
           </div>
         </section>
@@ -1709,6 +1874,7 @@
     // all of these have full audio tracks. Autoplay starts muted (browser
     // policy); the viewer's sound choice persists across rotations.
     const featured = [
+      { doc: docs.find(d => d.id === 25), start: 595, end: 625 }, // The Sick Mind of EDP445 — the sit-down interview
       { doc: docs.find(d => d.id === 12), start: 470, end: 500 },  // Dead of Night — the cemetery attack
       // Re-cued for the 32m FDR Library print: the old 995s mark was timed to a
       // 43m copy that archive.org pulled, and landed mid-crowd-scene here.
@@ -1723,6 +1889,8 @@
     let heroIndex = 0;
     let heroInterval;
     let heroSoundOn = false;
+    const heroMotionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      && !navigator.connection?.saveData;
 
     const MUTED_PATH = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
     const SOUND_PATH = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
@@ -1735,6 +1903,7 @@
       icon.innerHTML = vid.muted ? MUTED_PATH : SOUND_PATH;
       label.textContent = vid.muted ? 'Tap for sound' : 'Sound on';
       btn.classList.toggle('nudge', vid.muted);
+      btn.setAttribute('aria-pressed', String(!vid.muted));
     }
 
     window.toggleHeroMute = function() {
@@ -1756,15 +1925,21 @@
       // #t= media fragment makes the browser start streaming at the good part
       // instead of downloading from 0:00.
       videoEl.poster = doc.poster;
-      videoEl.src = doc.video + '#t=' + feat.start;
-      videoEl.muted = !heroSoundOn; // keep the viewer's sound choice across rotations
-      videoEl.load();
-      videoEl.play().catch(e => console.log('Autoplay prevented:', e));
+      if (heroMotionAllowed) {
+        videoEl.src = doc.video + '#t=' + feat.start;
+        videoEl.muted = !heroSoundOn; // keep the viewer's sound choice across rotations
+        videoEl.load();
+        videoEl.play().catch(() => {});
+      } else {
+        videoEl.removeAttribute('src');
+        videoEl.load();
+      }
       syncSoundButton();
 
       // Update indicators
       document.querySelectorAll('.hero-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === idx);
+        dot.setAttribute('aria-pressed', String(i === idx));
       });
 
       // Wire buttons
@@ -1787,7 +1962,10 @@
     const indicatorContainer = document.getElementById('hero-indicators');
     featured.forEach((_, i) => {
       const dot = document.createElement('button');
+      dot.type = 'button';
       dot.className = `hero-dot${i === 0 ? ' active' : ''}`;
+      dot.setAttribute('aria-label', `Show featured documentary ${i + 1} of ${featured.length}`);
+      dot.setAttribute('aria-pressed', String(i === 0));
       dot.onclick = () => { heroIndex = i; renderHero(i); resetHeroTimer(); };
       indicatorContainer.appendChild(dot);
     });
@@ -1801,10 +1979,11 @@
     // network, paused tab), still rotate eventually.
     function resetHeroTimer() {
       clearInterval(heroInterval);
-      heroInterval = setInterval(nextHero, 45000);
+      if (heroMotionAllowed) heroInterval = setInterval(nextHero, 45000);
     }
     renderHero(0);
-    resetHeroTimer();
+    if (heroMotionAllowed) resetHeroTimer();
+    if (!heroMotionAllowed) document.getElementById('hero-mute-btn').hidden = true;
 
     // ─── Navigation ───
     window.addEventListener('scroll', () => {
@@ -1832,12 +2011,60 @@
       setTimeout(() => {
         searchWrap.classList.remove('expanded');
         searchResults.classList.remove('open');
+        searchInput.setAttribute('aria-expanded', 'false');
       }, 200);
     });
 
+    function closeSearch() {
+      searchResults.classList.remove('open');
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
+
+    function selectSearchResult(result) {
+      const documentary = docs.find((item) => String(item.id) === result.dataset.searchId);
+      if (documentary) openDetail(documentary);
+    }
+
+    function renderSearchMatches(matches) {
+      searchResults.replaceChildren();
+      if (matches.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'search-empty';
+        empty.textContent = 'No documentaries found. Try a title, creator or genre.';
+        searchResults.appendChild(empty);
+        return;
+      }
+      for (const documentary of matches.slice(0, 12)) {
+        const result = document.createElement('button');
+        result.type = 'button';
+        result.className = 'search-result-item';
+        result.dataset.searchId = documentary.id;
+        result.setAttribute('role', 'option');
+
+        const poster = document.createElement('img');
+        poster.className = 'search-result-thumb';
+        poster.src = documentary.poster || '/og-image.jpg';
+        poster.alt = '';
+        poster.loading = 'lazy';
+
+        const info = document.createElement('span');
+        info.className = 'search-result-info';
+        const title = document.createElement('span');
+        title.className = 'search-result-title';
+        title.textContent = documentary.title;
+        const creator = document.createElement('span');
+        creator.className = 'search-result-creator';
+        creator.textContent = `${documentary.creator} · ${documentary.genre} · ${documentary.runtime}`;
+        info.append(title, creator);
+        result.append(poster, info);
+        result.addEventListener('click', () => selectSearchResult(result));
+        searchResults.appendChild(result);
+      }
+    }
+
     searchInput.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
-      if (!q) { searchResults.classList.remove('open'); return; }
+      if (!q) { closeSearch(); return; }
 
       const matches = docs.filter(d =>
         d.title.toLowerCase().includes(q) ||
@@ -1846,20 +2073,41 @@
         d.desc.toLowerCase().includes(q)
       );
 
-      if (matches.length === 0) {
-        searchResults.innerHTML = '<div class="search-empty">No documentaries found</div>';
-      } else {
-        searchResults.innerHTML = matches.map(d => `
-          <div class="search-result-item" onmousedown="openDetail(docs.find(x=>x.id===${d.id}))">
-            <img class="search-result-thumb" src="${d.poster}" alt="${d.title}">
-            <div class="search-result-info">
-              <div class="search-result-title">${d.title}</div>
-              <div class="search-result-creator">${d.creator} &middot; ${d.genre} &middot; ${d.runtime}</div>
-            </div>
-          </div>
-        `).join('');
-      }
+      renderSearchMatches(matches);
       searchResults.classList.add('open');
+      searchInput.setAttribute('aria-expanded', 'true');
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        searchInput.value = '';
+        closeSearch();
+        return;
+      }
+      if (event.key === 'ArrowDown') {
+        const first = searchResults.querySelector('.search-result-item');
+        if (first) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    searchResults.addEventListener('keydown', (event) => {
+      const options = [...searchResults.querySelectorAll('.search-result-item')];
+      const index = options.indexOf(document.activeElement);
+      if (event.key === 'ArrowDown' && options[index + 1]) {
+        event.preventDefault();
+        options[index + 1].focus();
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (index > 0) options[index - 1].focus();
+        else searchInput.focus();
+      } else if (event.key === 'Escape') {
+        searchInput.value = '';
+        closeSearch();
+        searchInput.focus();
+      }
     });
 
     // ─── View Switching ───
@@ -1867,6 +2115,7 @@
       main: document.getElementById('main-view'),
       detail: document.getElementById('detail-view'),
       creator: document.getElementById('creator-view'),
+      admin: document.getElementById('admin-view'),
       about: document.getElementById('about-view'),
       legal: document.getElementById('legal-view'),
       profile: document.getElementById('profile-view')
@@ -1987,8 +2236,13 @@
       clearInterval(heroInterval);
       Object.values(views).forEach(v => { if (v) v.style.display = 'none'; });
       document.getElementById('nav-links').classList.remove('open');
+      const menuButton = document.getElementById('hamburger');
+      if (menuButton) {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+      }
       searchInput.value = '';
-      searchResults.classList.remove('open');
+      closeSearch();
       window.scrollTo({ top: 0, behavior: 'instant' });
       
       // Update nav active states
@@ -1996,10 +2250,19 @@
     }
 
     function showView(viewName) {
+      if (viewName === 'admin' && !window.platformIsAdmin) {
+        if (window.openAuthModal) window.openAuthModal('Sign in with the verified owner account to open the administrator workspace.');
+        return;
+      }
+      if (viewName === 'profile' && !window.platformUser) {
+        if (window.openAuthModal) window.openAuthModal('Sign in to view your profile.');
+        return;
+      }
       hideAllViews();
       if (views[viewName]) {
         views[viewName].style.display = 'block';
         views[viewName].classList.add('view-transition');
+        views[viewName].setAttribute('tabindex', '-1');
       }
       if (document.getElementById(`nav-${viewName}`)) {
         document.getElementById(`nav-${viewName}`).classList.add('active');
@@ -2008,17 +2271,34 @@
         renderRows();
         // Resume the hero where it left off
         const heroVid = document.getElementById('hero-video');
-        if (heroVid) heroVid.play().catch(() => {});
-        resetHeroTimer();
+        if (heroVid && heroMotionAllowed) heroVid.play().catch(() => {});
+        if (heroMotionAllowed) resetHeroTimer();
       }
       if (viewName === 'profile') renderWatchlist();
-      if (viewName === 'creator') calculateAnalytics();
+      const titles = {
+        main: 'UNDRGRND Docs — Independent Documentary Streaming',
+        creator: 'Are you a journalist? — UNDRGRND Docs',
+        admin: 'Administrator workspace — UNDRGRND Docs',
+        about: 'About — UNDRGRND Docs',
+        legal: 'Legal & Policies — UNDRGRND Docs',
+        profile: 'Your Watchlist — UNDRGRND Docs',
+      };
+      if (titles[viewName]) document.title = titles[viewName];
+      if (viewName !== 'detail') history.replaceState(null, '', viewName === 'main' ? '#browse' : `#${viewName}`);
+      views[viewName]?.focus({ preventScroll: true });
     }
 
     // Backwards compatibility for old onclicks
     function showMainView() { showView('main'); }
 
     function openDetail(doc) {
+      if (doc.comingSoon) {
+        const message = `${doc.title} by ${doc.creator} is listed and its master is being prepared for streaming.`;
+        if (window.platformToast) window.platformToast(message);
+        else window.alert(message);
+        return;
+      }
+      if (window.checkPlatformAuthForPlayback && !window.checkPlatformAuthForPlayback(doc)) return;
       hideAllViews();
       currentDocId = doc.id;
       views.detail.style.display = 'block';
@@ -2030,6 +2310,8 @@
       document.getElementById('detail-year').textContent = doc.year;
       document.getElementById('detail-runtime').textContent = doc.runtime;
       document.getElementById('detail-genre').textContent = doc.genre;
+      document.title = `${doc.title} — UNDRGRND Docs`;
+      history.replaceState(null, '', `#watch-${encodeURIComponent(doc.id)}`);
 
       hidePlayerError();
       renderSourceCredit(doc);
@@ -2212,64 +2494,6 @@
       }
       grid.innerHTML = savedDocs.map(createCard).join('');
     }
-
-    // ─── Creator Upload Flow Logic ───
-    function simulateUpload() {
-      const title = document.getElementById('upload-title').value;
-      if (!title) { alert('Please enter a title'); return; }
-      
-      document.getElementById('upload-form-container').style.display = 'none';
-      const progressOverlay = document.getElementById('upload-progress');
-      progressOverlay.classList.add('active');
-      const bar = document.getElementById('upload-bar');
-      const status = document.getElementById('upload-status');
-      
-      let p = 0;
-      const interval = setInterval(() => {
-        p += Math.random() * 15;
-        if (p >= 100) {
-          p = 100;
-          clearInterval(interval);
-          status.textContent = 'Upload Complete! Publishing to network...';
-          setTimeout(() => {
-            alert('Success! Note: This is a frontend prototype. Database connection is pending.');
-            document.getElementById('upload-form-container').style.display = 'block';
-            progressOverlay.classList.remove('active');
-            bar.style.transform = 'scaleX(0)';
-            document.getElementById('upload-title').value = '';
-            document.getElementById('upload-desc').value = '';
-            document.getElementById('upload-genre').value = '';
-            showView('main');
-          }, 1500);
-        } else {
-          status.textContent = `Uploading... ${Math.floor(p)}%`;
-        }
-        bar.style.transform = `scaleX(${p / 100})`;
-      }, 300);
-    }
-    
-    const dropZone = document.getElementById('drop-zone');
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, preventDefaults, false);
-    });
-    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-    ['dragenter', 'dragover'].forEach(eventName => {
-      dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
-    });
-    ['dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
-    });
-    dropZone.addEventListener('drop', (e) => {
-      const dt = e.dataTransfer;
-      if (dt.files && dt.files.length) {
-        document.querySelector('.upload-text').textContent = dt.files[0].name;
-      }
-    });
-    document.getElementById('file-input').addEventListener('change', function() {
-      if (this.files && this.files.length) {
-        document.querySelector('.upload-text').textContent = this.files[0].name;
-      }
-    });
 
     // ─── Custom Video Player ───
     const videoContainer = document.getElementById('video-container');
@@ -2575,5 +2799,6 @@
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
+  <script type="module" src="/src/platform.js"></script>
 </body>
 </html>

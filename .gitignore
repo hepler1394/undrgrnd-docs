@@ -1,6 +1,13 @@
 .vercel
 
+# Local credentials pulled from Firebase/Vercel integrations
+.env
+.env.*
+!.env.example
+
 node_modules
 
 # vite build output — Vercel builds this itself
 dist
+
+.env*

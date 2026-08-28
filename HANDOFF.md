@@ -1,31 +1,46 @@
-# undrgrnd-docs — state as of 2026-08-12
+# undrgrnd-docs — state as of 2026-08-27
 
-Public-domain documentary streaming. Single-file app (`index.html`), Vite build,
+Documentary streaming. Single-file app (`index.html`), Vite build,
 Vercel with GitHub auto-deploy on push to `master`.
 
 ## Where things stand
 
-- 24 films, all verified playing. `npm run check-links` reports 24 ok, 0 broken.
-- 6 films self-hosted on Bunny CDN; the other 18 stream from archive.org.
+- 25 films. 7 self-hosted on Vercel Blob, the other 18 stream from archive.org.
+- **The Sick Mind of EDP445 (Mike Clum, 2026) is live and featured** — hero
+  slot 1, Underground Exclusives front card, `comingSoon` removed. Its master
+  came from Cory's Downloads with the moov atom at the end (the Nanook failure
+  mode); the faststart remux lives at `D:\Dev\_h264` with the others.
 - Every poster is a frame from its own film, served from `public/assets`.
   No third-party image hosts anywhere.
 
-## The thing with a deadline
+## Media hosting: Vercel Blob, not Bunny, not R2
 
-**The Bunny trial ends 2026-08-25.** When it lapses those 6 films stop
-serving and the Political category breaks. Storage is about 5 cents a month;
-it is the funding step that matters, not the cost.
+**The Bunny trial lapsed on schedule (2026-08-25); all 6 zone films were 403
+by 08-27.** Same-day fix: everything self-hosted now streams from a Vercel
+Blob store on the project — `undrgrnd-media` (`store_5VUcHcm1Ey9QVTDq`,
+public, iad1), URLs under
+`https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/`. Serves
+byte ranges (206), faststart verified on every file at upload time.
 
-Softened but not solved (2026-08-12): the player-error panel now shows
-"Watch at the source" linking each film's original upload, so a lapsed zone
-degrades to a redirect rather than a dead end. Additionally, a dead
-self-hosted stream now auto-falls-back to its YouTube original as an embed
-(one attempt per film per visit); films whose owners disallow embedding
-land on the panel as before. How many of the six actually embed is
-unknowable from automation: BOTH headless Chrome and the preview pane
-return YT error 150 for every video — including "Me at the zoo", which
-embeds everywhere — so never trust an embed verdict from either. Only a
-normal browser tells the truth.
+To publish a new master:
+
+    npx vercel blob put <file.mp4> --pathname "videos/<slug>.mp4" \
+      --content-type video/mp4 --access public --multipart --rw-token <token>
+
+The token is `BLOB_READ_WRITE_TOKEN` in `.env.local` (repopulate with
+`vercel env pull`). Check moov placement first; remux with
+`ffmpeg -c copy -movflags +faststart` if it sits after mdat.
+
+Never-built infrastructure, for the record: `media.undrgrnddocs.com` never
+had a DNS record and Cloudflare R2 was never provisioned — no R2 keys exist
+on the Vercel project. `api/r2-upload-url.js` (the creator upload flow) still
+assumes R2 and is therefore unconfigured; if creator uploads ever ship, point
+that endpoint at Blob instead.
+
+The player-error panel still shows "Watch at the source" and the
+YouTube-embed auto-fallback still guards every self-hosted film. Embed
+verdicts cannot be trusted from headless Chrome or the preview pane (both
+return YT error 150 for everything); only a normal browser tells the truth.
 
 - **YT Grabber 403, diagnosed deeper (2026-08-12):** yt-dlp's n-challenge
   solver was missing; it is now enabled (`--js-runtimes node
@@ -39,10 +54,8 @@ normal browser tells the truth.
   extension (then `yt-dlp --cookies <file>`), or fetching from a
   different network.
 
-- Storage zone `undrgrnd-docs` (id 1734660, New York), pull zone
-  `undrgrnddocs.b-cdn.net`.
-- H.264 masters are at `D:\Dev\_h264` (2.4GB). If the zone is ever lost,
-  re-uploading is minutes rather than a re-transcode.
+- H.264 masters are at `D:\Dev\_h264` (3GB with the EDP445 film). If the
+  Blob store is ever lost, re-uploading is minutes rather than a re-transcode.
 
 ## Things worth knowing before changing anything
 
@@ -59,6 +72,16 @@ normal browser tells the truth.
 - **Cards are activated by delegation** on `data-doc-id`, not inline
   handlers. Search results bind `onmousedown`, so a synthetic `click` test
   on them reports a false failure.
+- **Card posters must never be hidden with `display: none`.** The shimmer
+  state once did that while the imgs were `loading="lazy"`; a hidden img has
+  no layout box, so Chrome deprioritized or skipped the fetch and cards sat
+  as blank shimmer indefinitely (Cory saw it on prod, 2026-08-27). The fix:
+  shimmer hides with `opacity: 0` and card posters load eagerly — the whole
+  poster set is ~480KB, cheaper than one second of hero video.
+- **Playback is auth-gated** (`checkPlatformAuthForPlayback` in
+  `src/platform.js`): every openDetail requires a signed-in Firebase user.
+  For player tests, stub it to `() => true` in the page rather than minting
+  test accounts.
 - **Chart.js loads on demand**, only when the creator view opens.
 - **Headless screenshots freeze entry animations at frame 0.** The payout
   chart looks like a collapsed spike in a headless capture; its computed

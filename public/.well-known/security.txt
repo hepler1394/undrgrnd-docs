@@ -1,0 +1,4 @@
+Contact: mailto:hello@undrgrnddocs.com
+Canonical: https://undrgrnddocs.com/.well-known/security.txt
+Preferred-Languages: en
+Expires: 2027-08-19T23:59:59Z

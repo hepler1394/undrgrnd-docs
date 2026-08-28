@@ -1,0 +1,87 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function verifiedAdmin() {
+      return signedIn()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'coryh2014@gmail.com';
+    }
+
+    match /users/{userId} {
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.keys().hasOnly([
+          'email', 'displayName', 'photoURL', 'provider', 'emailVerified', 'lastSeenAt'
+        ])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 120
+        && request.resource.data.photoURL is string
+        && request.resource.data.photoURL.size() <= 1000;
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow update: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.keys().hasOnly([
+          'email', 'displayName', 'photoURL', 'provider', 'emailVerified', 'lastSeenAt'
+        ])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 120
+        && request.resource.data.photoURL is string
+        && request.resource.data.photoURL.size() <= 1000;
+      allow delete: if false;
+    }
+
+    match /content/{contentId} {
+      allow read: if verifiedAdmin() || resource.data.status == 'published';
+      allow create, update, delete: if verifiedAdmin();
+    }
+
+    match /creatorApplications/{applicationId} {
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.status == 'new'
+        && request.resource.data.rightsConfirmed == true
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.channelName is string
+        && request.resource.data.channelName.size() > 0
+        && request.resource.data.channelName.size() <= 120
+        && request.resource.data.channelUrl is string
+        && request.resource.data.channelUrl.size() <= 500
+        && request.resource.data.audienceSize is string
+        && request.resource.data.audienceSize.size() <= 120
+        && request.resource.data.pitch is string
+        && request.resource.data.pitch.size() >= 40
+        && request.resource.data.pitch.size() <= 5000
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.keys().hasOnly([
+          'uid', 'email', 'name', 'channelName', 'channelUrl', 'audienceSize',
+          'pitch', 'rightsConfirmed', 'status', 'createdAt'
+        ]);
+      allow read: if verifiedAdmin()
+        || (signedIn() && resource.data.uid == request.auth.uid);
+      allow update, delete: if verifiedAdmin();
+    }
+
+    match /creatorLeads/{leadId} {
+      allow read, create, update, delete: if verifiedAdmin();
+    }
+
+    match /outreachLog/{messageId} {
+      allow read, create: if verifiedAdmin();
+      allow update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
