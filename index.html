@@ -1681,8 +1681,21 @@ independent field reporting documentary</textarea></div></div>
         sourceChannel: 'Mike Clum',
         durationSec: 5658,
         freeToWatch: true,
+        heroClip: '/assets/hero/edp445-hero.mp4',
         poster: '/assets/sick-mind-edp445.jpg',
         year: '2026', runtime: '1h 34m', genre: 'True Crime'
+      },
+      {
+        id: 26, title: 'The Dark, Sad Life of Boogie2988',
+        creator: 'Mike Clum',
+        desc: 'Mike Clum follows the rise and unravelling of YouTuber Steven Williams, better known as Boogie2988, through interviews and firsthand footage.',
+        sourceUrl: 'https://www.youtube.com/watch?v=_QgDx0RIWY8',
+        sourceChannel: 'Mike Clum',
+        durationSec: 3316,
+        freeToWatch: true,
+        heroClip: '/assets/hero/boogie2988-hero.mp4',
+        poster: '/assets/boogie2988.jpg',
+        year: '2023', runtime: '55m', genre: 'True Crime'
       }
     ];
     window.UNDRGRNDDocs = docs;
@@ -1875,7 +1888,8 @@ independent field reporting documentary</textarea></div></div>
     // all of these have full audio tracks. Autoplay starts muted (browser
     // policy); the viewer's sound choice persists across rotations.
     const featured = [
-      { doc: docs.find(d => d.id === 25), start: 595, end: 625 }, // The Sick Mind of EDP445 — the sit-down interview
+      { doc: docs.find(d => d.id === 25), start: 0, end: 31 },   // The Sick Mind of EDP445 — Mike Clum, pinned as the face
+      { doc: docs.find(d => d.id === 26), start: 0, end: 31 },   // The Dark, Sad Life of Boogie2988 — Mike Clum, the sit-down interview
       { doc: docs.find(d => d.id === 12), start: 470, end: 500 },  // Dead of Night — the cemetery attack
       // Re-cued for the 32m FDR Library print: the old 995s mark was timed to a
       // 43m copy that archive.org pulled, and landed mid-crowd-scene here.
@@ -1886,7 +1900,7 @@ independent field reporting documentary</textarea></div></div>
       // The hero streams an mp4 directly and seeks with a #t= fragment, which a
       // YouTube embed cannot do. Drop any entry without a file so adding a
       // YouTube-sourced feature degrades to skipping it, not a broken hero.
-      .filter(f => f.doc && f.doc.video);
+      .filter(f => f.doc && (f.doc.heroClip || f.doc.video));
     let heroIndex = 0;
     let heroInterval;
     let heroSoundOn = false;
@@ -1927,7 +1941,9 @@ independent field reporting documentary</textarea></div></div>
       // instead of downloading from 0:00.
       videoEl.poster = doc.poster;
       if (heroMotionAllowed) {
-        videoEl.src = doc.video + '#t=' + feat.start;
+        // A pre-trimmed heroClip needs no #t= seek and costs a couple of MB
+        // instead of streaming out of the full film.
+        videoEl.src = doc.heroClip ? doc.heroClip : doc.video + '#t=' + feat.start;
         videoEl.muted = !heroSoundOn; // keep the viewer's sound choice across rotations
         videoEl.load();
         videoEl.play().catch(() => {});
