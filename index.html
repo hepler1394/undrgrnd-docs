@@ -1449,11 +1449,14 @@ independent field reporting documentary</textarea></div></div>
     const docs = [
       {
         id: 1, title: 'Before the Fall',
-        creator: 'Archival Vault',
+        creator: 'Miles Brothers',
         desc: 'Iconic 1906 silent documentary shot from a cable car on Market Street, San Francisco, just days before the earthquake. A haunting window into a city about to change forever.',
-        video: 'https://archive.org/download/TripDown1905/TripDown1905_512kb.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/6ae085d9-4286-493b-8b04-094d437c5976/playlist.m3u8',
+        fallbackVideo: 'https://archive.org/download/TripDown1905/TripDown1905_512kb.mp4',
+        sourceChannel: 'Prelinger Archives',
+        sourceUrl: 'https://archive.org/details/MarketStreet19064KScan20181016',
         poster: '/assets/before_the_fall.jpg',
-        year: '1906', runtime: '13m', genre: 'History'
+        year: '1906', runtime: '12m', genre: 'History'
       },
       {
         id: 2, title: 'Concrete Utopia',
@@ -1465,17 +1468,23 @@ independent field reporting documentary</textarea></div></div>
       },
       {
         id: 3, title: 'Dust & Bones',
-        creator: 'Resettlement Docs',
+        creator: 'Pare Lorentz',
         desc: 'Investigative documentary chronicling the ecological disaster of the Dust Bowl. A devastating portrait of environmental collapse and human resilience in the American heartland.',
-        video: 'https://archive.org/download/youtube-fQCwhjWNcH8/fQCwhjWNcH8.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/84bab940-d8e2-4d01-807a-a8a76bcc1ac2/playlist.m3u8',
+        fallbackVideo: 'https://archive.org/download/youtube-fQCwhjWNcH8/fQCwhjWNcH8.mp4',
+        sourceChannel: 'Internet Archive',
+        sourceUrl: 'https://archive.org/details/the-plow-that-broke-the-plains-1936',
         poster: '/assets/dust_and_bones.jpg',
-        year: '1936', runtime: '25m', genre: 'Environment'
+        year: '1936', runtime: '29m', genre: 'Environment'
       },
       {
         id: 4, title: 'Shadows of War',
         creator: 'John Huston',
         desc: 'John Huston\'s suppressed documentary following WWII soldiers receiving treatment for combat-induced PTSD. Banned by the military for decades, this raw footage reveals the true cost of war.',
-        video: 'https://archive.org/download/gov.ntis.ava04168vnb1/ava04168vnb1_512kb.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/594a6ae2-c429-4c58-99b0-b9b2a63db426/playlist.m3u8',
+        fallbackVideo: 'https://archive.org/download/gov.ntis.ava04168vnb1/ava04168vnb1_512kb.mp4',
+        sourceChannel: 'US Army / NTIS',
+        sourceUrl: 'https://archive.org/details/gov.ntis.ava04168vnb1',
         poster: '/assets/shadows_of_war.jpg',
         year: '1946', runtime: '58m', genre: 'War'
       },
@@ -1483,7 +1492,10 @@ independent field reporting documentary</textarea></div></div>
         id: 5, title: 'The Battle of San Pietro',
         creator: 'John Huston',
         desc: 'John Huston\'s raw, unvarnished look at infantry combat in Italy during WWII. It was initially censored by the military for its unflinching portrayal of dead American soldiers.',
-        video: 'https://archive.org/download/battle_of_san_pietro/battle_of_san_pietro_512kb.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/e9a34284-cf18-4aae-ae17-ab4a80a05ca6/playlist.m3u8',
+        fallbackVideo: 'https://archive.org/download/battle_of_san_pietro/battle_of_san_pietro_512kb.mp4',
+        sourceChannel: 'US Army',
+        sourceUrl: 'https://archive.org/details/battle_of_san_pietro',
         poster: '/assets/san_pietro.jpg',
         year: '1945', runtime: '32m', genre: 'War'
       },
@@ -1529,9 +1541,12 @@ independent field reporting documentary</textarea></div></div>
       },
       {
         id: 11, title: 'Nuclear Anxiety',
-        creator: 'Civil Defense',
+        creator: 'Anthony Rizzo',
         desc: 'The defining propaganda film of the Cold War era. "Duck and Cover" taught millions of school children the terrifying, futile exercise of hiding under their desks during a nuclear blast.',
-        video: 'https://archive.org/download/DuckandC1951/DuckandC1951_512kb.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/dbe2918e-6fa7-45a2-8620-bbf5c24bed08/playlist.m3u8',
+        fallbackVideo: 'https://archive.org/download/DuckandC1951/DuckandC1951_512kb.mp4',
+        sourceChannel: 'Federal Civil Defense Administration',
+        sourceUrl: 'https://archive.org/details/gov.ntis.ava11109vnb1',
         poster: '/assets/nuclear_anxiety.jpg',
         year: '1951', runtime: '9m', genre: 'Propaganda'
       },
@@ -1697,6 +1712,62 @@ independent field reporting documentary</textarea></div></div>
         heroClip: '/assets/hero/boogie2988-hero.mp4',
         poster: '/assets/boogie2988.jpg',
         year: '2023', runtime: '55m', genre: 'True Crime'
+      },
+
+      // ── Bunny Stream entries ──────────────────────────────────────────────
+      // These stream adaptive HLS from library 757324 rather than a single mp4,
+      // so `video` is a playlist and the detail player attaches hls.js to it.
+      // They are new to the catalog, so unlike the archive entries above they
+      // have no `fallbackVideo` - there is no older copy to fall back to.
+      {
+        id: 27, title: 'Man with a Movie Camera',
+        creator: 'Dziga Vertov',
+        desc: 'A day in a Soviet city, told with no actors, no story and no intertitles. Vertov threw out every convention of narrative film and built the grammar the rest of documentary has borrowed ever since.',
+        video: 'https://vz-c0995941-cab.b-cdn.net/b50b8a81-1ae3-4055-9c3d-1c3cf9e0413e/playlist.m3u8',
+        sourceChannel: 'Wikimedia Commons',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Man_with_a_Movie_Camera_(1929)_by_Dziga_Vertov.webm',
+        poster: '/assets/man_with_a_movie_camera.jpg',
+        year: '1929', runtime: '1h 7m', genre: 'Experimental'
+      },
+      {
+        id: 28, title: 'The Negro Soldier',
+        creator: 'Stuart Heisler',
+        desc: 'The US Army made this to be shown to its own troops, and in doing so produced the first government film to portray Black Americans as something other than a caricature. It was meant as morale work; it reads now as a record of what the Army was willing to say out loud in 1944.',
+        video: 'https://vz-c0995941-cab.b-cdn.net/d9dcd2f3-7abb-416a-a7fe-d55374c3862a/playlist.m3u8',
+        sourceChannel: 'US Army',
+        sourceUrl: 'https://archive.org/details/negrosoldier',
+        poster: '/assets/the_negro_soldier.jpg',
+        year: '1944', runtime: '40m', genre: 'War'
+      },
+      {
+        id: 29, title: 'The Battle of Midway',
+        creator: 'John Ford',
+        desc: 'John Ford shot this himself on Midway Atoll and took shrapnel doing it. The camera shakes because the man holding it was being bombed, and the colour film makes the damage impossible to keep at a distance.',
+        video: 'https://vz-c0995941-cab.b-cdn.net/135e5710-c3ca-45ab-b40b-7e5514661637/playlist.m3u8',
+        sourceChannel: 'US Navy',
+        sourceUrl: 'https://archive.org/details/thebattleofmidway1942',
+        poster: '/assets/battle_of_midway.jpg',
+        year: '1942', runtime: '18m', genre: 'War'
+      },
+      {
+        id: 30, title: 'Prelude to War',
+        creator: 'Frank Capra',
+        desc: 'The first of Capra\'s seven Why We Fight films, made to explain to drafted Americans what they were being sent to do. It is unapologetic argument rather than reporting, which is exactly what makes it worth watching now.',
+        video: 'https://vz-c0995941-cab.b-cdn.net/475834fe-e253-48cb-932c-2f7483144cc2/playlist.m3u8',
+        sourceChannel: 'US Army',
+        sourceUrl: 'https://archive.org/details/PreludeToWar',
+        poster: '/assets/prelude_to_war.jpg',
+        year: '1942', runtime: '52m', genre: 'Propaganda'
+      },
+      {
+        id: 31, title: 'Divide and Conquer',
+        creator: 'Frank Capra',
+        desc: 'Why We Fight turns to the fall of Western Europe, cutting captured enemy newsreel against animated maps to show how quickly a continent came apart. The technique of turning an opponent\'s own footage against him starts here.',
+        video: 'https://vz-c0995941-cab.b-cdn.net/16905eaa-ec48-4b15-a527-9e2dd0542a7f/playlist.m3u8',
+        sourceChannel: 'US Army',
+        sourceUrl: 'https://archive.org/details/DivideAndConquer',
+        poster: '/assets/divide_and_conquer.jpg',
+        year: '1943', runtime: '56m', genre: 'Propaganda'
       }
     ];
     window.UNDRGRNDDocs = docs;
@@ -1898,10 +1969,14 @@ independent field reporting documentary</textarea></div></div>
       { doc: docs.find(d => d.id === 16), start: 58,  end: 88 },   // Design for Dreaming — surreal GM musical
       { doc: docs.find(d => d.id === 11), start: 8,   end: 38 }    // Nuclear Anxiety — the Bert the Turtle jingle
     ]
-      // The hero streams an mp4 directly and seeks with a #t= fragment, which a
-      // YouTube embed cannot do. Drop any entry without a file so adding a
-      // YouTube-sourced feature degrades to skipping it, not a broken hero.
-      .filter(f => f.doc && (f.doc.heroClip || f.doc.video));
+      // The hero streams an mp4 directly and seeks with a #t= fragment, which
+      // neither a YouTube embed nor an HLS playlist can do — hls.js is wired to
+      // the detail player only, and #t= means nothing to a manifest. Drop any
+      // entry the hero cannot actually play, so moving a featured film to Bunny
+      // Stream degrades to skipping it rather than a black frame. A film that
+      // should stay in the rotation after such a move needs a `heroClip`: a
+      // pre-trimmed mp4 in /assets/hero, which is what ids 25 and 26 already do.
+      .filter(f => f.doc && (f.doc.heroClip || (f.doc.video && !isHlsUrl(f.doc.video))));
     let heroIndex = 0;
     let heroInterval;
     let heroSoundOn = false;
@@ -2150,6 +2225,7 @@ independent field reporting documentary</textarea></div></div>
     let ytReady = false;        // API script loaded
     let ytPoll = null;          // YouTube has no timeupdate event; poll instead
     let usingYouTube = false;
+    let hls = null;             // Hls.js instance for Bunny Stream entries
 
     const htmlMedia = {
       get paused()      { return player.paused; },
@@ -2184,6 +2260,62 @@ independent field reporting documentary</textarea></div></div>
     // `media` is what every control below reads and writes.
     let media = htmlMedia;
 
+    // ─── HLS (Bunny Stream) ──────────────────────────────────────────────────
+    // Bunny Stream serves adaptive HLS, not a single mp4. hls.js feeds it to
+    // the same <video> element through Media Source Extensions, so `htmlMedia`
+    // above and every control below work unchanged — the only difference is
+    // who fills the buffer. Safari and iOS play HLS natively and must NOT get
+    // hls.js: MSE is either absent or worse than the built-in path there.
+    // Declared as a function, not a const arrow: the hero's `featured` list is
+    // filtered at script-evaluation time, far above this block, and would hit
+    // the temporal dead zone of a const.
+    function isHlsUrl(url) { return /\.m3u8(\?|#|$)/i.test(url || ''); }
+    const nativeHls = () => !!player.canPlayType('application/vnd.apple.mpegurl');
+
+    function loadHlsLib() {
+      return new Promise((resolve) => {
+        if (window.Hls) return resolve();
+        const existing = document.getElementById('hls-script');
+        if (existing) {
+          existing.addEventListener('load', () => resolve(), { once: true });
+          existing.addEventListener('error', () => resolve(), { once: true });
+          return;
+        }
+        const s = document.createElement('script');
+        s.id = 'hls-script';
+        s.src = 'https://cdn.jsdelivr.net/npm/hls.js@1';
+        s.onload = () => resolve();
+        // Resolve on failure too; the caller checks for window.Hls and raises
+        // the player error panel, which is a better outcome than hanging.
+        s.onerror = () => resolve();
+        document.head.appendChild(s);
+      });
+    }
+
+    function teardownHls() {
+      if (!hls) return;
+      try { hls.destroy(); } catch (e) {}
+      hls = null;
+    }
+
+    function loadHlsSource(url, onReady) {
+      teardownHls();
+      hls = new window.Hls({ enableWorker: true });
+      hls.on(window.Hls.Events.ERROR, (_evt, data) => {
+        // Non-fatal errors are routine (a dropped segment, a stalled fragment);
+        // hls.js recovers from those itself. Only a fatal one is a dead stream,
+        // and a dead Bunny library is exactly how the 2026-08 trial ended.
+        if (!data.fatal) return;
+        teardownHls();
+        handlePlaybackFailure();
+      });
+      hls.attachMedia(player);
+      hls.on(window.Hls.Events.MEDIA_ATTACHED, () => hls.loadSource(url));
+      // Start once there is a manifest to start from, not the moment the
+      // element is attached — at that point there is no buffer to play.
+      if (onReady) hls.on(window.Hls.Events.MANIFEST_PARSED, () => onReady());
+    }
+
     function loadYouTubeApi() {
       return new Promise((resolve) => {
         if (ytReady) return resolve();
@@ -2215,16 +2347,32 @@ independent field reporting documentary</textarea></div></div>
     // Ignore it while a YouTube entry is playing: switching to an embed clears
     // this element's src, and an empty src raises an error event of its own.
     // Reporting that would put a failure panel over a perfectly good video.
-    player.addEventListener('error', () => {
-      if (usingYouTube) return;
-      if (!player.currentSrc) return;
-      // Self-hosted films keep a YouTube original in sourceUrl. If the CDN
-      // copy dies (a lapsed Bunny zone, most likely), fall back to the embed
-      // before surrendering to the error panel. One attempt per film per
-      // visit: a successful fallback sticks for the session, and an
-      // unembeddable original (the FOX deposition) lands on the panel via
-      // the embed's own onError.
+    // Self-hosted films keep a YouTube original in sourceUrl. If the CDN copy
+    // dies (a lapsed Bunny zone, most likely), fall back to the embed before
+    // surrendering to the error panel. One attempt per film per visit: a
+    // successful fallback sticks for the session, and an unembeddable original
+    // (the FOX deposition) lands on the panel via the embed's own onError.
+    //
+    // Both playback backends land here. An mp4 reports failure through the
+    // <video> element's error event; an HLS stream reports it through hls.js,
+    // which fires its own fatal error and leaves the element itself innocent.
+    function handlePlaybackFailure() {
       const doc = docs.find(d => d.id === currentDocId);
+
+      // One host going down is the failure this catalog has actually suffered:
+      // the 2026-08 Bunny trial lapsed and every film it served 403'd at once.
+      // Entries moved to Bunny keep their previous public copy in
+      // `fallbackVideo`, so that outage degrades to a slower stream instead of
+      // a dead player. One attempt per film per visit, and it sticks for the
+      // session once it works.
+      if (doc && doc.fallbackVideo && !doc.triedFallbackVideo) {
+        doc.triedFallbackVideo = true;
+        doc.video = doc.fallbackVideo;
+        hidePlayerError();
+        openFileSource(doc, getProgress(doc.id));
+        return;
+      }
+
       const ytId = doc && !doc.youtubeId && youtubeIdFrom(doc.sourceUrl);
       if (ytId && !doc.triedYtFallback) {
         doc.triedYtFallback = true;
@@ -2234,7 +2382,23 @@ independent field reporting documentary</textarea></div></div>
         return;
       }
       showPlayerError();
+    }
+
+    player.addEventListener('error', () => {
+      if (usingYouTube) return;
+      if (!player.currentSrc) return;
+      handlePlaybackFailure();
     }, true);
+
+    // An adaptive stream changes resolution mid-playback — Bunny entries start
+    // on a low rendition and step up once the bandwidth estimate settles. A
+    // quality read taken once at loadedmetadata therefore reports the opening
+    // 240p rendition for the rest of the film. `resize` fires on every change,
+    // so the label follows the stream. Registered once, not per film, so it
+    // cannot stack listeners; harmless for progressive mp4s, which never fire it.
+    player.addEventListener('resize', () => {
+      if (!usingYouTube) updateQualityFromPlayer();
+    });
 
     function youtubeIdFrom(url) {
       if (!url) return null;
@@ -2248,6 +2412,7 @@ independent field reporting documentary</textarea></div></div>
         media.pause();
       }
       teardownYouTube();
+      teardownHls();
       // Stop the hero (and its audio) whenever we leave the home view
       const heroVid = document.getElementById('hero-video');
       if (heroVid && !heroVid.paused) heroVid.pause();
@@ -2362,6 +2527,10 @@ independent field reporting documentary</textarea></div></div>
       if (h >= 1000) return '1080p';
       if (h >= 700)  return '720p';
       if (h >= 460)  return '480p';
+      // Bunny encodes a real 360p rung. Before the catalog had any, everything
+      // under 480 was a 320x240 archive dub and "Archive transfer" was honest;
+      // calling a 640x360 stream that would not be.
+      if (h >= 340)  return '360p';
       return 'Archive transfer';
     }
 
@@ -2377,14 +2546,14 @@ independent field reporting documentary</textarea></div></div>
       el.textContent = real.length ? real.map(t => t.label || 'Unknown').join(', ') : 'None';
     }
 
-    function openFileSource(doc, resumePct) {
+    async function openFileSource(doc, resumePct) {
       teardownYouTube();
+      teardownHls();
       usingYouTube = false;
       media = htmlMedia;
       player.hidden = false;
 
-      document.getElementById('main-source').src = doc.video;
-      player.load();
+      const source = document.getElementById('main-source');
 
       document.getElementById('detail-quality').textContent = '—';
       updateSubtitlesLabel();
@@ -2401,14 +2570,41 @@ independent field reporting documentary</textarea></div></div>
       // poster frame and controls are still there, so that is not an error.
       // A dead source is, and it must not fail silently: an unreachable archive
       // item otherwise leaves a motionless first frame and no explanation.
-      player.play().catch(() => {});
+      const start = () => player.play().catch(() => {});
+
+      if (isHlsUrl(doc.video) && !nativeHls()) {
+        // hls.js owns the element's buffer through MSE, so the <source> child
+        // has to be empty: an .m3u8 left in it makes Chrome fire its own error
+        // event for a container it cannot decode, over a stream that is fine.
+        source.removeAttribute('src');
+        player.removeAttribute('src');
+        player.load();
+
+        const openedFor = currentDocId;
+        await loadHlsLib();
+        // The library load is a network round trip, and a viewer can back out
+        // or pick another film inside it. Without this guard the continuation
+        // attaches a stale stream over whatever they chose instead.
+        if (currentDocId !== openedFor) return;
+        if (!window.Hls || !window.Hls.isSupported()) { showPlayerError(); return; }
+        loadHlsSource(doc.video, start);
+        return;
+      }
+
+      source.src = doc.video;
+      source.type = isHlsUrl(doc.video) ? 'application/vnd.apple.mpegurl' : 'video/mp4';
+      player.load();
+      start();
     }
 
     async function openYouTubeSource(doc, resumePct) {
       usingYouTube = true;
       media = ytMedia;
 
-      // Park the file player so it cannot keep playing underneath.
+      // Park the file player so it cannot keep playing underneath. An attached
+      // hls.js keeps refilling the buffer on its own, so it has to go first —
+      // clearing src alone would leave it streaming behind the embed.
+      teardownHls();
       player.pause();
       player.removeAttribute('src');
       document.getElementById('main-source').src = '';

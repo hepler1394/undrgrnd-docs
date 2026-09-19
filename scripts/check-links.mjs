@@ -113,6 +113,68 @@ const archiveIdOf = (url) => {
   return m ? decodeURIComponent(m[1]) : null;
 };
 
+// ── Bunny Stream entries ───────────────────────────────────────────────────
+// Bunny serves adaptive HLS, so none of the mp4 checks below apply: there is no
+// moov atom to place and no single file to range-read. What can rot instead is
+// the library (a lapsed plan 403s every video at once - that is how the 2026-08
+// trial ended) and the encode (a video record can exist with no renditions).
+// So: fetch the master playlist, then pull a real segment off the top variant.
+// A manifest alone is not proof, because Bunny will serve one for a video whose
+// encode never finished.
+//
+// The library has "Block direct url file access" switched on, which 403s any
+// request that arrives without a Referer. A browser always sends one; this
+// script has to say so explicitly or every film reads as dead.
+const isHlsUrl = (url) => /\.m3u8(\?|#|$)/i.test(url || '');
+const HLS_REFERER = 'https://undrgrnddocs.com/';
+
+async function checkHlsStream(url) {
+  const hdr = { Referer: HLS_REFERER };
+  let res;
+  try {
+    res = await fetchWithRetry(url, { headers: hdr });
+  } catch (err) {
+    return { verdict: 'unknown', reason: err?.cause?.message || err.message };
+  }
+  if (res.status === 403) {
+    return { verdict: 'dead', reason: 'HTTP 403 - library plan lapsed, or hotlink protection rejected the referer' };
+  }
+  if (!res.ok) return { verdict: 'unknown', reason: `master playlist HTTP ${res.status}` };
+
+  const master = await res.text();
+  if (!master.startsWith('#EXTM3U')) return { verdict: 'dead', reason: 'master playlist is not an HLS manifest' };
+
+  const variants = [...master.matchAll(/RESOLUTION=(\d+)x(\d+)[^\n]*\n([^\n#]+)/g)]
+    .map((m) => ({ w: Number(m[1]), h: Number(m[2]), path: m[3].trim() }))
+    .sort((a, b) => b.h - a.h);
+  if (!variants.length) return { verdict: 'dead', reason: 'no renditions - the encode never produced one' };
+
+  const base = url.slice(0, url.lastIndexOf('/'));
+  const top = variants[0];
+  let media;
+  try {
+    media = await fetchWithRetry(`${base}/${top.path}`, { headers: hdr });
+  } catch (err) {
+    return { verdict: 'unknown', reason: `variant playlist unreachable - ${err?.cause?.message || err.message}` };
+  }
+  if (!media.ok) return { verdict: 'dead', reason: `variant playlist HTTP ${media.status}` };
+
+  const segment = (await media.text()).split('\n').find((l) => l && !l.startsWith('#'));
+  if (!segment) return { verdict: 'dead', reason: 'variant playlist contains no segments' };
+
+  const dir = top.path.includes('/') ? top.path.slice(0, top.path.lastIndexOf('/')) + '/' : '';
+  const segUrl = /^https?:/i.test(segment) ? segment : `${base}/${dir}${segment}`;
+  let seg;
+  try {
+    seg = await fetchWithRetry(segUrl, { headers: hdr, method: 'HEAD' });
+  } catch (err) {
+    return { verdict: 'unknown', reason: `segment unreachable - ${err?.cause?.message || err.message}` };
+  }
+  if (!seg.ok) return { verdict: 'dead', reason: `first segment HTTP ${seg.status}` };
+
+  return { verdict: 'ok', height: top.h, renditions: variants.length };
+}
+
 // ── Check 1: does the archive.org item still exist? ─────────────────────────
 // A removed item answers HTTP 200 with {"error": ...} or an empty file list,
 // while a throttled request fails at the transport or returns 5xx. Conflating
@@ -195,14 +257,21 @@ async function checkStream(url) {
     off += size;
   }
 
-  if (!order.length) return { ok: false, status };
+  // A success status here means the reads that landed were fine and the walk
+  // simply ran out before it learned anything — that is the host being slow,
+  // not the file being broken. Flag it as transient so the caller reports a
+  // note; without this a cold Vercel Blob read surfaces as "BROKEN HTTP 206",
+  // and 206 is by definition a range read that worked.
+  const stalled = (s) => s === 200 || s === 206;
+
+  if (!order.length) return { ok: false, status, transient: stalled(status) };
 
   // A read that died mid-walk before reaching moov or mdat proves nothing
   // about atom order — freshly uploaded blobs 429/timeout on cold range
   // reads and were falsely condemned as "moov after mdat" (2026-08-27).
   // Surface the status instead of inventing a moov verdict.
   if (readFailed && !order.includes('moov') && !order.includes('mdat')) {
-    return { ok: false, status };
+    return { ok: false, status, transient: stalled(status) };
   }
 
   const moov = order.indexOf('moov');
@@ -305,6 +374,27 @@ for (const doc of catalog) {
     continue;
   }
 
+  if (isHlsUrl(doc.url)) {
+    const hls = await checkHlsStream(doc.url);
+    if (hls.verdict === 'dead') problems.push(hls.reason);
+    else if (hls.verdict === 'unknown') notes.push(`could not confirm stream - ${hls.reason}`);
+    else if (hls.height < 360) notes.push(`tops out at ${hls.height}p - re-encode from a better source if one exists`);
+
+    if (problems.length) {
+      console.log(`${c.red}BROKEN${c.reset}`);
+      for (const p of problems) console.log(`   ${c.red}${p}${c.reset}`);
+      broken.push({ doc, problems });
+    } else if (notes.length) {
+      console.log(`${c.yellow}WARN${c.reset}`);
+      for (const n of notes) console.log(`   ${c.yellow}${n}${c.reset}`);
+      warnings.push({ doc, notes });
+    } else {
+      console.log(`${c.green}ok${c.reset} ${c.dim}(bunny ${hls.height}p, ${hls.renditions} renditions)${c.reset}`);
+    }
+    await sleep(400); // Bunny is ours and does not throttle like archive.org
+    continue;
+  }
+
   const identifier = archiveIdOf(doc.url);
 
   try {
@@ -339,6 +429,8 @@ for (const doc of catalog) {
         // Survived the retries but still 5xx/429. That is the host struggling
         // or throttling, not a missing file; swapping the entry would be wrong.
         notes.push(`host returned HTTP ${stream.status} - transient, re-check later`);
+      } else if (stream && !stream.ok && stream.transient) {
+        notes.push(`range reads stalled before the atom header (last status ${stream.status}) - transient, re-check later`);
       } else if (stream && !stream.ok) {
         problems.push(`HTTP ${stream.status}`);
       } else if (stream) {
