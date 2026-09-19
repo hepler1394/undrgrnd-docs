@@ -2302,6 +2302,12 @@ independent field reporting documentary</textarea></div></div>
       if (!hls) return;
       try { hls.destroy(); } catch (e) {}
       hls = null;
+      // hls.js attaches through MSE by setting the element's OWN src to a
+      // blob: URL, and destroy() leaves that attribute behind pointing at a
+      // revoked object. A <video src> always wins over its <source> children,
+      // so without this the next mp4 to load - the fallbackVideo path most of
+      // all - loads the dead blob and dies with a format error instead.
+      player.removeAttribute('src');
     }
 
     function loadHlsSource(url, onReady) {
@@ -2597,6 +2603,10 @@ independent field reporting documentary</textarea></div></div>
         return;
       }
 
+      // Belt and braces against the blob: src described in teardownHls - this
+      // branch must always resolve through the <source> child, whatever the
+      // element was doing before.
+      player.removeAttribute('src');
       source.src = doc.video;
       source.type = isHlsUrl(doc.video) ? 'application/vnd.apple.mpegurl' : 'video/mp4';
       player.load();
