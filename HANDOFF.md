@@ -1,11 +1,12 @@
-# undrgrnd-docs — state as of 2026-08-27
+# undrgrnd-docs — state as of 2026-09-19
 
 Documentary streaming. Single-file app (`index.html`), Vite build,
 Vercel with GitHub auto-deploy on push to `master`.
 
 ## Where things stand
 
-- 25 films. 7 self-hosted on Vercel Blob, the other 18 stream from archive.org.
+- 31 films. 12 stream from Bunny Stream, 7 self-host on Vercel Blob, the
+  other 12 stream from archive.org.
 - **The Sick Mind of EDP445 (Mike Clum, 2026) is live and featured** — hero
   slot 1, Underground Exclusives front card, `comingSoon` removed. Its master
   came from Cory's Downloads with the moov atom at the end (the Nanook failure
@@ -13,14 +14,51 @@ Vercel with GitHub auto-deploy on push to `master`.
 - Every poster is a frame from its own film, served from `public/assets`.
   No third-party image hosts anywhere.
 
-## Media hosting: Vercel Blob, not Bunny, not R2
+## Media hosting: Bunny Stream and Vercel Blob (2026-09-19)
 
-**The Bunny trial lapsed on schedule (2026-08-25); all 6 zone films were 403
-by 08-27.** Same-day fix: everything self-hosted now streams from a Vercel
-Blob store on the project — `undrgrnd-media` (`store_5VUcHcm1Ey9QVTDq`,
-public, iad1), URLs under
-`https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/`. Serves
-byte ranges (206), faststart verified on every file at upload time.
+Three hosts, on purpose:
+
+- **Bunny Stream library 757324**, 12 films, adaptive HLS at
+  `https://vz-c0995941-cab.b-cdn.net/{GUID}/playlist.m3u8`. This is where
+  new films should go. The account is prepaid and funded — **a zero balance
+  403s the whole library, which is exactly how the August trial died**, so
+  keep a low-balance alert on it.
+- **Vercel Blob** `undrgrnd-media` (`store_5VUcHcm1Ey9QVTDq`, public, iad1),
+  7 films, under
+  `https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/`. Serves
+  byte ranges (206), faststart verified at upload time.
+- **archive.org**, 12 films, hotlinked and therefore the least durable.
+
+**Every film that moved keeps its previous URL as `fallbackVideo`.** If a
+host dies the player swaps to that copy once per film per visit rather than
+showing the error panel. This is the specific defence against a repeat of
+2026-08-25, when the Bunny trial lapsed and all 6 zone films 403'd at once.
+Do not strip those fields to tidy the catalog.
+
+Two Bunny settings that matter:
+
+- **"Block direct url file access" is ON.** Any request without a `Referer`
+  gets a 403. Browsers always send one, so playback is fine, but anything
+  server-side (`check-links.mjs`) must set one explicitly or every Bunny
+  film reads as dead.
+- Token auth is off and the allowed-domains list is empty, so localhost and
+  Vercel previews work with no extra configuration.
+
+**hls.js is loaded lazily** from jsDelivr, and only when the browser has no
+native HLS — Safari and iOS take the native path. It attaches through MSE,
+which sets the `<video>` element's own `src` to a `blob:` URL; `teardownHls`
+must clear that, because a `<video src>` beats its `<source>` children and a
+stale blob silently breaks every mp4 loaded afterwards, the `fallbackVideo`
+path included.
+
+**Orphaned and safe to delete:** Bunny **Storage** zone `undrgrnd-docs`
+(6 films, 2.52 GB, replicated, pull zone `undrgrnddocs.b-cdn.net`). Left
+from the August trial; nothing in the catalog references it and every file
+in it also exists on Vercel Blob and at `D:\Dev\_h264`. Pending Cory's go.
+
+**Cloudflare hosts nothing.** DNS only, Free plan, zero subscriptions —
+no R2 (never enabled), no Stream (not subscribed), no Pages, no Workers.
+Audited 2026-09-19; stop re-investigating this.
 
 To publish a new master:
 
