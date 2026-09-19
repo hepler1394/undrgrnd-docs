@@ -1511,7 +1511,10 @@ independent field reporting documentary</textarea></div></div>
         id: 7, title: 'The Memphis Belle',
         creator: 'William Wyler',
         desc: 'Chronicling the final mission of the Boeing B-17 Flying Fortress "Memphis Belle" over Germany. Featuring real combat footage shot in the deadly skies of WWII.',
-        video: 'https://archive.org/download/youtube-Oe88OesvVck/Oe88OesvVck.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/482e43dc-b2f0-496f-8238-f9e590457385/playlist.m3u8',
+        fallbackVideo: 'https://archive.org/download/youtube-Oe88OesvVck/Oe88OesvVck.mp4',
+        sourceChannel: 'US Army Air Forces',
+        sourceUrl: 'https://archive.org/details/TheMemphisBelleAStoryofaFlyingFortress',
         poster: '/assets/memphis_belle.jpg',
         year: '1944', runtime: '41m', genre: 'War'
       },
@@ -1618,7 +1621,10 @@ independent field reporting documentary</textarea></div></div>
         id: 19, title: 'Power and the Land',
         creator: 'Joris Ivens',
         desc: 'A Dutch documentary master was hired by the US government to film an Ohio farm family living without electricity. The result is a quiet argument that light and running water are not luxuries.',
-        video: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/power-and-the-land-1940.mp4',
+        video: 'https://vz-c0995941-cab.b-cdn.net/91855cff-73d1-4419-a2dd-93b6d43328af/playlist.m3u8',
+        // The Blob copy this used to stream is the 1080p master Bunny encoded
+        // from, so it stays as the standby rather than being deleted.
+        fallbackVideo: 'https://5vuchcm1ey9qvtdq.public.blob.vercel-storage.com/videos/power-and-the-land-1940.mp4',
         sourceChannel: 'US National Archives',
         sourceUrl: 'https://archive.org/details/16-p-854-r-1',
         poster: '/assets/power_and_the_land.jpg',
